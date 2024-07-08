@@ -9,7 +9,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { MdOutlineRecommend } from "react-icons/md";
-import SearchHeader from "../components/SearchHeader";
+import SearchHeader from "../components/searchHeader";
 
 const Container = styled.div`
   display: flex;
