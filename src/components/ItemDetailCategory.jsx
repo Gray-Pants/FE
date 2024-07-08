@@ -2,19 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FiChevronRight } from "react-icons/fi"; // 화살표 아이콘
 
-const CategoryMenuContainer = styled.div`
-  // 컨테이너 컴포넌트 이름 변경
-  width: 600px;
-  height: 68px;
-  font-size: 15px;
-  font-weight: 700;
-  background-color: #fff;
-
-  /* 추가적인 스타일 */
-  display: flex; /* 아이템들을 가로로 배치 */
-  justify-content: space-around; /* 아이템 간격 균등하게 배분 */
-`;
-
 const CategoryMenu = styled.div`
   /* 전체 메뉴 스타일 */
   width: 600px;
