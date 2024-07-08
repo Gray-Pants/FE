@@ -1,12 +1,11 @@
-import React from 'react'
-import './Home.modeule.css'
-import PaymentCompleted from '../components/PaymentCompleted'
+import React from "react";
+import PaymentCompleted from "../components/PaymentCompleted";
+import WishList from "../components/WishList";
 
 const Home = () => {
   return (
     <>
-    <PaymentCompleted />
-        
+      {/* <PaymentCompleted /> */}
       <WishList />
       {/* <FooterNav /> */}
     </>

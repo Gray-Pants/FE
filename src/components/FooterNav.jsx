@@ -11,7 +11,8 @@ const NavigationBar = styled.div`
   bottom: 0;
   padding: 15px;
   background-color: #fff;
-  width: 600px;
+  max-width: 400px;
+  min-width: 400px;
   height: 60px;
   border-top: 2px solid #d2dae8;
   box-sizing: border-box;

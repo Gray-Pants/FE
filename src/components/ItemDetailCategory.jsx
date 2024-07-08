@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FiChevronRight } from "react-icons/fi"; // 화살표 아이콘
 
+// --- Styled Components ---
+
 const CategoryMenu = styled.div`
   /* 전체 메뉴 스타일 */
-  width: 600px;
+  max-width: 400px;
+  min-width: 400px;
   height: 68px;
   font-size: 15px;
   font-weight: 700;
   background-color: #fff;
+  display: flex; /* 아이템들을 가로로 배치 */
+  justify-content: flex-start;
+  padding-left: 20px;
 `;
 
 const CategoryItem = styled.div`
@@ -16,13 +22,17 @@ const CategoryItem = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  color: #6d697a;
 `;
 
 const ArrowIcon = styled(FiChevronRight)`
   /* 화살표 아이콘 스타일 */
   margin-left: 5px;
-  transition: transform 0.3s ease;
-  transform: ${(props) => (props.isOpen ? "rotate(90deg)" : "rotate(0deg)")};
+  font-size: 15px;
+  font-weight: 700;
+  color: #6d697a; // 원하는 색상 적용
 `;
 
 const SubCategoryList = styled.ul`
@@ -30,41 +40,23 @@ const SubCategoryList = styled.ul`
   list-style: none;
   padding: 0;
   margin-left: 20px; /* 들여쓰기 */
-  display: ${(props) => (props.isOpen ? "block" : "none")}; /* 숨김/표시 토글 */
+  font-size: 15px;
+  font-weight: 700;
+  color: #6d697a;
 `;
 
 function ItemDetailCategory() {
-  const [activeCategory, setActiveCategory] = useState(null);
-
-  const handleCategoryClick = (category) => {
-    setActiveCategory(activeCategory === category ? null : category);
-  };
-
   return (
-    <>
-      <CategoryMenuContainer>
-        <CategoryMenu>
-          <CategoryItem onClick={() => handleCategoryClick("신발")}>
-            신발 <ArrowIcon isOpen={activeCategory === "신발"} />
-            {activeCategory === "신발" && (
-              <SubCategoryList isOpen={true}>
-                <li onClick={() => handleCategoryClick("스니커즈")}>
-                  스니커즈 <ArrowIcon isOpen={activeCategory === "스니커즈"} />
-                  {activeCategory === "스니커즈" && (
-                    <SubCategoryList isOpen={true}>
-                      <li>단화/캔버스</li>
-                      {/* 다른 하위 카테고리 추가 */}
-                    </SubCategoryList>
-                  )}
-                </li>
-                {/* 다른 하위 카테고리 추가 */}
-              </SubCategoryList>
-            )}
-          </CategoryItem>
-          {/* 다른 카테고리 아이템 추가 */}
-        </CategoryMenu>
-      </CategoryMenuContainer>
-    </>
+    <CategoryMenu>
+      <CategoryItem>
+        신발 <ArrowIcon />
+        <SubCategoryList>
+          스니커즈
+          {/* 다른 하위 카테고리 추가 */}
+        </SubCategoryList>
+      </CategoryItem>
+      {/* 다른 카테고리 아이템 추가 */}
+    </CategoryMenu>
   );
 }
 

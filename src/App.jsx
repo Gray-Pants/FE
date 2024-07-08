@@ -13,12 +13,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details" element={<ItemDetail />} />
-          <Route path="/user" element={<Outlet />}>
-            {" "}
-            {/* Outlet 사용 */}
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
-          </Route>
         </Routes>
         <FooterNav />
       </Container>
