@@ -1,12 +1,12 @@
 import React from 'react'
 import './Home.modeule.css'
-import WishList from '../components/WishList'
+import CreateOrder from '../components/CreateOrder'
 const Home = () => {
 
 
   return (
     <>
-    <WishList />
+    <CreateOrder />
         
     </>
     
