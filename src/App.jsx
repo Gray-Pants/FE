@@ -1,23 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Home from './pages/Home'
-import { Container } from './ui/container'
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import Home from "./pages/Home";
+import { Container } from "./ui/container";
+import Login from "./pages/Login";
+import SignUp from "./pages/Signup";
+import FooterNav from "./components/FooterNav";
+import ItemDetail from "./pages/ItemDetail";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <Container>
-    <>
-      <div >
-        <Home />
-        
-      </div>
-    </>
-    </Container>
-  )
+    <BrowserRouter>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/details" element={<ItemDetail />} />
+          <Route path="/user" element={<Outlet />}>
+            {" "}
+            {/* Outlet 사용 */}
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+          </Route>
+        </Routes>
+        <FooterNav />
+      </Container>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
