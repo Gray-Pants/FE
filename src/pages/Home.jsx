@@ -1,16 +1,12 @@
-import React from 'react'
-import './Home.modeule.css'
-import WishList from '../components/WishList'
+import React from "react";
+import WishList from "../components/WishList";
 const Home = () => {
-
-
   return (
     <>
-    <WishList />
-        
+      <WishList />
+      {/* <FooterNav /> */}
     </>
-    
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
