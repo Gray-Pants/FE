@@ -1,25 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Home from './pages/Home'
+import { useState } from "react";
+import "./App.css";
+import Home from "./pages/Home";
 import Login from './pages/Login'
 import SignUp from './pages/Signup'
-import { Routes, Route } from 'react-router-dom'
-import { Container } from './ui/container'
+import FooterNav from "./components/FooterNav";
+import ItemDetail from "./pages/ItemDetail";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
-    <Container>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path='/login' element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-    </Routes>
-    </Container>
-  )
+    <BrowserRouter>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/details" element={<ItemDetail />} />
+          {/* <Route path="/list" element={<List />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/mypage" element={<MyPage />} /> */}
+        </Routes>
+        <FooterNav />
+      </Container>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

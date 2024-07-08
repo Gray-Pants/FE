@@ -1,16 +1,16 @@
-import React from 'react'
-import './Home.modeule.css'
-import CreateOrder from '../components/CreateOrder'
+import React from "react";
+import CreateOrder from "../components/CreateOrder";
+import WishList from "../components/WishList";
+
 const Home = () => {
-
-
   return (
     <>
     <CreateOrder />
         
+      <WishList />
+      {/* <FooterNav /> */}
     </>
-    
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
