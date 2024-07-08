@@ -1,12 +1,12 @@
 import React from 'react'
 import './Home.modeule.css'
-import CreateOrder from '../components/CreateOrder'
+import PaymentCompleted from '../components/PaymentCompleted'
 const Home = () => {
 
 
   return (
     <>
-    <CreateOrder />
+    <PaymentCompleted />
         
     </>
     
