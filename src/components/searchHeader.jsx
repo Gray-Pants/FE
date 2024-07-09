@@ -70,11 +70,11 @@ const SearchHeader = () => {
             }
           }}
         />
-        <IconContainer>
+      </SearchBarContainer>
+      <IconContainer>
           <FiShoppingCart size={20} /> {/* 장바구니 아이콘 */}
           <FiBell size={20} /> {/* 알림 아이콘 */}
         </IconContainer>
-      </SearchBarContainer>
     </HeaderContainer>
   );
 };

@@ -10,6 +10,8 @@ import {
 } from "react-icons/fi";
 import { MdOutlineRecommend } from "react-icons/md";
 import SearchHeader from "../components/searchHeader";
+import Categories from "../components/Categories";
+import FooterNav from "../components/FooterNav";
 
 const Container = styled.div`
   display: flex;
@@ -26,139 +28,49 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const TopBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 10px 0;
-`;
-
-const Logo = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: gray; /* Placeholder for the logo */
-`;
-
-const SearchBar = styled.div`
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  background-color: #f5f5f5;
-  border-radius: 20px;
-  padding: 5px 10px;
-  margin: 0 10px;
-`;
-
-const SearchInput = styled.input`
-  border: none;
-  background: none;
-  flex-grow: 1;
-  outline: none;
-`;
-
-const IconContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CategoryMenu = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 10px 0;
-  overflow-x: auto;
-  white-space: nowrap;
-`;
-
-const CategoryItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 10px;
-`;
-
-const MainSection = styled.div`
+const mainContent = styled.div`
   flex-grow: 1;
   width: 100%;
-  padding: 10px 0;
+`;
+
+const Banner = styled.div`
+  width: 100%;
+  height: 200px; /* Placeholder for banner height */
+  background-color: #ddd; /* Placeholder for banner background */
 `;
 
 const ProductSection = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding: 10px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 `;
 
 const ProductItem = styled.div`
-  width: 48%;
-  margin-bottom: 10px;
-  background-color: #f5f5f5;
-  height: 150px; /* Placeholder for product image */
+  max-width: 100px;
+  min-width: 100px;
+  margin: 5px;
+  background-color: #000;
+  height: 100px; /* Placeholder for product image */
 `;
 
-const BottomNavBar = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  padding: 10px 0;
-  border-top: 1px solid #ccc;
-`;
 
-const NavItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const Main = () => {
   return (
-    <Container>
-      <SearchHeader />
-
-      <CategoryMenu>
-        <CategoryItem>상의</CategoryItem>
-        <CategoryItem>하의</CategoryItem>
-        <CategoryItem>신발</CategoryItem>
-        <CategoryItem>모자</CategoryItem>
-        <CategoryItem>가방</CategoryItem>
-        <CategoryItem>소품</CategoryItem>
-        <CategoryItem>언더웨어</CategoryItem>
-      </CategoryMenu>
-
-      <MainSection>
-        <h3>오늘의 상품 (추천상품?)</h3>
-        <ProductSection>
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-        </ProductSection>
-      </MainSection>
-
-      <BottomNavBar>
-        <NavItem>
-          <FiHome />
-          <span>홈</span>
-        </NavItem>
-        <NavItem>
-          <FiList />
-          <span>목록</span>
-        </NavItem>
-        <NavItem>
-          <FiSearch />
-          <span>검색</span>
-        </NavItem>
-        <NavItem>
-          <FiUser />
-          <span>마이페이지</span>
-        </NavItem>
-      </BottomNavBar>
-    </Container>
+    <div>
+    <SearchHeader/>
+    <mainContent>
+      <Banner src="" alt="bannerImg" />
+      <Categories />  
+    </mainContent>
+    <ProductSection>
+      추천 아이템
+      <ProductItem/>
+    </ProductSection>
+    <FooterNav />
+    </div>
   );
 };
 
