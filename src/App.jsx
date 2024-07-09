@@ -5,16 +5,18 @@ import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import FooterNav from "./components/FooterNav";
 import ItemDetail from "./pages/ItemDetail";
+import Main from "./pages/Main";
+import ItemOrder from "./pages/ItemOrder";
 
 function App() {
   return (
     <BrowserRouter>
       <Container>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Main />} />
           <Route path="/details" element={<ItemDetail />} />
+          <Route path="/itemOrder" element={<ItemOrder/>} />
         </Routes>
-        <FooterNav />
       </Container>
     </BrowserRouter>
   );
