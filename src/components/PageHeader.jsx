@@ -16,6 +16,7 @@ const NavigationBar = styled.div`
   padding: 15px;
   background-color: #fff;
   border-top: 2px solid #d2dae8;
+  border-bottom: 2px solid orange;
   box-sizing: border-box;
   z-index: 10; /* 다른 콘텐츠 위에 표시되도록 z-index 추가 */
 `;
@@ -53,7 +54,7 @@ const PageHeader = () => {
           <FiChevronLeft />
         </NavItem>
         <NavItem to="/footer">
-          <NavText>장바구니</NavText>
+          <NavText>주문서 작성</NavText>
         </NavItem>
         <div
           style={{

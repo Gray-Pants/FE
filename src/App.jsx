@@ -4,6 +4,7 @@ import { Container } from "./ui/container";
 import FooterNav from "./components/FooterNav";
 import ItemDetail from "./pages/ItemDetail";
 import Main from "./pages/Main";
+import ItemOrder from "./pages/ItemOrder";
 
 function App() {
   return (
@@ -12,9 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/details" element={<ItemDetail />} />
-          <Route path="/main" element={<Main />} />
+          <Route path="/itemOrder" element={<ItemOrder/>} />
         </Routes>
-        <FooterNav />
       </Container>
     </BrowserRouter>
   );
