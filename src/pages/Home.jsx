@@ -4,8 +4,7 @@ import PaymentCompleted from '../components/PaymentCompleted'
 const Home = () => {
   return (
     <>
-    <PaymentCompleted />
-        
+      {/* <PaymentCompleted /> */}
       <WishList />
       {/* <FooterNav /> */}
     </>

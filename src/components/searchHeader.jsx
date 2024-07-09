@@ -5,26 +5,35 @@ import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 20px; // 헤더 전체 패딩
+  padding: 10px 20px;
   background-color: #fff;
-  border-bottom: 1px solid #ddd; // 아래 테두리
+  border-bottom: 1px solid #ddd;
+  min-width: 400px; /* 최소 너비 설정 */
 `;
 
 const Logo = styled.img`
   width: 80px;
   height: 80px;
+
+  @media (max-width: 768px) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: #f5f5f5; // 배경색
-  border: 1px solid #ddd; // 테두리
-  border-radius: 25px; // 둥근 모서리
-  padding: 8px 15px; // 내부 여백
-  width: 300px; // 너비 조절
-  margin-left: 20px; // 로고와 검색창 간격
-  flex: 1; // 남은 공간 차지
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  padding: 8px 15px;
+  margin-left: 20px;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const Input = styled.input`
