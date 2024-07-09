@@ -28,7 +28,7 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const mainContent = styled.div`
+const MainContent = styled.div`
   flex-grow: 1;
   width: 100%;
 `;
@@ -61,10 +61,10 @@ const Main = () => {
   return (
     <div>
     <SearchHeader/>
-    <mainContent>
+    <MainContent>
       <Banner src="" alt="bannerImg" />
       <Categories />  
-    </mainContent>
+    </MainContent>
     <ProductSection>
       추천 아이템
       <ProductItem/>
