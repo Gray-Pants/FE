@@ -9,7 +9,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { MdOutlineRecommend } from "react-icons/md";
-import SearchHeader from "../components/searchHeader";
+import SearchHeader from "../components/SearchHeader";
 import Categories from "../components/Categories";
 import FooterNav from "../components/FooterNav";
 
