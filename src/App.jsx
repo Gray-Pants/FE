@@ -21,6 +21,7 @@ import SellerJoin from "./pages/SellerJoin";
 import SellerPage from "./pages/Seller";
 import SellerLoginPage from "./pages/Sellerlogin";
 import SellerProductListPage from "./pages/SellerProductList";
+import SellerProductDetailsPage from "./pages/SellerDetails";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="/seller" element={<SellerPage/>}/>
             <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
             <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
+            <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
