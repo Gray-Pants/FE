@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { FiChevronLeft, FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
+import { useNavigate, Link } from "react-router-dom";
+import { FiChevronLeft, FiSearch, FiX } from "react-icons/fi";
+import FooterNav from "./FooterNav";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ const NavItem = styled(Link)`
 `;
 
 const SearchBarContainer = styled.div`
+  position: relative; /* relative positioning for absolute child */
   display: flex;
   align-items: center;
   background-color: #f5f5f5;
@@ -65,18 +67,13 @@ const Input = styled.input`
   margin-left: 10px;
 `;
 
-const IconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 10px; /* 아이콘 간 간격 조절 */
-
-  svg {
-    margin-right: 10px; /* 아이콘 간 간격 조절 */
-    cursor: pointer; /* 커서 모양 변경 */
-  }
+const ClearButton = styled(FiX)`
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 `;
 
-const SearchHeader = () => {
+const SearchBar = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
@@ -85,14 +82,14 @@ const SearchHeader = () => {
     console.log("검색어:", searchText);
   };
 
-  const handleCartClick = () => {
-    navigate("/cart");
+  const handleClearInput = () => {
+    setSearchText("");
   };
 
   return (
     <HeaderContainer>
-      <NavItem to="/footer">
-          <FiChevronLeft />
+      <NavItem to="/">
+        <FiChevronLeft />
       </NavItem>
       <SearchBarContainer>
         <FiSearch />
@@ -107,13 +104,11 @@ const SearchHeader = () => {
             }
           }}
         />
+        <ClearButton onClick={handleClearInput} />
       </SearchBarContainer>
-      <IconContainer>
-        <FiShoppingCart size={20} onClick={handleCartClick} /> {/* 장바구니 아이콘 */}
-        <FiBell size={20} /> {/* 알림 아이콘 */}
-      </IconContainer>
+      <FooterNav />
     </HeaderContainer>
   );
 };
 
-export default SearchHeader;
+export default SearchBar;
