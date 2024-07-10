@@ -5,9 +5,11 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-width: 400px;
   max-width: 400px;
-  margin-top: 68px;
+  margin-top: 60px;
+  padding: 5px 0;
 `;
 
 const CheckBox = styled.div`

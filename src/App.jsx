@@ -28,7 +28,7 @@ function App() {
             <Route path="/itemOrder" element={<ItemOrder />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/user/cart" element={<Cart />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </Container>
       </BrowserRouter>
