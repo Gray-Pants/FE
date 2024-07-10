@@ -18,7 +18,6 @@ const Header = styled.div`
   color: #333;
   font-size: 1rem;
   text-align: center;
-  border-bottom: 7px solid #ffa500;
 `;
 
 const HeaderIcon = styled.div`
