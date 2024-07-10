@@ -11,11 +11,11 @@ const NavigationBar = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  height: 60px;
   width: calc(100vw - 40px); /* 40px은 양쪽의 20px 패딩을 고려한 값 */
   max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
-  padding: 15px;
   background-color: #fff;
-  border-top: 2px solid #d2dae8;
+  border-bottom: 10px solid orange;
   box-sizing: border-box;
   z-index: 10; /* 다른 콘텐츠 위에 표시되도록 z-index 추가 */
 `;
@@ -38,7 +38,7 @@ const NavItem = styled(Link)`
 
 const NavIcon = styled.div`
   font-size: 24px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 `;
 
 const NavText = styled.span`
@@ -53,12 +53,12 @@ const PageHeader = () => {
           <FiChevronLeft />
         </NavItem>
         <NavItem to="/footer">
-          <NavText>장바구니</NavText>
+          <NavText>주문서 작성</NavText>
         </NavItem>
         <div
           style={{
             display: "flex",
-            width: "100px",
+            width: "70px",
             justifyContent: "space-around",
           }}
         >

@@ -1,296 +1,246 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { FiChevronUp, FiChevronDown } from "react-icons/fi"; // 아이콘 라이브러리
 
-const Container = styled.div`
-  width: 600px;
+const CreateOrder = () => {
+  return (
+    <>
+      <HeaderSpacer /> {/* 헤더와 섹션 사이의 간격을 위한 컴포넌트 */}
+      <Section>
+        <SectionTitle>배송지</SectionTitle>
+        <AddressTypeGroup>
+          <AddressType active>집</AddressType>
+          <AddressType>친구집</AddressType>
+        </AddressTypeGroup>
+        <Input placeholder="이름" />
+        <Input placeholder="배송지명" />
+        <PhoneInput>
+          <Input placeholder="010" />
+          <Input placeholder="1234" />
+          <Input placeholder="5678" />
+        </PhoneInput>
+        <Input placeholder="주소" />
+        <Input placeholder="상세주소" />
+      </Section>
+      <Section>
+        <SectionTitle>상품정보</SectionTitle>
+        <ProductInfo>
+          <ProductImage
+            src="../public/images/스와퍼(상품이미지).svg"
+            alt="상품 이미지"
+          />
+          <ProductDetails>
+            <Seller>동대문 판매왕</Seller>
+            <ProductName>
+              [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠
+            </ProductName>
+            <ProductOption>멜란지 L</ProductOption>
+            <ProductQuantity>수량 1개</ProductQuantity>
+          </ProductDetails>
+          <ProductPrice>15,200원</ProductPrice>
+        </ProductInfo>
+      </Section>
+      <Section>
+        <SectionTitle>할인혜택</SectionTitle>
+        <DiscountItem>
+          <DiscountName>상품할인</DiscountName>
+          <DiscountAmount>13,000원</DiscountAmount>
+        </DiscountItem>
+        <DiscountItem>
+          <DiscountName>등급할인</DiscountName>
+          <DiscountAmount>2,000원</DiscountAmount>
+        </DiscountItem>
+        <TotalDiscount>
+          <DiscountName>총 할인금액</DiscountName>
+          <DiscountAmount>-15,000원</DiscountAmount>
+        </TotalDiscount>
+      </Section>
+      <Section>
+        <SectionTitle>결제수단</SectionTitle>
+        <PaymentMethod>
+          <RadioButton />
+          <PaymentName>카드 결제</PaymentName>
+        </PaymentMethod>
+        <PaymentMethod>
+          <RadioButton />
+          <PaymentName>계좌 송금</PaymentName>
+        </PaymentMethod>
+      </Section>
+      <Section>
+        <SectionTitle>최종 결제금액</SectionTitle>
+        <PriceItem>
+          <PriceName>상품금액</PriceName>
+          <PriceAmount>30,200원</PriceAmount>
+        </PriceItem>
+        <PriceItem>
+          <PriceName>할인금액</PriceName>
+          <PriceAmount>15,000원</PriceAmount>
+        </PriceItem>
+        <TotalPrice>
+          <PriceName>결제금액</PriceName>
+          <PriceAmount>15,200원</PriceAmount>
+        </TotalPrice>
+      </Section>
+      <PayButton>결제하기</PayButton>
+    </>
+  );
+};
+
+// Styled components
+
+const HeaderSpacer = styled.div`
+  height: 80px; // 헤더와 섹션 사이의 간격
+`;
+
+const Section = styled.section`
+  width: 100%;
+  max-width: 518px;
   margin: 0 auto;
-  background: #FFFFFF;
-  font-family: 'Inter', sans-serif;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 20px;
-  height: 60px;
-  border-bottom: 2px solid #F4975C;
-`;
-
-const BackButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-`;
-
-const Title = styled.h1`
-  font-size: 20px;
-  font-weight: 500;
-`;
-
-const Icons = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const Section = styled.div`
-  border-bottom: 1px solid #E0E0E0;
-`;
-
-const SectionHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  cursor: pointer;
+  box-sizing: border-box;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-`;
-
-const SectionContent = styled.div`
-  padding: 0 20px 15px;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #E0E0E0;
-  border-radius: 5px;
-`;
-
-const AddressGroup = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const AddressButton = styled.button`
-  padding: 10px;
-  background: #F4F4F4;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  margin-bottom: 10px;
 `;
 
 const AddressTypeGroup = styled.div`
   display: flex;
-  gap: 10px;
   margin-bottom: 10px;
 `;
 
 const AddressType = styled.button`
-  padding: 5px 15px;
-  background: ${props => props.active ? "#F4975C" : "#F4F4F4"};
-  color: ${props => props.active ? "#FFFFFF" : "#000000"};
+  width: 70px;
+  height: 29.62px;
+  background-color: ${(props) => (props.active ? "#F4975C" : "#D2DAE8")};
+  color: ${(props) => (props.active ? "#FFFFFF" : "#6D697A")};
   border: none;
-  border-radius: 15px;
-  cursor: pointer;
+  border-radius: 30px;
+  margin-right: 10px;
+  font-size: 13px;
+  font-weight: 300;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 24px;
+  border: 1px solid #6d697a;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  box-sizing: border-box;
+`;
+
+const PhoneInput = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    width: 32%;
+  }
 `;
 
 const ProductInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-top: 10px;
 `;
 
 const ProductImage = styled.img`
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 5px;
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
 `;
 
-const ProductDetails = styled.div``;
+const ProductDetails = styled.div`
+  margin-left: 10px;
+`;
+
+const Seller = styled.p`
+  font-size: 10px;
+  color: #7d7d7d;
+`;
 
 const ProductName = styled.p`
-  font-weight: 600;
-  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 700;
+`;
+
+const ProductOption = styled.p`
+  font-size: 10px;
+  color: #7d7d7d;
+`;
+
+const ProductQuantity = styled.p`
+  font-size: 10px;
+  color: #7d7d7d;
 `;
 
 const ProductPrice = styled.p`
+  font-size: 8px;
   font-weight: 700;
-  color: #F4975C;
+  margin-left: auto;
 `;
 
 const DiscountItem = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin-bottom: 5px;
+`;
+
+const DiscountName = styled.p`
+  font-size: 12px;
+  font-weight: 700;
+`;
+
+const DiscountAmount = styled.p`
+  font-size: 10px;
+  color: #7d7d7d;
+`;
+
+const TotalDiscount = styled(DiscountItem)`
+  border-top: 1px solid #6d697a;
+  padding-top: 5px;
 `;
 
 const PaymentMethod = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+  margin-bottom: 5px;
 `;
 
 const RadioButton = styled.div`
-  width: 20px;
-  height: 20px;
-  border: 2px solid #E0E0E0;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
+  background-color: #d9d9d9;
+  margin-right: 10px;
 `;
 
-const TotalAmount = styled.div`
-  display: flex;
-  justify-content: space-between;
+const PaymentName = styled.p`
+  font-size: 12px;
   font-weight: 700;
-  margin-top: 15px;
 `;
 
-const Button = styled.button`
-  width: 100vw;
-  padding: 15px;
-  background: #F4975C;
-  color: white;
+const PriceItem = styled(DiscountItem)``;
+
+const PriceName = styled(DiscountName)``;
+
+const PriceAmount = styled(DiscountAmount)``;
+
+const TotalPrice = styled(TotalDiscount)``;
+
+const PayButton = styled.button`
+  width: 100%;
+  height: 59px;
+  background-color: #f4975c;
+  color: #ffffff;
   border: none;
-  font-size: 18px;
+  border-radius: 5px;
+  font-size: 24px;
   font-weight: 600;
-  cursor: pointer;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  margin-top: 20px;
+  margin-bottom: 70px;
 `;
-
-function CreateOrder() {
-  const [activeSections, setActiveSections] = useState({
-    배송지: true,
-    상품정보: true,
-    할인혜택: true,
-    결제수단: true,
-    최종결제금액: true,
-  });
-  const [addressType, setAddressType] = useState("집");
-
-  const toggleSection = (sectionName) => {
-    setActiveSections((prev) => ({
-      ...prev,
-      [sectionName]: !prev[sectionName],
-    }));
-  };
-
-  return (
-    <>
-      <Header>
-        <BackButton>{"<"}</BackButton>
-        <Title>주문서 작성</Title>
-        <Icons>
-          <span>🏠</span>
-          <span>👤</span>
-        </Icons>
-      </Header>
-
-      <Section>
-        <SectionHeader onClick={() => toggleSection("배송지")}>
-          <SectionTitle>배송지</SectionTitle>
-          {activeSections["배송지"] ? <FiChevronUp /> : <FiChevronDown />}
-        </SectionHeader>
-        {activeSections["배송지"] && (
-          <SectionContent>
-            <AddressTypeGroup>
-              <AddressType active={addressType === "집"} onClick={() => setAddressType("집")}>집</AddressType>
-              <AddressType active={addressType === "친구집"} onClick={() => setAddressType("친구집")}>친구집</AddressType>
-            </AddressTypeGroup>
-            <Input placeholder="이름 *" />
-            <Input placeholder="휴대폰번호(선택)" />
-            <AddressGroup>
-              <Input placeholder="주소 *" />
-              <AddressButton>주소 찾기</AddressButton>
-            </AddressGroup>
-            <Input placeholder="상세주소" />
-          </SectionContent>
-        )}
-      </Section>
-
-      <Section>
-        <SectionHeader onClick={() => toggleSection("상품정보")}>
-          <SectionTitle>상품정보</SectionTitle>
-          {activeSections["상품정보"] ? <FiChevronUp /> : <FiChevronDown />}
-        </SectionHeader>
-        {activeSections["상품정보"] && (
-          <SectionContent>
-            <ProductInfo>
-              <ProductImage src="path_to_product_image.jpg" alt="Product" />
-              <ProductDetails>
-                <ProductName>[진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠</ProductName>
-                <ProductPrice>15,200원</ProductPrice>
-              </ProductDetails>
-            </ProductInfo>
-          </SectionContent>
-        )}
-      </Section>
-
-      <Section>
-        <SectionHeader onClick={() => toggleSection("할인혜택")}>
-          <SectionTitle>할인혜택</SectionTitle>
-          {activeSections["할인혜택"] ? <FiChevronUp /> : <FiChevronDown />}
-        </SectionHeader>
-        {activeSections["할인혜택"] && (
-          <SectionContent>
-            <DiscountItem>
-              <span>상품할인</span>
-              <span>13,000원</span>
-            </DiscountItem>
-            <DiscountItem>
-              <span>등급할인</span>
-              <span>2,000원</span>
-            </DiscountItem>
-          </SectionContent>
-        )}
-      </Section>
-
-      <Section>
-        <SectionHeader onClick={() => toggleSection("결제수단")}>
-          <SectionTitle>결제수단</SectionTitle>
-          {activeSections["결제수단"] ? <FiChevronUp /> : <FiChevronDown />}
-        </SectionHeader>
-        {activeSections["결제수단"] && (
-          <SectionContent>
-            <PaymentMethod>
-              <RadioButton />
-              <span>카드 결제</span>
-            </PaymentMethod>
-            <PaymentMethod>
-              <RadioButton />
-              <span>계좌 이체</span>
-            </PaymentMethod>
-          </SectionContent>
-        )}
-      </Section>
-
-      <Section>
-        <SectionHeader onClick={() => toggleSection("최종결제금액")}>
-          <SectionTitle>최종 결제금액</SectionTitle>
-          {activeSections["최종결제금액"] ? <FiChevronUp /> : <FiChevronDown />}
-        </SectionHeader>
-        {activeSections["최종결제금액"] && (
-          <SectionContent>
-            <DiscountItem>
-              <span>상품금액</span>
-              <span>30,200원</span>
-            </DiscountItem>
-            <DiscountItem>
-              <span>할인금액</span>
-              <span>15,000원</span>
-            </DiscountItem>
-            <TotalAmount>
-              <span>결제금액</span>
-              <span style={{color: '#F4975C'}}>15,200원</span>
-            </TotalAmount>
-          </SectionContent>
-        )}
-      </Section>
-
-      <Button>결제하기</Button>
-    </>
-  );
-}
 
 export default CreateOrder;
