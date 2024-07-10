@@ -54,7 +54,7 @@ const FooterNav = () => {
           <NavIcon as={FiHome} /> {/* as 속성을 사용하여 아이콘 변경 */}
           {/* <NavText>홈</NavText> */}
         </NavItem>
-        <NavItem to="/list">
+        <NavItem to="/category">
           <NavIcon as={FiList} />
           {/* <NavText>목록</NavText> */}
         </NavItem>
