@@ -1,55 +1,55 @@
 import React from "react";
 import styled from "styled-components";
 
+const ProductContainer = styled.div`
+  width: 250px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+`;
+
+const ProductImage = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+`;
+
+const ProductInfo = styled.div`
+  width: 100%;
+  display: flex;
+
+  gap: 20px;
+`;
+
+const ProductTitle = styled.div`
+  font-weight: bold;
+  margin-bottom: 5px;
+`;
+
+const ProductPrice = styled.div`
+  color: #999;
+`;
+
+const OptionSelect = styled.button`
+  width: 100px;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+`;
+
+const QuantitySelect = styled.button`
+  width: 100px;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+`;
+
+const OptionFlex = styled.div`
+  display: flex;
+`;
+
 const WishList = () => {
-  const ProductContainer = styled.div`
-    width: 250px;
-    height: 500px;
-    display: flex;
-    align-items: center;
-  `;
-
-  const ProductImage = styled.img`
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-  `;
-
-  const ProductInfo = styled.div`
-    width: 100%;
-    display: flex;
-
-    gap: 20px;
-  `;
-
-  const ProductTitle = styled.div`
-    font-weight: bold;
-    margin-bottom: 5px;
-  `;
-
-  const ProductPrice = styled.div`
-    color: #999;
-  `;
-
-  const OptionSelect = styled.button`
-    width: 100px;
-    height: 30px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-  `;
-
-  const QuantitySelect = styled.button`
-    width: 100px;
-    height: 30px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  `;
-
-  const OptionFlex = styled.div`
-    display: flex;
-  `;
-
   return (
     <>
       <div
