@@ -1,139 +1,52 @@
 import React from 'react';
+import styled from 'styled-components';
 
-function SellerRegister() {
-  return (
-    <>
-    <div className="SellerRegister">
-      <div className="frame">
-        <div className="background">
-          <h1 className="title">판매자 회원가입</h1>
-
-          <div className="input-container input_name">
-            <input type="text" placeholder="store name" />
-          </div>
-          
-          <div className="input-container input_email">
-            <input type="email" placeholder="email" />
-          </div>
-          
-          <div className="input-container input_password">
-            <input type="password" placeholder="password" />
-          </div>
-          
-          <div className="input-container input_checkpassword">
-            <input type="password" placeholder="Check the password" />
-          </div>
-
-          <button className="btn_signup">회원가입</button>
-        </div>
-      </div>
-    </div>
-    </>
-  );
-}
-
-export default SellerRegister;
-
-const styles = `
-/* 판매자 회원가입 */
-
-.SellerRegister {
-  position: relative;
-  width: 1440px;
-  height: 2836px;
-  background: #FFFFFF;
-}
-
-/* 메인페이지_배경 */
-
-.frame {
-  position: absolute;
-  width: 575px;
-  height: 1120px;
-  left: calc(50% - 575px/2 - 2.5px);
-  top: 144px;
-  background: #FFFFFF;
-}
-
-/* 판매자 회원가입 */
-
-.title {
-  position: absolute;
-  width: 392px;
-  height: 34px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 167px;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 50px;
-  line-height: 61px;
+const Title = styled.h1`
+  font-family: 'TheJamsil3Regular';
   text-align: center;
-  color: #000000;
-}
-
-/* Input Containers */
-
-.input-container {
-  position: absolute;
-  width: 476.44px;
-  height: 58.89px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #D9D9D9;
-}
-
-.input_name {
-  top: 291.5px;
-}
-
-.input_email {
-  top: 389.65px;
-}
-
-.input_password {
-  top: 489.48px;
-}
-
-.input_checkpassword {
-  top: 589px;
-}
-
-.input-container input {
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  background: transparent;
-}
-
-/* 회원가입 Button */
-
-.btn_signup {
-  position: absolute;
-  width: 284.65px;
-  height: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 704px;
-  border: 2px solid #000000;
-  border-radius: 30px;
-  background: none;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 29px;
-  text-align: center;
-  color: #000000;
-  cursor: pointer;
-}
+  margin-bottom: 20px;
 `;
 
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
+const InputField = styled.input`
+  width: 100%;
+  height: 40px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+  background: #D9D9D9;
+  border: none;
+  font-size: 16px;
+  &::placeholder {
+    color: #000000;
+  }
+`;
+
+const SubmitButton = styled.button`
+  width: 100%;
+  height: 40px;
+  background: #000000;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+`;
+
+
+
+const ProductRegist = () => {
+  return (
+    <>
+      <Title>상품 등록</Title>
+      <InputField placeholder="상품 이름" />
+      <InputField placeholder="상품 카테고리" />
+      <InputField placeholder="상품 이미지" />
+      <InputField placeholder="상품 가격" />
+      <InputField placeholder="상품 재고" />
+      <InputField placeholder="상품 상세 페이지 이미지" />
+      <SubmitButton>상품 등록</SubmitButton>
+    </>
+  );
+};
+
+export default ProductRegist;
