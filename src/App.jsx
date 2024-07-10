@@ -19,6 +19,7 @@ import GlobalStyle from "./ui/Font";
 import Search from "./pages/Search";
 import SellerJoin from "./pages/SellerJoin";
 import SellerPage from "./pages/Seller";
+import SellerProductPage from "./pages/SellerProduct";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/search" element={<Search/>} />
             <Route path="/sellerJoin" element={<SellerJoin/>}/>
             <Route path="/seller" element={<SellerPage/>}/>
+            <Route path="/sellerProduct" element={<SellerProductPage/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
