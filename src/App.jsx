@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
 import PayCompleted from "./pages/PayCompleted";
+import SellerJoin from "./pages/SellerJoin";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/itemOrder" element={<ItemOrder/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/sellerJoin" element={<SellerJoin/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
