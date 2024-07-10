@@ -8,12 +8,14 @@ import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
 import PaymentCompletePage from "./pages/PayCompleted";
 import Category from "./pages/Category";
+import GlobalStyle from "./ui/Pont";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Container>
+          <GlobalStyle />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/itemOrder" element={<ItemOrder/>} />

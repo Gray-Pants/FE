@@ -48,6 +48,12 @@ const ProductItem = styled.div`
   display: inline-block;
 `;
 
+const Recommand = styled.div`
+  font-family: 'TheJamsil3Regular';
+  padding: 10px;
+  text-align: left;
+`;
+
 const Main = () => {
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -79,7 +85,7 @@ const Main = () => {
         <Categories />
       </MainContent>
       <ProductSection>
-        <h2>추천 아이템</h2>
+        <Recommand>추천 아이템</Recommand>
         <InfiniteScroll
           dataLength={products.length}
           next={fetchMoreData}
