@@ -5,8 +5,10 @@ import Main from "./pages/Main";
 import ItemOrder from "./pages/ItemOrder";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
-import AuthProvider from "./security/AuthContext";
+import AuthProvider, { AuthProtectedRoute } from "./security/AuthContext";
 import PayCompleted from "./pages/PayCompleted";
+import Me from "./pages/Me";
+
 
 function App() {
   return (
@@ -15,6 +17,11 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Main />} />
+            <Route path="/mypage" element={
+              <AuthProtectedRoute>
+               <Me />
+              </AuthProtectedRoute>
+              } />
             <Route path="/itemOrder" element={<ItemOrder/>} />
             <Route path="/payCompleted" element={<PayCompleted/>}/>
             <Route path="/details" element={<ItemDetail />} />

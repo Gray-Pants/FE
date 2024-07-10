@@ -12,5 +12,6 @@ export const Container = styled.div`
   min-width: 250px;
   max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
   margin: auto; /* 중앙 정렬을 위한 margin 설정 */
+  min-height: 100vh;
   height: 100%;
 `;
