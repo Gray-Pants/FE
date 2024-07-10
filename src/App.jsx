@@ -6,7 +6,8 @@ import ItemOrder from "./pages/ItemOrder";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
-import PayCompleted from "./pages/PayCompleted";
+import PaymentCompletePage from "./pages/PayCompleted";
+import Category from "./pages/Category";
 
 function App() {
   return (
@@ -16,11 +17,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/itemOrder" element={<ItemOrder/>} />
-            <Route path="/payCompleted" element={<PayCompleted/>}/>
+            <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
             <Route path="/details" element={<ItemDetail />} />
             <Route path="/itemOrder" element={<ItemOrder/>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/category" element={<Category/>} />
           </Routes>
         </Container>
       </BrowserRouter>
