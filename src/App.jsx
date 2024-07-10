@@ -8,6 +8,7 @@ import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
 import PayCompleted from "./pages/PayCompleted";
 import SellerJoin from "./pages/SellerJoin";
+import SellerPage from "./pages/Seller";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/sellerJoin" element={<SellerJoin/>}/>
+            <Route path="/seller" element={<SellerPage/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
