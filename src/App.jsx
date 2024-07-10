@@ -5,18 +5,25 @@ import FooterNav from "./components/FooterNav";
 import ItemDetail from "./pages/ItemDetail";
 import Main from "./pages/Main";
 import ItemOrder from "./pages/ItemOrder";
+import Login from "./pages/Login";
+import SignUp from "./pages/Signup";
+import AuthProvider from "./security/AuthContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Container>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/details" element={<ItemDetail />} />
-          <Route path="/itemOrder" element={<ItemOrder/>} />
-        </Routes>
-      </Container>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Container>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/details" element={<ItemDetail />} />
+            <Route path="/itemOrder" element={<ItemOrder/>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </Container>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

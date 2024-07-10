@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../security/AuthContext';
 
 const LoginContainer = styled.div`
     display: flex;
@@ -14,7 +15,7 @@ const LoginContainer = styled.div`
     width: calc(100vw - 40px); /* 40px은 양쪽의 20px 패딩을 고려한 값 */
     max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
     margin: auto /* 중앙 정렬을 위한 margin 설정 */;
-    height: 100vh; /* 40px은 위아래의 20px 패딩을 고려한 값 */
+    height: 100vh;
 `;
 
 const Logo = styled.img`
@@ -28,6 +29,7 @@ const Input = styled.input`
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 `;
 
 const Button = styled.button`
@@ -66,11 +68,15 @@ const SocialIcon = styled.img`
     cursor: pointer;
 `;
 
+
 const Login = () => {
     const [loginState, setLoginState] = useState({
         email: '',
         password: '',
     });
+
+
+    const authContext = useAuth();
 
     const onChange = (e) => {
         setLoginState({
@@ -79,15 +85,23 @@ const Login = () => {
         });
     }
 
+    async function handleSubmit() {
+        if(await authContext.login(loginState.email, loginState.password)){
+            navigate(`/welcome/${loginState.email}`)
+        } else {
+            setShowErrorMessage(true)
+        }
+    }
+
     return (
-        <LoginContainer>
+        <>
             <Link to="/">
             <Logo src="/images/main-icon.png" alt="logo" />
             </Link>
             <Input type="email" placeholder="email" name={"email"} onChange={onChange} value={loginState.email} />
             <Input type="password" placeholder="password" name={"password"} onChange={onChange} value={loginState.password}/>
             <Button $signup>회원가입</Button>
-            <Button>로그인</Button>
+            <Button onClick={handleSubmit}>로그인</Button>
             <SocialLoginText>소셜 로그인</SocialLoginText>
             <SocialLogin>
                 <Link to="http://kakao.com">
@@ -100,7 +114,7 @@ const Login = () => {
                 <SocialIcon src="/images/login-google.png" alt="Google" />
                 </Link>
             </SocialLogin>
-        </LoginContainer>
+        </>
     );
 }
 

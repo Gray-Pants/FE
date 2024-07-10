@@ -9,6 +9,8 @@ const CategoryContainer = styled.div`
   padding: 10px 0;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
+  overflow-x: scroll;
+  scrollbar-width: none;
 `;
 
 const Category = styled.div`

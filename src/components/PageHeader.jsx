@@ -13,7 +13,7 @@ const NavigationBar = styled.div`
   transform: translateX(-50%);
   width: calc(100vw - 40px); /* 40px은 양쪽의 20px 패딩을 고려한 값 */
   max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
-  padding: 15px;
+  padding: 5px;
   background-color: #fff;
   border-top: 2px solid #d2dae8;
   border-bottom: 2px solid orange;
@@ -39,7 +39,7 @@ const NavItem = styled(Link)`
 
 const NavIcon = styled.div`
   font-size: 24px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 `;
 
 const NavText = styled.span`
@@ -59,7 +59,7 @@ const PageHeader = () => {
         <div
           style={{
             display: "flex",
-            width: "100px",
+            width: "70px",
             justifyContent: "space-around",
           }}
         >
