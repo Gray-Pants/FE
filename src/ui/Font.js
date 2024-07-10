@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
 }
             @font-face {
-    font-family: 'TheJamsil5Bold';
+    font-family: 'TheJamsil5Bold';햐
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;

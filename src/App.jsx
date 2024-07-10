@@ -8,7 +8,8 @@ import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
 import PaymentCompletePage from "./pages/PayCompleted";
 import Category from "./pages/Category";
-import GlobalStyle from "./ui/Pont";
+import GlobalStyle from "./ui/Font";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/details" element={<ItemDetail />} />
             <Route path="/itemOrder" element={<ItemOrder/>} />
             <Route path="/category" element={<Category/>} />
+            <Route path="/search" element={<Search/>} />
           </Routes>
         </Container>
       </BrowserRouter>
