@@ -1,12 +1,12 @@
 import React from "react";
-import PaymentCompleted from "../components/PaymentCompleted";
-import WishList from "../components/WishList";
+//import PaymentCompleted from "../components/PaymentCompleted";
+import EditMemberInfo from "../components/EditMemberInfo";
 
 const Home = () => {
   return (
     <>
       {/* <PaymentCompleted /> */}
-      <WishList />
+      <EditMemberInfo/>
       {/* <FooterNav /> */}
     </>
   );

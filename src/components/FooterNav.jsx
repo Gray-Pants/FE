@@ -13,9 +13,8 @@ const NavigationBar = styled.div`
   background-color: #fff;
   max-width: 400px;
   min-width: 400px;
-  height: 60px;
+  height: 30px;
   border-top: 2px solid #d2dae8;
-  box-sizing: border-box;
 `;
 
 const NavItem = styled(Link)`
