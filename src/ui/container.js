@@ -11,6 +11,7 @@ export const Container = styled.div`
   width: calc(100vw - 40px); /* 40px은 양쪽의 20px 패딩을 고려한 값 */
   min-width: 250px;
   max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
+  min-height: 100vh;
   height: 100%;
   margin: 0 auto; /* 중앙 정렬을 위한 margin 설정 */
 `;
