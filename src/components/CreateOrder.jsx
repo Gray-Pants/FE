@@ -1,11 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const CreateOrder = () => {
   return (
     <>
       <HeaderSpacer /> {/* 헤더와 섹션 사이의 간격을 위한 컴포넌트 */}
-    
       <Section>
         <SectionTitle>배송지</SectionTitle>
         <AddressTypeGroup>
@@ -22,21 +21,24 @@ const CreateOrder = () => {
         <Input placeholder="주소" />
         <Input placeholder="상세주소" />
       </Section>
-
       <Section>
         <SectionTitle>상품정보</SectionTitle>
         <ProductInfo>
-          <ProductImage src="../public/images/스와퍼(상품이미지).svg" alt="상품 이미지" />
+          <ProductImage
+            src="../public/images/스와퍼(상품이미지).svg"
+            alt="상품 이미지"
+          />
           <ProductDetails>
             <Seller>동대문 판매왕</Seller>
-            <ProductName>[진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠</ProductName>
+            <ProductName>
+              [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠
+            </ProductName>
             <ProductOption>멜란지 L</ProductOption>
             <ProductQuantity>수량 1개</ProductQuantity>
           </ProductDetails>
           <ProductPrice>15,200원</ProductPrice>
         </ProductInfo>
       </Section>
-
       <Section>
         <SectionTitle>할인혜택</SectionTitle>
         <DiscountItem>
@@ -52,7 +54,6 @@ const CreateOrder = () => {
           <DiscountAmount>-15,000원</DiscountAmount>
         </TotalDiscount>
       </Section>
-
       <Section>
         <SectionTitle>결제수단</SectionTitle>
         <PaymentMethod>
@@ -64,7 +65,6 @@ const CreateOrder = () => {
           <PaymentName>계좌 송금</PaymentName>
         </PaymentMethod>
       </Section>
-
       <Section>
         <SectionTitle>최종 결제금액</SectionTitle>
         <PriceItem>
@@ -80,7 +80,6 @@ const CreateOrder = () => {
           <PriceAmount>15,200원</PriceAmount>
         </TotalPrice>
       </Section>
-
       <PayButton>결제하기</PayButton>
     </>
   );
@@ -89,7 +88,7 @@ const CreateOrder = () => {
 // Styled components
 
 const HeaderSpacer = styled.div`
-  height: 80px;  // 헤더와 섹션 사이의 간격
+  height: 80px; // 헤더와 섹션 사이의 간격
 `;
 
 const Section = styled.section`
@@ -114,8 +113,8 @@ const AddressTypeGroup = styled.div`
 const AddressType = styled.button`
   width: 70px;
   height: 29.62px;
-  background-color: ${props => props.active ? '#F4975C' : '#D2DAE8'};
-  color: ${props => props.active ? '#FFFFFF' : '#6D697A'};
+  background-color: ${(props) => (props.active ? "#F4975C" : "#D2DAE8")};
+  color: ${(props) => (props.active ? "#FFFFFF" : "#6D697A")};
   border: none;
   border-radius: 30px;
   margin-right: 10px;
@@ -126,7 +125,7 @@ const AddressType = styled.button`
 const Input = styled.input`
   width: 100%;
   height: 24px;
-  border: 1px solid #6D697A;
+  border: 1px solid #6d697a;
   border-radius: 30px;
   margin-bottom: 10px;
   padding: 0 10px;
@@ -159,7 +158,7 @@ const ProductDetails = styled.div`
 
 const Seller = styled.p`
   font-size: 10px;
-  color: #7D7D7D;
+  color: #7d7d7d;
 `;
 
 const ProductName = styled.p`
@@ -169,12 +168,12 @@ const ProductName = styled.p`
 
 const ProductOption = styled.p`
   font-size: 10px;
-  color: #7D7D7D;
+  color: #7d7d7d;
 `;
 
 const ProductQuantity = styled.p`
   font-size: 10px;
-  color: #7D7D7D;
+  color: #7d7d7d;
 `;
 
 const ProductPrice = styled.p`
@@ -196,11 +195,11 @@ const DiscountName = styled.p`
 
 const DiscountAmount = styled.p`
   font-size: 10px;
-  color: #7D7D7D;
+  color: #7d7d7d;
 `;
 
 const TotalDiscount = styled(DiscountItem)`
-  border-top: 1px solid #6D697A;
+  border-top: 1px solid #6d697a;
   padding-top: 5px;
 `;
 
@@ -214,7 +213,7 @@ const RadioButton = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   margin-right: 10px;
 `;
 
@@ -234,8 +233,8 @@ const TotalPrice = styled(TotalDiscount)``;
 const PayButton = styled.button`
   width: 100%;
   height: 59px;
-  background-color: #F4975C;
-  color: #FFFFFF;
+  background-color: #f4975c;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   font-size: 24px;
