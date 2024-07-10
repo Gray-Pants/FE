@@ -6,6 +6,7 @@ import ItemOrder from "./pages/ItemOrder";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
+import PayCompleted from "./pages/PayCompleted";
 
 function App() {
   return (
