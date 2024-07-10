@@ -12,11 +12,10 @@ import ItemOrder from "./pages/ItemOrder";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
-import PayCompleted from "./pages/PayCompleted";
 import Cart from "./pages/Cart";
 import PaymentCompletePage from "./pages/PayCompleted";
 import Category from "./pages/Category";
-import GlobalStyle from "./ui/Pont";
+import GlobalStyle from "./ui/Font";
 
 function App() {
   return (
@@ -32,8 +31,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
-            <Route path="/category" element={<Category/>} />
+            <Route path="/payCompleted" element={<PaymentCompletePage />} />
+            <Route path="/category" element={<Category />} />
           </Routes>
         </Container>
       </BrowserRouter>
