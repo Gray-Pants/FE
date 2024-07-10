@@ -59,7 +59,7 @@ const ProductItem = styled.div`
 
 const Main = () => {
   return (
-    <div>
+    <>
     <SearchHeader/>
     <MainContent>
       <Banner src="" alt="bannerImg" />
@@ -70,7 +70,7 @@ const Main = () => {
       <ProductItem/>
     </ProductSection>
     <FooterNav />
-    </div>
+    </>
   );
 };
 

@@ -5,10 +5,14 @@ import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 0px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-  min-width: 400px; /* 최소 너비 설정 */
+    width: calc(100vw - 40px); /* 40px은 양쪽의 20px 패딩을 고려한 값 */
+  min-width: 250px;
+  max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
+  box-sizing: border-box; /* padding, border 포함한 크기 설정 */
+  justify-content: space-between; // 자식 요소 사이의 공간을 최대로 설정
 `;
 
 const Logo = styled.img`
@@ -16,8 +20,8 @@ const Logo = styled.img`
   height: 80px;
 
   @media (max-width: 768px) {
-    width: 60px;
-    height: 60px;
+    width: auto;
+    height: 40px;
   }
 `;
 

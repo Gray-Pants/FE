@@ -14,6 +14,7 @@ const Title = styled.h2`
 `;
 
 const InputField = styled.input`
+    box-sizing: border-box;
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -32,13 +33,13 @@ const Button = styled.button`
 `;
 
 const InputWrapper = styled.div`
-    width: 80%;
+    width: 100%;
 `;
 
 const EmailContainer = styled.div`
     display: flex;
     justify: space-between;
-    width: 105%;
+    width: 100%;
     align-items: start;
 `;
 
