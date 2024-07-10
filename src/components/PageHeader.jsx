@@ -11,12 +11,11 @@ const NavigationBar = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  height: 60px;
   width: calc(100vw - 40px); /* 40px은 양쪽의 20px 패딩을 고려한 값 */
   max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
-  padding: 5px;
   background-color: #fff;
-  border-top: 2px solid #d2dae8;
-  border-bottom: 2px solid orange;
+  border-bottom: 10px solid orange;
   box-sizing: border-box;
   z-index: 10; /* 다른 콘텐츠 위에 표시되도록 z-index 추가 */
 `;
