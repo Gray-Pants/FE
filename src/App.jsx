@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet, HashRouter } from "react-router-dom";
-import Home from "./pages/Home";
 import { Container } from "./ui/container";
-import FooterNav from "./components/FooterNav";
 import ItemDetail from "./pages/ItemDetail";
 import Main from "./pages/Main";
 import ItemOrder from "./pages/ItemOrder";
@@ -16,10 +14,10 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Main />} />
+            <Route path="/itemOrder" element={<ItemOrder/>} />
+            <Route path="/payCompleted" element={<PayCompleted/>}/>
             <Route path="/details" element={<ItemDetail />} />
             <Route path="/itemOrder" element={<ItemOrder/>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </Container>
       </BrowserRouter>
