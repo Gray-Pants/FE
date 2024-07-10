@@ -1,14 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import {
-  FiSearch,
-  FiShoppingCart,
-  FiBell,
-  FiHome,
-  FiList,
-  FiUser,
-} from "react-icons/fi";
-import { MdOutlineRecommend } from "react-icons/md";
+import InfiniteScroll from "react-infinite-scroll-component";
 import SearchHeader from "../components/SearchHeader";
 import Categories from "../components/Categories";
 import FooterNav from "../components/FooterNav";
@@ -40,11 +32,11 @@ const Banner = styled.div`
 `;
 
 const ProductSection = styled.div`
-  display: flex;
-  justify-content: space-around;
   padding: 10px 0;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
+  width: 100%;
+  text-align: center;
 `;
 
 const ProductItem = styled.div`
@@ -53,23 +45,62 @@ const ProductItem = styled.div`
   margin: 5px;
   background-color: #000;
   height: 100px; /* Placeholder for product image */
+  display: inline-block;
 `;
 
-
+const Recommand = styled.div`
+  font-family: 'TheJamsil3Regular';
+  padding: 10px;
+  text-align: left;
+`;
 
 const Main = () => {
+  const [products, setProducts] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() => {
+    // Initial load
+    fetchMoreData();
+  }, []);
+
+  const fetchMoreData = () => {
+    if (products.length >= 100) {
+      setHasMore(false);
+      return;
+    }
+    // Simulate fetching data from an API
+    setTimeout(() => {
+      const newProducts = Array.from({ length: 10 }, (_, index) => (
+        <ProductItem key={products.length + index} />
+      ));
+      setProducts([...products, ...newProducts]);
+    }, 1500);
+  };
+
   return (
     <>
-    <SearchHeader/>
-    <MainContent>
-      <Banner src="" alt="bannerImg" />
-      <Categories />  
-    </MainContent>
-    <ProductSection>
-      추천 아이템
-      <ProductItem/>
-    </ProductSection>
-    <FooterNav />
+      <SearchHeader />
+      <MainContent>
+        <Banner src="" alt="bannerImg" />
+        <Categories />
+      </MainContent>
+      <ProductSection>
+        <Recommand>추천 아이템</Recommand>
+        <InfiniteScroll
+          dataLength={products.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: 'center' }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          {products}
+        </InfiniteScroll>
+      </ProductSection>
+      <FooterNav />
     </>
   );
 };

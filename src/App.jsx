@@ -14,21 +14,26 @@ import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
 import PayCompleted from "./pages/PayCompleted";
 import Cart from "./pages/Cart";
+import PaymentCompletePage from "./pages/PayCompleted";
+import Category from "./pages/Category";
+import GlobalStyle from "./ui/Pont";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Container>
+          <GlobalStyle />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/itemOrder" element={<ItemOrder />} />
-            <Route path="/payCompleted" element={<PayCompleted />} />
             <Route path="/details" element={<ItemDetail />} />
             <Route path="/itemOrder" element={<ItemOrder />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
+            <Route path="/category" element={<Category/>} />
           </Routes>
         </Container>
       </BrowserRouter>
