@@ -22,6 +22,7 @@ import SellerPage from "./pages/Seller";
 import SellerLoginPage from "./pages/Sellerlogin";
 import SellerProductListPage from "./pages/SellerProductList";
 import SellerProductDetailsPage from "./pages/SellerDetails";
+import SellerSalesListPage from './pages/SellerProductSalesDetails';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
             <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
             <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
+            <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
