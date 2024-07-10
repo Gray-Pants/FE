@@ -241,6 +241,7 @@ const PayButton = styled.button`
   font-size: 24px;
   font-weight: 600;
   margin-top: 20px;
+  margin-bottom: 70px;
 `;
 
 export default CreateOrder;
