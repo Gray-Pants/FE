@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import logoImage from '../../public/logo.svg'; 
 
 const PaymentCompletePage = () => {
   return (
     <PageContainer>
       <MainContent>
         <LogoContainer>
-          <Logo src={logoImage} alt="회색바지단 로고" />
+          <Logo src="/images/greyPantsIcon.png" alt="logo image" />
         </LogoContainer>
         <CompletionMessage>결제 완료 되었습니다!</CompletionMessage>
         <HomeButton>홈으로</HomeButton>

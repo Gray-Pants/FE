@@ -20,7 +20,7 @@ import Me from "./pages/Me";
 import Category from "./pages/main/Category";
 import GlobalStyle from "./ui/Font";
 import Search from "./pages/order/Search";
-import SellerJoin from "./pages/seller/SellerJoin";
+import SellerItemAdd from "./pages/seller/SellerItemAdd";
 import SellerPage from "./pages/seller/Seller";
 import SellerLoginPage from "./pages/seller/Sellerlogin";
 import SellerProductListPage from "./pages/seller/SellerProductList";
@@ -33,6 +33,7 @@ function App() {
   return (
     <AuthProvider>
     <BrowserRouter>
+    <GlobalStyle />
       <Container>
         <Routes>
           <Route path="/" element={<Main />} />
@@ -49,7 +50,7 @@ function App() {
           <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
           <Route path="/category" element={<Category/>} />
           <Route path="/search" element={<Search/>} />
-          <Route path="/sellerJoin" element={<SellerJoin/>}/>
+          <Route path="/sellerItemAdd" element={<SellerItemAdd />}/>
           <Route path="/seller" element={<SellerPage/>}/>
           <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
           <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
