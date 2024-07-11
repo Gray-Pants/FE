@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { apiClient } from '../../api/ApiClient';
 
 const Title = styled.h1`
   font-family: 'TheJamsil3Regular';
@@ -72,43 +73,62 @@ const SubmitButton = styled.button`
   margin-top: 20px;
 `;
 
+const SelectField = styled.select`
+  width: 100%;
+  max-width: 400px;
+  height: 40px;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  background: #d9d9d9;
+  border: none;
+  font-size: 16px;
+`;
+
 const ItemAdd = () => {
   const [itemName, setItemName] = useState('');
   const [itemCategory, setItemCategory] = useState('');
   const [itemPrice, setItemPrice] = useState('');
   const [itemStock, setItemStock] = useState('');
-  const [itemImages, setItemImages] = useState([null, null, null]);
+  const [itemImages, setItemImages] = useState([]);
   const [itemDetailImage, setItemDetailImage] = useState(null);
 
+  const categoryOptions = ['아우터', '긴팔', '반팔', '반바지', '긴바지', '치마', '운동화', '부츠', '슬리퍼', '볼캡', '버킷햇', '비니', '백팩', '크로스백', '숄더백', '팔찌', '반지', '목걸이', '여성속옷', '남성속옷'];
+
   const handleItemImageChange = (index, file) => {
+
     const newImages = [...itemImages];
     newImages[index] = file;
-    setItemImages(newImages);
+    setItemImages(newImages.slice(0, 4)); // 최대 3개의 이미지만 유지
+    
   };
 
   const handleSubmit = (e) => {
-    console.log(e);
     e.preventDefault();
-    // Form data를 준비합니다.
     const formData = new FormData();
     formData.append('itemName', itemName);
     formData.append('itemCategory', itemCategory);
     formData.append('itemPrice', itemPrice);
-    formData.append('itemStock', itemStock);
-    itemImages.forEach((image, index) => {
-      if (image) {
-        formData.append(`itemImage${index + 1}`, image);
-      }
-    });
+    formData.append('stock', itemStock);
+    itemImages.forEach(itemImage=> formData.append("itemPhotos", itemImage))
     if (itemDetailImage) {
-      formData.append('itemDetailImage', itemDetailImage);
+      formData.append('itemDescImg', itemDetailImage);
     }
 
-    // 서버에 formData를 전송하는 로직을 추가합니다.
-    // 예시:
-    // axios.post('/api/upload', formData)
-    //   .then(response => console.log(response))
-    //   .catch(error => console.error(error));
+    console.log(formData.get('itemName'));
+
+    apiClient.post('/items/item', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(response => {
+        console.log('서버 응답:', response);
+        // 성공적으로 데이터를 전송한 후 처리할 로직
+      })
+      .catch(error => {
+        console.error('전송 오류:', error);
+        // 오류 발생 시 처리할 로직
+      });
   };
 
   return (
@@ -125,31 +145,43 @@ const ItemAdd = () => {
         </InputContainer>
         <InputContainer>
           <Label>상품 카테고리</Label>
-          <InputField
-            placeholder="상품 카테고리"
+          <SelectField
             value={itemCategory}
             onChange={(e) => setItemCategory(e.target.value)}
+          >
+            <option value="">카테고리 선택</option>
+            {categoryOptions.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
+          </SelectField>
+        </InputContainer>
+      
+        <InputContainer>
+          <Label>상품 이미지 (최대 3장)</Label>
+          <FileInputField
+            type="file"
+            onChange={handleItemImageChange}
+            multiple // 다중 파일 선택 가능
           />
         </InputContainer>
-        {[...Array(3)].map((_, index) => (
-          <InputContainer key={index}>
-            <Label>아이템 이미지 {index + 1}</Label>
-            <FileInputField 
-              type="file" 
-              onChange={(e) => handleItemImageChange(index, e.target.files[0])}
-            />
-          </InputContainer>
-        ))}
-        <InputField 
-          placeholder="상품 가격" 
-          value={itemPrice}
-          onChange={(e) => setItemPrice(e.target.value)}
-        />
-        <InputField 
-          placeholder="상품 재고" 
-          value={itemStock}
-          onChange={(e) => setItemStock(e.target.value)}
-        />
+
+        <InputContainer>
+          <Label>상품 가격</Label>
+          <InputField
+            placeholder="상품 가격" 
+            value={itemPrice}
+            onChange={(e) => setItemPrice(e.target.value)}
+          />
+
+        </InputContainer>
+        <InputContainer>
+          <Label>상품 재고</Label>
+          <InputField
+            placeholder="상품 재고" 
+            value={itemStock}
+            onChange={(e) => setItemStock(e.target.value)}
+          />
+        </InputContainer>
         <InputContainer>
           <Label>상품 상세 페이지 이미지</Label>
           <FileInputField
