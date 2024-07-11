@@ -1,7 +1,7 @@
 import React from "react";
-import CreateOrder from "../components/CreateOrder";
-import FooterNav from "../components/FooterNav";
-import PageHeader from "../components/PageHeader";
+import CreateOrder from "../../components/item/CreateOrder";
+import FooterNav from "../../components/footer/FooterNav";
+import PageHeader from "../../components/header/PageHeader";
 
 const OrderForm = () => {
   return (

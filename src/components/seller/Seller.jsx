@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const TitleContainer = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer; /* 추가된 스타일 */
 `;
 
 const ButtonText = styled.div`
@@ -56,16 +58,26 @@ const ImageBox = styled.div`
 `;
 
 const Seller = () => {
+  const navigate = useNavigate();
+
+  const handleItemAddClick = () => {
+    navigate('/sellerItemAdd');
+  };
+
+  const handleSalesHistoryClick = () => {
+    navigate('/sellerProductList');
+  };
+
   return (
     <>
       <TitleContainer>
         <MypageIcon src="../public/mypage.svg" alt="마이페이지 아이콘" />
         <Title>삼성스토어</Title>
       </TitleContainer>
-      <Button>
+      <Button onClick={handleItemAddClick}>
         <ButtonText>상품 등록하기</ButtonText>
       </Button>
-      <Button>
+      <Button onClick={handleSalesHistoryClick}>
         <ButtonText>판매 내역 페이지</ButtonText>
       </Button>
       <ImageGrid>

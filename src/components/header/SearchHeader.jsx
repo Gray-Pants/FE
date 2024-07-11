@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate, Link } from "react-router-dom";
-import { FiChevronLeft, FiSearch, FiX } from "react-icons/fi";
-import FooterNav from "./FooterNav";
+import { useNavigate } from "react-router-dom";
+import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
+import { apiClient } from "../../api/ApiClient";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -27,24 +27,7 @@ const Logo = styled.img`
   }
 `;
 
-const NavItem = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: black;
-
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`;
-
 const SearchBarContainer = styled.div`
-  position: relative; /* relative positioning for absolute child */
   display: flex;
   align-items: center;
   background-color: #f5f5f5;
@@ -67,30 +50,40 @@ const Input = styled.input`
   margin-left: 10px;
 `;
 
-const ClearButton = styled(FiX)`
-  position: absolute;
-  right: 10px;
-  cursor: pointer;
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 10px; /* 아이콘 간 간격 조절 */
+
+  svg {
+    margin-right: 10px; /* 아이콘 간 간격 조절 */
+    cursor: pointer; /* 커서 모양 변경 */
+  }
 `;
 
-const SearchBar = () => {
+const SearchHeader = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    // 검색 로직 구현
-    console.log("검색어:", searchText);
-  };
+  const handleSearch = (searchText) => {
 
-  const handleClearInput = () => {
-    setSearchText("");
+    apiClient.get(`/items/${searchText}`)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        // handle the error
+    });
+};
+
+
+  const handleCartClick = () => {
+    navigate("/cart");
   };
 
   return (
     <HeaderContainer>
-      <NavItem to="/">
-        <FiChevronLeft />
-      </NavItem>
+      <Logo src="/images/greyPantsIcon.png" alt="logo image" />
       <SearchBarContainer>
         <FiSearch />
         <Input
@@ -100,15 +93,17 @@ const SearchBar = () => {
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleSearch();
+              handleSearch(searchText);
             }
           }}
         />
-        <ClearButton onClick={handleClearInput} />
       </SearchBarContainer>
-      <FooterNav />
+      <IconContainer>
+        <FiShoppingCart size={20} onClick={handleCartClick} /> {/* 장바구니 아이콘 */}
+        <FiBell size={20} /> {/* 알림 아이콘 */}
+      </IconContainer>
     </HeaderContainer>
   );
 };
 
-export default SearchBar;
+export default SearchHeader;

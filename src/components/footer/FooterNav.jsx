@@ -61,10 +61,10 @@ const FooterNav = () => {
           <NavIcon as={FiSearch} />
           {/* <NavText>검색</NavText> */}
         </NavItem>
-        <NavItem to="/mypage">
-          <NavIcon as={FiUser} />
-          {/* <NavText>마이페이지</NavText> */}
-        </NavItem>
+          <NavItem to="/mypage">
+            <NavIcon as={FiUser} />
+            {/* <NavText>마이페이지</NavText> */}
+          </NavItem>
       </NavigationBar>
     </>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import PaymentCompleted from "../components/PaymentCompleted";
+import PaymentCompleted from "../../components/item/PaymentCompleted";
 
 
 const PaymentCompletePage = () => {

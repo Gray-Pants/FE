@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'; // 화살표 아이콘
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../../components/header/SearchBar';
 const SearchTermSection = styled.div`
   margin-bottom: 20px;
 `;

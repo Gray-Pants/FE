@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import PageHeader from "../components/PageHeader";
-import SelectAll from "../components/SelectAll";
-import ProductItem from "../components/ProductItem";
-import PriceSummary from "../components/PriceSummary";
-import OrderFooter from "../components/OrderFooter";
+import PageHeader from "../../components/header/PageHeader";
+import SelectAll from "../../components/item/SelectAll";
+import ProductItem from "../../components/item/ProductItem";
+import PriceSummary from "../../components/item/PriceSummary";
+import OrderFooter from "../../components/footer/OrderFooter";
 
 const CartContainer = styled.div`
   width: 400px;
