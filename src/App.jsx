@@ -1,5 +1,6 @@
 import {
   BrowserRouter,
+  Router, 
   Routes,
   Route,
   Outlet,
@@ -23,20 +24,21 @@ import SellerPage from "./pages/Seller";
 
 import MyPage from "./pages/MyPage";
 import EditMemberInfo from "./components/EditMemberInfo";
-import Main from "./pages/Main";
 import EditPassword from "./pages/EditPassword";
 import LikeList from "./pages/LikeList";
+import ReviewPage from "./pages/Review";
+import CreateReviewPage from "./pages/CreateReview";
 
 function App() {
   return (
     <AuthProvider>
-    <BrowserRouter>
-      <Container>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/itemOrder" element={<ItemOrder />} />
-          <Route path="/details" element={<ItemDetail />} />
-           <Route path="/login" element={<Login />} />
+      <BrowserRouter>
+        <Container>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/itemOrder" element={<ItemOrder />} />
+            <Route path="/details" element={<ItemDetail />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
@@ -44,17 +46,16 @@ function App() {
             <Route path="/search" element={<Search/>} />
             <Route path="/sellerJoin" element={<SellerJoin/>}/>
             <Route path="/seller" element={<SellerPage/>}/>
+           
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/editmemberinfo" element={<EditMemberInfo />} />
+            <Route path="/editpassword" element={<EditPassword />} /> 
+            <Route path="/likelist" element={<LikeList />} />
+            <Route path="/review" element={<ReviewPage />} />
+            <Route path="/createreview" element={<CreateReviewPage />} />
           </Routes>
         </Container>
       </BrowserRouter>
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-          <Route path="/editpassword" element={<EditPassword />} /> 
-          <Route path="/likelist" element={<LikeList />} /> 
-        </Routes>
-        
-      </Container>
-    </BrowserRouter>
     </AuthProvider>
   );
 }
