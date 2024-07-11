@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
 import { apiClient } from "../api/ApiClient";
+import axios from "axios";
+import qs from "qs";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -65,10 +67,17 @@ const SearchHeader = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = async () => {
-     apiClient.get(`/items/${searchText}`);
-    console.log("검색 결과:", searchText);
-  };
+  const handleSearch = (searchText) => {
+
+    apiClient.get(`/items/${searchText}`)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        // handle the error
+    });
+};
+
 
   const handleCartClick = () => {
     navigate("/cart");
@@ -86,7 +95,7 @@ const SearchHeader = () => {
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleSearch();
+              handleSearch(searchText);
             }
           }}
         />
