@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SearchHeader from "../components/SearchHeader";
 import Categories from "../components/Categories";
 import FooterNav from "../components/FooterNav";
+import { apiClient } from "../api/ApiClient";
 
 const Container = styled.div`
   display: flex;

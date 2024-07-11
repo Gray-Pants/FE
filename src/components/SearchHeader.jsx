@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
+import { apiClient } from "../api/ApiClient";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -64,9 +65,9 @@ const SearchHeader = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    // 검색 로직 구현
-    console.log("검색어:", searchText);
+  const handleSearch = async () => {
+     apiClient.get(`/items/${searchText}`);
+    console.log("검색 결과:", searchText);
   };
 
   const handleCartClick = () => {

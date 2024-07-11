@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiChevronLeft, FiHome, FiUser } from "react-icons/fi";
 
@@ -46,13 +46,19 @@ const NavText = styled.span`
 `;
 
 const PageHeader = () => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
+
   return (
     <>
       <NavigationBar>
-        <NavItem to="/footer">
+        <NavItem to="#" onClick={handleGoBack}>
           <FiChevronLeft />
         </NavItem>
-        <NavItem to="/footer">
+        <NavItem to="/order">
           <NavText>주문서 작성</NavText>
         </NavItem>
         <div
@@ -67,7 +73,7 @@ const PageHeader = () => {
               <FiHome />
             </NavIcon>
           </NavItem>
-          <NavItem to="/footer">
+          <NavItem to="/profile">
             <NavIcon>
               <FiUser />
             </NavIcon>
