@@ -2,12 +2,21 @@ import React from "react";
 import MyPage from "../../components/user/MyPage";
 import PageHeader from "../../components/header/PageHeader";
 import FooterNav from "../../components/footer/FooterNav";
+import EditPassword from "../../components/user/EditPassword";
+import { Routes, Route } from "react-router-dom";
+import EditMemberInfo from "../../components/user/EditMemberInfo";
+import LikeList from "../../components/user/LikeList";
 
 const Mypage = () => {
   return (
     <>
     <PageHeader />
-      <MyPage/>
+      <Routes>
+        <Route path="/" element={<MyPage />} />
+        <Route path="edit/password" element={<EditPassword />} />
+        <Route path="edit/profile" element={<EditMemberInfo />} />
+        <Route path="likes" element={<LikeList />} />
+      </Routes>
     <FooterNav />
     </>
   );

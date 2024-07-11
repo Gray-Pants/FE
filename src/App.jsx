@@ -28,9 +28,6 @@ import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
 
 import MyPage from "./pages/user/MyPage";
-import EditMemberInfo from "./components/user/EditMemberInfo";
-import EditPassword from "./pages/user/EditPassword";
-import LikeList from "./pages/user/LikeList";
 
 function App() {
   return (
@@ -39,7 +36,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Main />} />
-            <Route path="/mypage" element={
+            <Route path="/mypage/*" element={
               <AuthProtectedRoute>
                <MyPage />
               </AuthProtectedRoute>
@@ -54,9 +51,6 @@ function App() {
           <Route path="/search" element={<Search/>} />
           <Route path="/sellerJoin" element={<SellerJoin/>}/>
           <Route path="/seller" element={<SellerPage/>}/>
-          <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-          <Route path="/editpassword" element={<EditPassword />} /> 
-          <Route path="/likelist" element={<LikeList />} /> 
           <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
           <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
           <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>

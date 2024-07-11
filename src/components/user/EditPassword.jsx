@@ -45,6 +45,7 @@ const Input = styled.input`
   border: 1px solid #F6F6F6;
   border-radius: 10px; /* Reduced border radius */
   margin-bottom: 10px;
+  box-sizing: border-box; /* Include padding in width calculation */
 `;
 
 const SaveButton = styled.button`

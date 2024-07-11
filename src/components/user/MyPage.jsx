@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FiLock, FiSettings, FiHeart } from "react-icons/fi"; // react-icons 사용
+import { Link, useNavigate } from "react-router-dom";
 // --- Styled Components ---
 
 const HeaderSpacer = styled.div`
@@ -90,9 +91,10 @@ const MenuText = styled.div`
 // --- 컴포넌트 ---
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const handleMenuClick = (menu) => {
-    // 메뉴 클릭 시 처리 로직 (예: 페이지 이동)
-    console.log(`${menu} 메뉴 클릭`);
+    console.log(menu);
+    navigate(`/mypage/${menu}`);
   };
 
   return (
@@ -115,19 +117,19 @@ const MyPage = () => {
           </OrderReviewItem>
         </OrderReviewContainer>
         <MenuContainer>
-          <MenuItem onClick={() => handleMenuClick("비밀번호 수정")}>
+          <MenuItem onClick={() => handleMenuClick("edit/password")}>
             <MenuIcon>
               <FiLock />
             </MenuIcon>
             <MenuText>비밀번호 수정</MenuText>
           </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("회원 정보 수정")}>
+          <MenuItem onClick={() => handleMenuClick("edit/profile")}>
             <MenuIcon>
               <FiSettings />
             </MenuIcon>
             <MenuText>회원 정보 수정</MenuText>
           </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("찜 목록")}>
+          <MenuItem onClick={() => handleMenuClick("likes")}>
             <MenuIcon>
               <FiHeart />
             </MenuIcon>
