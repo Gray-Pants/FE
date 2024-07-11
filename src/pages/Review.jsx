@@ -6,7 +6,7 @@ import FooterNav from "../components/FooterNav";
 const ReviewPage = () => {
   return (
     <>
-      <PageHeader />
+      <PageHeader props={"리뷰"}/>
       <Review />
       <FooterNav />
     </>

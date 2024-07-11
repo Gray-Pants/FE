@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useEffect, useState} from "react";
 import styled from "styled-components";
 import { FiLock, FiSettings, FiHeart } from "react-icons/fi"; // react-icons 사용
 import { Link, useNavigate } from "react-router-dom";
+import { getMyProfile } from "../../api/UserApiService";
 // --- Styled Components ---
 
 const HeaderSpacer = styled.div`
@@ -91,29 +92,47 @@ const MenuText = styled.div`
 // --- 컴포넌트 ---
 
 const MyPage = () => {
+  const [profile, setProfile] = useState({
+    username: "지갑이 얇아 슬픈 짐승",
+    orderCount: 0,
+    reviewCount: 0
+  })
+
   const navigate = useNavigate();
+
   const handleMenuClick = (menu) => {
     console.log(menu);
     navigate(`/mypage/${menu}`);
   };
+
+  const setData = async () => {
+    const data = await getMyProfile();
+    console.log(data);
+    setProfile(data.data.response);
+  }
+
+
+  useEffect(()=>{
+    setData();
+  }, [])
 
   return (
     <>
       <HeaderSpacer />
         <ProfileHeader>
           <div>👤</div> {/* 프로필 이미지 대체 아이콘 */}
-          <ProfileName>지갑이 얇아 슬픈 짐승</ProfileName>
+          <ProfileName>{profile.username}</ProfileName>
           <WhiteButton>white</WhiteButton>
         </ProfileHeader>
         <OrderReviewContainer>
           <OrderReviewItem>
             <div>주문내역</div>
-            <div>0</div>
+            <div>{profile.orderCount}</div>
           </OrderReviewItem>
           <Divider />
           <OrderReviewItem>
             <div>나의 리뷰</div>
-            <div>0</div>
+            <div>{profile.reviewCount}</div>
           </OrderReviewItem>
         </OrderReviewContainer>
         <MenuContainer>

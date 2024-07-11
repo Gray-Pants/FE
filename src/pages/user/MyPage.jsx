@@ -10,7 +10,7 @@ import LikeList from "../../components/user/LikeList";
 const Mypage = () => {
   return (
     <>
-    <PageHeader />
+    <PageHeader props={`마이페이지`}/>
       <Routes>
         <Route path="/" element={<MyPage />} />
         <Route path="edit/password" element={<EditPassword />} />

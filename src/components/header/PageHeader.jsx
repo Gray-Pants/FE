@@ -45,7 +45,7 @@ const NavText = styled.span`
   font-size: 12px;
 `;
 
-const PageHeader = (props) => {
+const PageHeader = ({props}) => {
   return (
     <>
       <NavigationBar>
@@ -53,7 +53,7 @@ const PageHeader = (props) => {
           <FiChevronLeft />
         </NavItem>
         <NavItem to="/footer">
-          <NavText>props.title</NavText>
+          <NavText>{props}</NavText>
         </NavItem>
         <div
           style={{
