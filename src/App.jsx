@@ -54,7 +54,6 @@ function App() {
             <Route path="/likelist" element={<LikeList />} />
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/createreview" element={<CreateReviewPage />} />
-            <Route path="/reviewslist" element={<ReviewsListPage />} />
           </Routes>
         </Container>
       </BrowserRouter>

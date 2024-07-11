@@ -1,3 +1,4 @@
+/* 미완성
 import React from 'react';
 import styled from 'styled-components';
 
@@ -8,7 +9,7 @@ const ReviewContainer = styled.div`
   border: 1px solid #e0e0e0;
   padding: 16px;
   margin-bottom: 16px;
-  width: 100%; /* Ensure each review expands to container width */
+  width: 100%; 
 `;
 
 const ReviewImageContainer = styled.div`
@@ -25,7 +26,7 @@ const ReviewDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 16px; /* Adjusted margin for spacing */
+  margin-left: 16px; 
 `;
 
 const ReviewProductName = styled.h3`
@@ -46,13 +47,13 @@ const ReviewRatingStrong = styled.strong`
 `;
 
 const ReviewText = styled.div`
-  margin-top: 1px; /* Space between product details and review text */
+  margin-top: 1px;
 `;
 
 const ReviewListContainer = styled.div`
   padding: 16px;
-  width: 100%; /* Expand to container width */
-  max-width: 600px; /* Adjusted to fit comfortably within the container */
+  width: 100%; 
+  max-width: 600px;
   margin: 0 auto;
 `;
 
@@ -111,3 +112,4 @@ const ReviewsList = () => {
 };
 
 export default ReviewsList;
+*/

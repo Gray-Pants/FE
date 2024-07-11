@@ -21,6 +21,7 @@ const Image = styled.img`
 `;
 
 const ProductDetails = styled.div`
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -91,7 +92,7 @@ const ButtonContainer = styled.div`
 `;
 
 const CancelButton = styled.button`
-  width: 200px; // 버튼의 너비를 더 길게 설정
+  width: 200px; 
   padding: 10px 10%;
   font-size: 16px;
   border-radius: 4px;
@@ -102,7 +103,7 @@ const CancelButton = styled.button`
 `;
 
 const SubmitButton = styled.button`
-  width: 200px; // 버튼의 너비를 더 길게 설정
+  width: 200px; 
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 4px;
