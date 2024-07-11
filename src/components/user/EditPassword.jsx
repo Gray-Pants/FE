@@ -61,7 +61,7 @@ const SaveButton = styled.button`
 
 // Component
 
-const ChangePassword = () => {
+const Editpassword = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -108,4 +108,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default Editpassword;
