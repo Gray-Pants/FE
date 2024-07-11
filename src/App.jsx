@@ -12,12 +12,18 @@ import ItemOrder from "./pages/ItemOrder";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import AuthProvider from "./security/AuthContext";
-import PayCompleted from "./pages/PayCompleted";
 import Cart from "./pages/Cart";
 import PaymentCompletePage from "./pages/PayCompleted";
 import Category from "./pages/Category";
 import GlobalStyle from "./ui/Font";
 import Search from "./pages/Search";
+import SellerJoin from "./pages/SellerJoin";
+import SellerPage from "./pages/Seller";
+import SellerLoginPage from "./pages/Sellerlogin";
+import SellerProductListPage from "./pages/SellerProductList";
+import SellerProductDetailsPage from "./pages/SellerDetails";
+import SellerSalesListPage from './pages/SellerProductSalesDetails';
+
 function App() {
   return (
     <AuthProvider>
@@ -35,6 +41,12 @@ function App() {
             <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
             <Route path="/category" element={<Category/>} />
             <Route path="/search" element={<Search/>} />
+            <Route path="/sellerJoin" element={<SellerJoin/>}/>
+            <Route path="/seller" element={<SellerPage/>}/>
+            <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
+            <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
+            <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
+            <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
