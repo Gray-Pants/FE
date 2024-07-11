@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
-import { apiClient } from "../api/ApiClient";
-import axios from "axios";
-import qs from "qs";
+import { apiClient } from "../../api/ApiClient";
 
 const HeaderContainer = styled.div`
   display: flex;

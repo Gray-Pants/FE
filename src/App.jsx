@@ -36,6 +36,7 @@ function App() {
   return (
     <AuthProvider>
     <BrowserRouter>
+    <GlobalStyle />
       <Container>
         <Routes>
           <Route path="/" element={<Main />} />

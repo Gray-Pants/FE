@@ -1,5 +1,5 @@
 import React from "react";
-import ItemAdd from "../components/ItemAdd";
+import ItemAdd from "../../components/seller/ItemAdd";
 
 
 const SellerItemAdd = () => {
