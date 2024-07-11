@@ -11,7 +11,7 @@ import ItemDetail from "./pages/order/ItemDetail";
 import Main from "./pages/main/Main";
 import ItemOrder from "./pages/order/ItemOrder";
 import Login from "./pages/user/Login";
-import SignUp from "./pages/seller/Signup";
+import SignUp from "./pages/user/Signup";
 import AuthProvider, { AuthProtectedRoute } from "./security/AuthContext";
 import Cart from "./pages/user/Cart";
 import PaymentCompletePage from "./pages/order/PayCompleted";
@@ -25,7 +25,7 @@ import SellerPage from "./pages/seller/Seller";
 import SellerLoginPage from "./pages/Sellerlogin";
 import SellerProductListPage from "./pages/SellerProductList";
 import SellerProductDetailsPage from "./pages/SellerDetails";
-import SellerSalesListPage from './pages/SellerProductSalesDetails';
+import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
 
 import MyPage from "./pages/user/MyPage";
 import EditMemberInfo from "./components/user/EditMemberInfo";
