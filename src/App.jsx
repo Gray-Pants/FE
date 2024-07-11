@@ -1,5 +1,6 @@
 import {
   BrowserRouter,
+  Router, 
   Routes,
   Route,
   Outlet,
@@ -17,6 +18,13 @@ import Cart from "./pages/user/Cart";
 import PaymentCompletePage from "./pages/order/PayCompleted";
 import Me from "./pages/Me";
 
+import MyPage from "./pages/MyPage";
+import EditMemberInfo from "./components/EditMemberInfo";
+import EditPassword from "./pages/EditPassword";
+import LikeList from "./pages/LikeList";
+import ReviewPage from "./pages/Review";
+import CreateReviewPage from "./pages/CreateReview";
+import ReviewsListPage from "./pages/ReviewsList";
 import Category from "./pages/main/Category";
 import GlobalStyle from "./ui/Font";
 import Search from "./pages/order/Search";
@@ -62,6 +70,13 @@ function App() {
           <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
           <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
           <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
+
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/editmemberinfo" element={<EditMemberInfo />} />
+          <Route path="/editpassword" element={<EditPassword />} /> 
+          <Route path="/likelist" element={<LikeList />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/createreview" element={<CreateReviewPage />} />
         </Routes>
         
       </Container>
