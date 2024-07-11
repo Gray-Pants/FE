@@ -28,6 +28,7 @@ import EditPassword from "./pages/EditPassword";
 import LikeList from "./pages/LikeList";
 import ReviewPage from "./pages/Review";
 import CreateReviewPage from "./pages/CreateReview";
+import ReviewsListPage from "./pages/ReviewsList";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
             <Route path="/likelist" element={<LikeList />} />
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/createreview" element={<CreateReviewPage />} />
+            <Route path="/reviewslist" element={<ReviewsListPage />} />
           </Routes>
         </Container>
       </BrowserRouter>

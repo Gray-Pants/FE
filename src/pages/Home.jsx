@@ -1,10 +1,10 @@
 import React from "react";
-import WishList from "../components/WishList";
+import LikeList from "../components/LikeList";
 
 const Home = () => {
   return (
     <>
-      <WishList />
+      <LikeList />
       {/* <FooterNav /> */}
     </>
   );

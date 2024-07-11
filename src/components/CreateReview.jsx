@@ -3,35 +3,65 @@ import styled from 'styled-components';
 
 // --- Styled Components ---
 
+const ProductContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 75px;
+`;
+
 const ProductImage = styled.div`
-  text-align: center;
-  margin-bottom: 20px;
+  margin-right: 30p;
 `;
 
 const Image = styled.img`
-  max-width: 150px;
+  width: 80px;
+  height: auto;
+  border-radius: 4px;
 `;
 
-const ProductName = styled.h2`
-  font-size: 20px;
+const ProductDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const BrandName = styled.div`
+  font-size: 10px;
+  color: #888;
+  margin-bottom: 5px;
+`;
+
+const ProductName = styled.div`
+  font-size: 14px;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+`;
+
+const ProductInfo = styled.div`
+  font-size: 14px;
+  color: #888;
 `;
 
 const RatingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  width: 100%;
   margin-bottom: 20px;
 `;
 
-const RatingSpan = styled.span`
-  margin-right: 10px;
+const RatingLine = styled.div`
+  width: 100%;
+  height: 2px;
+  background-color: orange;
+  margin-bottom: 10px;
+`;
+
+const RatingSpan = styled.div`
+  margin-bottom: 10px;
 `;
 
 const RatingStars = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 const Star = styled.span`
@@ -61,7 +91,8 @@ const ButtonContainer = styled.div`
 `;
 
 const CancelButton = styled.button`
-  padding: 10px 20px;
+  width: 200px; // 버튼의 너비를 더 길게 설정
+  padding: 10px 10%;
   font-size: 16px;
   border-radius: 4px;
   cursor: pointer;
@@ -71,11 +102,12 @@ const CancelButton = styled.button`
 `;
 
 const SubmitButton = styled.button`
+  width: 200px; // 버튼의 너비를 더 길게 설정
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #4caf50;
+  background-color: orange;
   color: white;
   border: none;
 `;
@@ -96,12 +128,19 @@ const ReviewPage = () => {
 
   return (
     <>
-      <ProductImage>
-        <Image src="https://via.placeholder.com/150" alt="Product" />
-      </ProductImage>
-      <ProductName>브랜드 마비 트레이닝 반바지</ProductName>
+      <ProductContainer>
+        <ProductImage>
+          <Image src="https://via.placeholder.com/80" alt="Product" />
+        </ProductImage>
+        <ProductDetails>
+          <BrandName>브렌슨</BrandName>
+          <ProductName>미니멀 트레이닝 essential 윌텍 반바지</ProductName>
+          <ProductInfo>블랙 | FREE</ProductInfo>
+        </ProductDetails>
+      </ProductContainer>
       <RatingContainer>
-        <RatingSpan>상품은 어떠셨나요?</RatingSpan>
+        <RatingLine />
+        <RatingSpan>상품은 만족하셨나요?</RatingSpan>
         <RatingStars>
           {[1, 2, 3, 4, 5].map((star) => (
             <Star

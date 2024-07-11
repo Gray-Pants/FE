@@ -13,3 +13,4 @@ const EditMemberInfo = () => {
   );
 };
 
+export default EditMemberInfo;
