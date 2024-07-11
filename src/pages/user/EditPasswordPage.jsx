@@ -3,7 +3,7 @@ import PageHeader from "../../components/header/PageHeader";
 import FooterNav from "../../components/footer/FooterNav";
 import EditPassword from "../../components/user/EditPassword"
 
-const changePassword = () => {
+const EditPasswordPage = () => {
   return (
     <>
     <PageHeader />
@@ -13,4 +13,4 @@ const changePassword = () => {
   );
 };
 
-export default changePassword;
+export default EditPasswordPage;

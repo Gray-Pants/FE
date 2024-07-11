@@ -105,7 +105,7 @@ const ItemPrice = styled.div`
 
 // --- 컴포넌트 ---
 
-const WishlistPage = () => {
+const LikeList = () => {
   // 예시 데이터
   const wishlistItems = [
     { id: 1, market: "마켓 1", name: "상품 1", discount: "10%", price: "₩9,000", image: "" },
@@ -143,4 +143,4 @@ const WishlistPage = () => {
   );
 };
 
-export default WishlistPage;
+export default LikeList;
