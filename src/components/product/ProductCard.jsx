@@ -1,78 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; // 하트 아이콘
 
 const ProductCardContainer = styled.div`
   border: 1px solid #ddd;
-  padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   height: 300px;
   object-fit: cover;
+`;
+
+const ProductInfo = styled.div`
+  padding: 15px;
+`;
+
+const SellerInfo = styled.div`
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
 `;
 
-const ProductTitle = styled.h3`
-  font-size: 18px;
+const SellerAvatar = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+`;
+
+const SellerName = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+`;
+
+const ProductTags = styled.div`
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 10px;
+`;
+
+const ProductName = styled.h3`
+  font-size: 16px;
   margin-bottom: 5px;
 `;
 
 const ProductPrice = styled.p`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin: 0;
 `;
 
-const RatingContainer = styled.div`
-  display: flex;
-  align-items: center;
+const LikeButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-left: auto; // 오른쪽 정렬
 `;
 
-const RatingStar = styled.span`
-  color: #f8ce0b;
-  margin-right: 5px;
-`;
-
-const ReviewCount = styled.span`
+const LikeCount = styled.span`
   font-size: 14px;
-  color: #777;
+  margin-left: 5px;
 `;
 
-const ProductCard = ({ product }) => {
-  const renderStars = () => {
-    const stars = [];
-    const fullStars = Math.floor(product.rating);
-    const hasHalfStar = product.rating - fullStars >= 0.5;
+function ProductCard() {
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(345);
 
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<RatingStar key={i} as={BsStarFill} />);
-    }
-    if (hasHalfStar) {
-      stars.push(<RatingStar key={fullStars} as={BsStarHalf} />);
-    }
-    for (let i = fullStars + hasHalfStar; i < 5; i++) {
-      stars.push(<RatingStar key={i} as={BsStar} />);
-    }
-    return stars;
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked);
+    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
   };
 
   return (
     <ProductCardContainer>
       <ProductImage
         src="../../public/images/스와퍼(상품이미지).svg"
-        alt="스와퍼 상품이미지"
+        alt="상품 이미지"
       />
-      <ProductTitle>"회색바지"</ProductTitle>
-      <ProductPrice>15,000원</ProductPrice>
-      <RatingContainer>
-        {renderStars()}
-        <ReviewCount>{product.reviewCount} 리뷰</ReviewCount>
-      </RatingContainer>
+      <ProductInfo>
+        <SellerInfo>
+          <SellerAvatar
+            src="../../public/images/김바덕.jpg"
+            alt="판매자 이미지"
+          />
+          <SellerName>동대문 판매왕</SellerName>
+          <LikeButton onClick={handleLikeClick}>
+            {isLiked ? (
+              <AiFillHeart size={24} color="red" /> // 빨간 하트
+            ) : (
+              <AiOutlineHeart size={24} /> // 빈 하트
+            )}
+            <LikeCount>{likeCount}</LikeCount>
+          </LikeButton>
+        </SellerInfo>
+        <ProductTags>#캐주얼 #신상 34.5만</ProductTags>
+        <ProductName>
+          [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠
+        </ProductName>
+        <ProductPrice>50,000원</ProductPrice>
+        <ProductName>
+          [real cheap] Gray pants. Signature Cotton Bermuda pants
+        </ProductName>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>★★★★★</span>
+          <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
+            4.8
+          </span>
+          <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
+            리뷰 5개
+          </span>
+        </div>
+      </ProductInfo>
     </ProductCardContainer>
   );
-};
+}
 
 export default ProductCard;
