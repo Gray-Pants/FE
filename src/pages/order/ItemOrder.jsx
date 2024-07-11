@@ -6,9 +6,9 @@ import PageHeader from "../../components/header/PageHeader";
 const OrderForm = () => {
   return (
     <>
-      <PageHeader/>
-        <CreateOrder />
-        <FooterNav />
+      <PageHeader />
+      <CreateOrder />
+      <FooterNav />
     </>
   );
 };

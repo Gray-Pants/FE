@@ -1,9 +1,9 @@
 import React from "react";
-import SearchHeader from "../components/SearchHeader";
-import ItemDetailCategory from "../components/ItemDetailCategory";
-import ProductCard from "../components/ProductCard";
-import ProductDetailsTab from "../components/ProductDetailsTab";
-import FooterNav from "../components/FooterNav";
+import SearchHeader from "../../components/header/SearchHeader";
+import ItemDetailCategory from "../../components/ItemDetailCategory";
+import ProductCard from "../../components/product/ProductCard";
+// import ProductDetailsTab from "../../components/product/ProductDetailsTab";
+import FooterNav from "../../components/footer/FooterNav";
 
 const ItemDetail = () => {
   return (
@@ -11,7 +11,7 @@ const ItemDetail = () => {
       <SearchHeader />
       <ItemDetailCategory />
       <ProductCard />
-      <ProductDetailsTab />
+      {/* <ProductDetailsTab /> */}
       <FooterNav />
     </>
   );
