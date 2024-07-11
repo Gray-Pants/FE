@@ -17,7 +17,7 @@ import PaymentCompletePage from "./pages/PayCompleted";
 import Category from "./pages/Category";
 import GlobalStyle from "./ui/Font";
 import Search from "./pages/Search";
-import SellerJoin from "./pages/SellerJoin";
+import SellerItemAdd from "./pages/SellerItemAdd";
 import SellerPage from "./pages/Seller";
 import SellerLoginPage from "./pages/Sellerlogin";
 import SellerProductListPage from "./pages/SellerProductList";
@@ -41,7 +41,7 @@ function App() {
             <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
             <Route path="/category" element={<Category/>} />
             <Route path="/search" element={<Search/>} />
-            <Route path="/sellerJoin" element={<SellerJoin/>}/>
+            <Route path="/sellerItemAdd" element={<SellerItemAdd />}/>
             <Route path="/seller" element={<SellerPage/>}/>
             <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
             <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
