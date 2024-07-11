@@ -1,5 +1,5 @@
 import React from "react";
-import SellerLogin from "../components/SellerLogin";
+import SellerLogin from "../../components/seller/SellerLogin";
 
 
 const SellerLoginPage = () => {

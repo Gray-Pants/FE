@@ -22,9 +22,9 @@ import GlobalStyle from "./ui/Font";
 import Search from "./pages/order/Search";
 import SellerJoin from "./pages/seller/SellerJoin";
 import SellerPage from "./pages/seller/Seller";
-import SellerLoginPage from "./pages/Sellerlogin";
-import SellerProductListPage from "./pages/SellerProductList";
-import SellerProductDetailsPage from "./pages/SellerDetails";
+import SellerLoginPage from "./pages/seller/Sellerlogin";
+import SellerProductListPage from "./pages/seller/SellerProductList";
+import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
 
 import MyPage from "./pages/user/MyPage";
