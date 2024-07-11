@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiChevronRight } from "react-icons/fi";
-import FooterNav from "../components/FooterNav";
+import FooterNav from "../../components/footer/FooterNav";
 
 // --- Styled Components ---
 

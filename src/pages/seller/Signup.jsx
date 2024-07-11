@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Container } from "../ui/container";
+import { Container } from "../../ui/container";
 
 const Logo = styled.img`
     width: 100px;

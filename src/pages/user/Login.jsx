@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../security/AuthContext';
+import { useAuth } from '../../security/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const LoginContainer = styled.div`
     display: flex;
@@ -75,6 +76,7 @@ const Login = () => {
         password: '',
     });
 
+    const navigate = useNavigate();
 
     const authContext = useAuth();
 
@@ -87,9 +89,9 @@ const Login = () => {
 
     async function handleSubmit() {
         if(await authContext.login(loginState.email, loginState.password)){
-            navigate(`/welcome/${loginState.email}`)
+            navigate(`/`)
         } else {
-            setShowErrorMessage(true)
+            alert('로그인 실패');
         }
     }
 

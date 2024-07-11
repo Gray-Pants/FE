@@ -16,7 +16,6 @@ const NavigationBar = styled.div`
   height: 60px;
   border-top: 2px solid #d2dae8;
   box-sizing: border-box;
-
   width: calc(100vw - 40px);
 `;
 
@@ -62,10 +61,10 @@ const FooterNav = () => {
           <NavIcon as={FiSearch} />
           {/* <NavText>검색</NavText> */}
         </NavItem>
-        <NavItem to="/mypage">
-          <NavIcon as={FiUser} />
-          {/* <NavText>마이페이지</NavText> */}
-        </NavItem>
+          <NavItem to="/mypage">
+            <NavIcon as={FiUser} />
+            {/* <NavText>마이페이지</NavText> */}
+          </NavItem>
       </NavigationBar>
     </>
   );
