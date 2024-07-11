@@ -38,23 +38,23 @@ const Label = styled.label`
 
 const Input = styled.input`
   width: 100%;
-  padding: 15px; /* Increased padding for more input height */
-  font-size: 1rem; /* Increased font size */
+  padding: 15px; 
+  font-size: 1rem; 
   color: #7C7C7C;
   background-color: #F6F6F6;
   border: 1px solid #F6F6F6;
-  border-radius: 10px; /* Reduced border radius */
+  border-radius: 10px; 
   margin-bottom: 10px;
   box-sizing: border-box; /* Include padding in width calculation */
 `;
 
 const SaveButton = styled.button`
   width: 100%;
-  padding: 15px; /* Increased padding for larger button */
+  padding: 15px; 
   background-color: #EAEAEA;
   border: none;
   border-radius: 10px;
-  font-size: 1rem; /* Increased font size */
+  font-size: 1rem; 
   color: #000000;
   cursor: pointer;
   margin-top: 20px;

@@ -14,19 +14,19 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* 너비 100%로 설정 */
+  width: 100%;
   background-color: #fff;
 `;
 
 const WishlistHeader = styled.div`
   display: flex;
-  justify-content: center; /* 가운데 정렬 */
+  justify-content: center; 
   align-items: center;
-  width: 96%; /* 너비 96%로 설정 */
+  width: 96%; 
   padding: 15px 0;
   background-color: #fff;
   margin-left: 8px;
-  position: relative; /* 상대 위치 */
+  position: relative; 
 `;
 
 const WishlistTitle = styled.div`
@@ -38,35 +38,35 @@ const WishlistTitle = styled.div`
 const WishlistCount = styled.div`
   font-size: 0.9rem;
   color: #333;
-  position: absolute; /* 절대 위치 */
-  right: 0; /* 오른쪽에 고정 */
+  position: absolute; 
+  right: 0; 
 `;
 
 const GalleryContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 100%; /* 너비 100%로 설정 */
+  width: 100%; 
   padding: 10px 0;
 `;
 
 const GalleryItem = styled.div`
-  width: 30%; /* 너비 30%로 설정 (한 줄에 3개) */
+  width: 30%; 
   margin-bottom: 20px;
-  text-align: left; /* 왼쪽 정렬 */
+  text-align: left; 
 `;
 
 const ItemImage = styled.img`
   width: 100%;
   height: auto;
   border-radius: 5px;
-  background-color: #ccc; /* 임시 배경색 */
+  background-color: #ccc;
 `;
 
 const ItemDetails = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* 왼쪽 정렬 */
+  align-items: flex-start; 
   margin-top: 10px;
 `;
 
@@ -89,7 +89,7 @@ const PriceContainer = styled.div`
 
 const ItemDiscount = styled.div`
   font-size: 0.8rem;
-  color: #e74c3c; /* 할인률 색상 */
+  color: #e74c3c; 
   margin-right: 10px;
 `;
 
