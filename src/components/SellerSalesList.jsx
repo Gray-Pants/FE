@@ -1,92 +1,105 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SellerSalesList = () => {
-  return (
-    <>
-      <Title>판매 내역</Title>
-      {[1, 2, 3].map((index) => (
-        <SalesEntry key={index}>
-          <OrderDate>주문 날짜</OrderDate>
-          <SalesTable>
-            <TableHeader>
-              <HeaderItem>상품명</HeaderItem>
-              <HeaderItem>재고</HeaderItem>
-              <HeaderItem>판매수량</HeaderItem>
-              <HeaderItem>가격</HeaderItem>
-              <HeaderItem>총판매가격</HeaderItem>
-            </TableHeader>
-            <TableRow>
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-            </TableRow>
-          </SalesTable>
-        </SalesEntry>
-      ))}
-    </>
-  );
-};
+const SalesHistoryWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+`;
 
 const Title = styled.h1`
-  width: 100%;
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 32px;
-  line-height: 39px;
+  font-size: 24px;
+  line-height: 29px;
   text-align: center;
   color: #000000;
-  margin: 20px 0;
+  margin-bottom: 20px;
 `;
 
-const SalesEntry = styled.div`
-  margin-top: 30px;
+const OrderSection = styled.section`
+  margin-bottom: 30px;
 `;
 
 const OrderDate = styled.h2`
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 22px;
   color: #000000;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 `;
 
-const SalesTable = styled.div`
+const Table = styled.table`
   width: 100%;
+  border-collapse: collapse;
 `;
 
-const TableHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const HeaderItem = styled.div`
-  flex: 1;
+const TableHeader = styled.th`
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 22px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 17px;
   text-align: center;
   color: #000000;
+  padding: 10px 5px;
+  border-bottom: 1px solid #D9D9D9;
 `;
 
-const TableRow = styled.div`
-  display: flex;
-  justify-content: space-between;
+const TableCell = styled.td`
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  padding: 10px 5px;
+  background: #F9F9F9;
 `;
 
-const TableCell = styled.div`
-  flex: 1;
-  height: 20px;
-  background: #D9D9D9;
-  margin: 0 2px;
-`;
+const OrderTable = ({ date }) => (
+  <OrderSection>
+    <OrderDate>{date}</OrderDate>
+    <Table>
+      <thead>
+        <tr>
+          <TableHeader>상품명</TableHeader>
+          <TableHeader>재고</TableHeader>
+          <TableHeader>판매 수량</TableHeader>
+          <TableHeader>가격</TableHeader>
+          <TableHeader>총 판매가격</TableHeader>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <TableCell>상품 A</TableCell>
+          <TableCell>10</TableCell>
+          <TableCell>2</TableCell>
+          <TableCell>10,000원</TableCell>
+          <TableCell>20,000원</TableCell>
+        </tr>
+        <tr>
+          <TableCell>상품 B</TableCell>
+          <TableCell>15</TableCell>
+          <TableCell>1</TableCell>
+          <TableCell>15,000원</TableCell>
+          <TableCell>15,000원</TableCell>
+        </tr>
+      </tbody>
+    </Table>
+  </OrderSection>
+);
 
-export default SellerSalesList;
+const SalesHistory = () => {
+  return (
+    <SalesHistoryWrapper>
+      <Title>판매 내역</Title>
+      <OrderTable date="2023년 7월 1일" />
+      <OrderTable date="2023년 6월 30일" />
+      <OrderTable date="2023년 6월 29일" />
+    </SalesHistoryWrapper>
+  );
+};
+
+export default SalesHistory;
