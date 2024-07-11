@@ -45,7 +45,7 @@ const NavText = styled.span`
   font-size: 12px;
 `;
 
-const PageHeader = () => {
+const PageHeader = (props) => {
   return (
     <>
       <NavigationBar>
@@ -53,7 +53,7 @@ const PageHeader = () => {
           <FiChevronLeft />
         </NavItem>
         <NavItem to="/footer">
-          <NavText>주문서 작성</NavText>
+          <NavText>props.title</NavText>
         </NavItem>
         <div
           style={{

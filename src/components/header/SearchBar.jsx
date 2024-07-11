@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { FiChevronLeft, FiSearch, FiX } from "react-icons/fi";
-import FooterNav from "./FooterNav";
+import FooterNav from "../footer/FooterNav";
 
 const HeaderContainer = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import React from "react";
-import Seller from "../components/Seller";
-import FooterNav from "../components/FooterNav";
+import Seller from "../../components/seller/Seller";
+import FooterNav from "../../components/footer/FooterNav";
 
 
 const SellerPage = () => {

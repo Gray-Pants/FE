@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import InfiniteScroll from "react-infinite-scroll-component";
-import SearchHeader from "../components/SearchHeader";
-import Categories from "../components/Categories";
-import FooterNav from "../components/FooterNav";
+import SearchHeader from "../../components/header/SearchHeader";
+import Categories from "../../components/main/Categories";
+import FooterNav from "../../components/footer/FooterNav";
 
 const Container = styled.div`
   display: flex;
