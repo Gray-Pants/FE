@@ -1,34 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SearchHeader from "../../components/header/SearchHeader";
-import Categories from "../../components/main/Categories";
 import FooterNav from "../../components/footer/FooterNav";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: calc(100vw - 40px);
-  min-width: 250px;
-  max-width: 400px;
-  margin: auto;
-  height: 100vh;
-`;
-
-const MainContent = styled.div`
-  flex-grow: 1;
-  width: 100%;
-`;
-
-const Banner = styled.div`
-  width: 100%;
-  height: 200px; /* Placeholder for banner height */
-  background-color: #ddd; /* Placeholder for banner background */
-`;
+import Filter from "../../components/main/Filter";
+import ItemList from "../../components/item/ItemList";
 
 const ProductSection = styled.div`
   padding: 10px 0;
@@ -53,31 +28,29 @@ const Recommand = styled.div`
   text-align: left;
 `;
 
-const Main = () => {
+const ItemListPage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Load data
+    // Load all data
     fetchData();
   }, []);
 
   const fetchData = () => {
     // Simulate fetching data from an API
-    const newProducts = Array.from({ length: 30 }, (_, index) => (
+    const allProducts = Array.from({ length: 30 }, (_, index) => (
       <ProductItem key={index} />
     ));
-    setProducts(newProducts);
+    setProducts(allProducts);
   };
 
   return (
     <>
       <SearchHeader />
-      <MainContent>
-        <Banner src="" alt="bannerImg" />
-        <Categories />
-      </MainContent>
+      <ItemList />
+      <Filter />
       <ProductSection>
-        <Recommand>추천 아이템</Recommand>
+        <Recommand>상품 갯수: {products.length}</Recommand>
         {products}
       </ProductSection>
       <FooterNav />
@@ -85,4 +58,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ItemListPage;

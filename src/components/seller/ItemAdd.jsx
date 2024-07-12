@@ -89,17 +89,15 @@ const ItemAdd = () => {
   const [itemCategory, setItemCategory] = useState('');
   const [itemPrice, setItemPrice] = useState('');
   const [itemStock, setItemStock] = useState('');
-  const [itemImages, setItemImages] = useState([]);
+  let [itemImages, setItemImages] = useState([]);
   const [itemDetailImage, setItemDetailImage] = useState(null);
 
   const categoryOptions = ['아우터', '긴팔', '반팔', '반바지', '긴바지', '치마', '운동화', '부츠', '슬리퍼', '볼캡', '버킷햇', '비니', '백팩', '크로스백', '숄더백', '팔찌', '반지', '목걸이', '여성속옷', '남성속옷'];
 
-  const handleItemImageChange = (index, file) => {
-
-    const newImages = [...itemImages];
-    newImages[index] = file;
-    setItemImages(newImages.slice(0, 4)); // 최대 3개의 이미지만 유지
+  const handleItemImageChange = (e) => {
+    const selectImages = Array.from(e.target.files);
     
+    setItemImages(selectImages); // 최대 3개의 이미지만 유지
   };
 
   const handleSubmit = (e) => {
@@ -109,12 +107,13 @@ const ItemAdd = () => {
     formData.append('itemCategory', itemCategory);
     formData.append('itemPrice', itemPrice);
     formData.append('stock', itemStock);
-    itemImages.forEach(itemImage=> formData.append("itemPhotos", itemImage))
+    itemImages.forEach((itemImage) => formData.append(`itemPhotos`, itemImage));
     if (itemDetailImage) {
       formData.append('itemDescImg', itemDetailImage);
     }
 
-    console.log(formData.get('itemName'));
+    console.log(formData.get('itemPhotos'));
+    console.log(formData.get('itemDescImg'));
 
     apiClient.post('/items/item', formData, {
       headers: {
@@ -162,6 +161,7 @@ const ItemAdd = () => {
             type="file"
             onChange={handleItemImageChange}
             multiple // 다중 파일 선택 가능
+            accept='.jpg, .jpeg, .png'
           />
         </InputContainer>
 
