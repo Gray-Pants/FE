@@ -18,9 +18,7 @@ import Cart from "./pages/user/Cart";
 import PaymentCompletePage from "./pages/order/PayCompleted";
 
 import Mypage from "./pages/user/MyPage";
-import EditMemberInfo from "./components/user/EditMemberInfo";
-import EditPasswordPage from "./pages/user/EditPasswordPage";
-import LikeList from "./components/user/LikeList";
+import Me from "./pages/Me";
 import ReviewPage from "./pages/ReviewPage";
 import CreateReviewPage from "./pages/CreateReviewPage";
 import Category from "./pages/main/Category";
@@ -41,6 +39,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/me" element={<Me />} />
             <Route path="/mypage/*" element={
               <AuthProtectedRoute>
                <Mypage />
@@ -56,18 +55,11 @@ function App() {
           <Route path="/search" element={<Search/>} />
           <Route path="/sellerItemAdd" element={<SellerItemAdd />}/>
           <Route path="/seller" element={<SellerPage/>}/>
-          <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-          <Route path="/editpassword" element={<EditPasswordPage />} /> 
-          <Route path="/likelist" element={<LikeList />} /> 
           <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
           <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
           <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
           <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
 
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-          <Route path="/editpassword" element={<EditPasswordPage />} /> 
-          <Route path="/likelist" element={<LikeList />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
         </Routes>

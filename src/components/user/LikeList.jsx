@@ -38,7 +38,7 @@ const WishlistTitle = styled.div`
 const WishlistCount = styled.div`
   font-size: 0.9rem;
   color: #333;
-  position: absolute; 
+  position: right; 
   right: 0; 
 `;
 
@@ -106,7 +106,7 @@ const LikeList = () => {
 
   const getData = async () => {
     const data = await getMyLikes();
-    // console.log(`data : ` + data);
+    // console.log(data.data.response);
     setWishListItems(data.data.response);
   }
 
@@ -133,9 +133,9 @@ const LikeList = () => {
         <GalleryContainer>
           {wishListItems?.map((like) => (
             <GalleryItem key={like.likeId}>
-              <ItemImage src={like.item.itemPhotos[0]} alt={like.item.itemName} />
+              <ItemImage src={like?.item?.itemPhotos[0]} alt={like?.item?.itemName} />
               <ItemDetails>
-                <MarketName>{like.item.storeName}</MarketName>
+                <MarketName>{like?.item?.storeName}</MarketName>
                 <ItemName>{like.item.itemName}</ItemName>
                 <PriceContainer>
                   <ItemDiscount>10%</ItemDiscount>
