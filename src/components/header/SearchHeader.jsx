@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
+import { apiClient } from "../../api/ApiClient";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -64,10 +65,17 @@ const SearchHeader = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    // 검색 로직 구현
-    console.log("검색어:", searchText);
-  };
+  const handleSearch = (searchText) => {
+
+    apiClient.get(`/items/${searchText}`)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        // handle the error
+    });
+};
+
 
   const handleCartClick = () => {
     navigate("/cart");
@@ -85,7 +93,7 @@ const SearchHeader = () => {
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleSearch();
+              handleSearch(searchText);
             }
           }}
         />

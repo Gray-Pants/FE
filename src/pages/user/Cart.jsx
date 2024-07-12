@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PageHeader from "../../components/header/PageHeader";
-import SelectAll from "../../components/SelectAll";
-import ProductItem from "../../components/product/ProductItem";
-import PriceSummary from "../../components/PriceSummary";
+import SelectAll from "../../components/item/SelectAll";
+import ProductItem from "../../components/item/ProductItem";
+import PriceSummary from "../../components/item/PriceSummary";
 import OrderFooter from "../../components/footer/OrderFooter";
 
 const CartContainer = styled.div`

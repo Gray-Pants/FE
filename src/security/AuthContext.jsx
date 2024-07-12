@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { apiClient } from "../api/ApiClient";
 import { executeJwtAuthenticationService, executeRefreshTokenService } from "../api/AuthenticationApiService";
-import { Navigate } from 'react-router-dom';
+import Login from "../pages/user/Login";
 
 //1: Create a Context
 export const AuthContext = createContext()
@@ -12,7 +12,7 @@ export const useAuth = () => useContext(AuthContext)
 export function AuthProtectedRoute({ children }) {
   const auth = useAuth();
 
-  return auth.isAuthenticated ? children : <Navigate to="/login" />;
+  return auth.isAuthenticated ? children : <Login />;
 }
 
 //2: Share the created context with other components
@@ -48,6 +48,7 @@ export default function AuthProvider({ children }) {
             } catch(error) {
                 logout()
             }
+            console.log('refreshing token');
         }
         if(!isAuthenticated)
             refresh();

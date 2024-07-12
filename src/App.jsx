@@ -1,5 +1,6 @@
 import {
   BrowserRouter,
+  Router,
   Routes,
   Route,
   Outlet,
@@ -14,30 +15,30 @@ import SignUp from "./pages/user/Signup";
 import AuthProvider, { AuthProtectedRoute } from "./security/AuthContext";
 import Cart from "./pages/user/Cart";
 import PaymentCompletePage from "./pages/order/PayCompleted";
-import Me from "./pages/Me";
 
+import Mypage from "./pages/user/MyPage";
+import Me from "./pages/Me";
+import ReviewPage from "./pages/ReviewPage";
+import CreateReviewPage from "./pages/CreateReviewPage";
 import Category from "./pages/main/Category";
 import GlobalStyle from "./ui/Font";
 import Search from "./pages/order/Search";
-import SellerJoin from "./pages/seller/SellerJoin";
+import SellerItemAdd from "./pages/seller/SellerItemAdd";
 import SellerPage from "./pages/seller/Seller";
 import SellerLoginPage from "./pages/seller/Sellerlogin";
 import SellerProductListPage from "./pages/seller/SellerProductList";
 import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from "./pages/seller/SellerProductSalesDetails";
 
-import MyPage from "./pages/user/MyPage";
-import EditMemberInfo from "./components/user/EditMemberInfo";
-import EditPassword from "./pages/user/EditPassword";
-import LikeList from "./pages/user/LikeList";
-
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <GlobalStyle />
         <Container>
           <Routes>
             <Route path="/" element={<Main />} />
+            <Route path="/me" element={<Me />} />
             <Route
               path="/mypage"
               element={
@@ -59,6 +60,7 @@ function App() {
             <Route path="/editmemberinfo" element={<EditMemberInfo />} />
             <Route path="/editpassword" element={<EditPassword />} />
             <Route path="/likelist" element={<LikeList />} />
+            <Route path="/sellerItemAdd" element={<SellerItemAdd />} />
             <Route path="/sellerLogin" element={<SellerLoginPage />} />
             <Route
               path="/sellerProductList"

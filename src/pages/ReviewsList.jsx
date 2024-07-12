@@ -1,16 +1,18 @@
+/* 미완성
 import React from "react";
-import Review from "../../components/Review";
+import ReviewsList from "../components/ReviewsList";
 import PageHeader from "../components/PageHeader";
 import FooterNav from "../components/FooterNav";
 
-const ReviewPage = () => {
+const ReviewsListPage = () => {
   return (
     <>
       <PageHeader />
-      <Review />
+        <ReviewsList />
       <FooterNav />
     </>
   );
 };
 
-export default ReviewPage;
+export default ReviewsListPage;
+*/
