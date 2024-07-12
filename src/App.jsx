@@ -30,6 +30,7 @@ import SellerLoginPage from "./pages/seller/Sellerlogin";
 import SellerProductListPage from "./pages/seller/SellerProductList";
 import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
+import ItemListPage from "./pages/main/ItemListPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/itemList" element={<ItemListPage />} />
           <Route path="/me" element={<Me />} />
             <Route path="/mypage/*" element={
               <AuthProtectedRoute>
@@ -51,7 +53,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
-          <Route path="/category" element={<Category/>} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/:category/:subCategory" element={<ItemListPage />} />
           <Route path="/search" element={<Search/>} />
           <Route path="/sellerItemAdd" element={<SellerItemAdd />}/>
           <Route path="/seller" element={<SellerPage/>}/>
