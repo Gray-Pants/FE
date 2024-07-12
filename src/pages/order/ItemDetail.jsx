@@ -8,7 +8,6 @@ const ItemDetail = () => {
     <>
       <SearchHeader />
       <ItemDetailCategory />
-      {/* <ProductCard /> */}
     </>
   );
 };
