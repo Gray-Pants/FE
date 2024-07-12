@@ -21,7 +21,7 @@ export default function AuthProvider({ children }) {
     //3: Put some state in the context
     const [isAuthenticated, setAuthenticated] = useState(false)
 
-    const [email, setEmail] = useState(null)
+    const [isStore, setIsStore] = useState(false)
 
     const [token, setToken] = useState(null)
 
@@ -54,17 +54,20 @@ export default function AuthProvider({ children }) {
             refresh();
     }, [])
 
-    async function login(email, password) {
+    async function login(email, password, role) {
 
+        debugger;
         try {
+            if(role === `store`)
+                setIsStore(true);
 
-            const response = await executeJwtAuthenticationService(email, password);
+            const response = await executeJwtAuthenticationService(email, password, role);
 
+        console.log(`login called with ${email} ${password} ${role}`);
             if(response.status==200){
                 const jwtToken = 'Bearer ' + response.headers['access-token'];
                 
                 setAuthenticated(true)
-                setEmail(email)
                 setToken(jwtToken)
 
                 apiClient.interceptors.request.use(
@@ -82,19 +85,30 @@ export default function AuthProvider({ children }) {
             }    
         } catch(error) {
             logout()
+            console.log(error)
             return false
         }
     }
 
+    // function setUserAccessToken(jwtToken) {
+    //     setAuthenticated(true)
+    //     setToken(jwtToken)
+    //     apiClient.interceptors.request.use(
+    //         (config) => {
+    //             console.log('intercepting and adding a token')
+    //             config.headers.Authorization = jwtToken;
+    //             return config
+    //     })
+    // }
 
     function logout() {
         setAuthenticated(false)
         setToken(null)
-        setEmail(null)
+        setIsStore(false);
     }
 
     return (
-        <AuthContext.Provider value={ {isAuthenticated, login, logout, email, token}  }>
+        <AuthContext.Provider value={ {isAuthenticated, login, logout, isStore, token}  }>
             {children}
         </AuthContext.Provider>
     )

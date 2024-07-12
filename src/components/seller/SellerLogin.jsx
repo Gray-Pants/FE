@@ -1,108 +1,116 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../security/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-const SellerLogin = () => {
-  return (
-    <LoginPage>
-      <MainBackground>
-        <MainContent>
-          <LogoButton src="..\public\logo.svg" alt="Logo" />
-          <InputField placeholder="email" />
-          <InputField type="password" placeholder="password" />
-          <SignUpButton>회원가입</SignUpButton>
-          <LoginButton>로그인</LoginButton>
-        </MainContent>
-      </MainBackground>
-    </LoginPage>
-  );
-};
-
-const LoginPage = styled.div`
-  position: relative;
-  width: 1440px;
-  height: 2836px;
-  background: #FFFFFF;
+const LoginContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(100vw - 40px); /* 40px은 양쪽의 20px 패딩을 고려한 값 */
+    max-width: 400px; /* 웹 화면에서 고정된 최대 너비 */
+    margin: auto /* 중앙 정렬을 위한 margin 설정 */;
+    height: 100vh;
 `;
 
-const MainBackground = styled.div`
-  position: absolute;
-  width: 1440px;
-  height: 2843px;
-  left: 0px;
-  top: -7px;
-  background: #FFFFFF;
+const Logo = styled.img`
+    width: 100px;
+    margin-bottom: 20px;
 `;
 
-const MainContent = styled.div`
-  box-sizing: border-box;
-  position: absolute;
-  width: 600px;
-  height: 2836px;
-  left: 417px;
-  top: 0px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
-`;
-
-const InputField = styled.input`
-  position: absolute;
-  width: 500px;
-  height: 70px;
-  left: calc(50% - 500px/2);
-  background: #D9D9D9;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 39px;
-  text-align: center;
-  color: #000000;
-  border: none;
-  outline: none;
-
-  &:first-of-type {
-    top: 222px;
-  }
-
-  &:last-of-type {
-    top: 312px;
-  }
+const Input = styled.input`
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 `;
 
 const Button = styled.button`
-  position: absolute;
-  width: 284.65px;
-  height: 60px;
-  left: calc(50% - 284.65px/2);
-  border: 2px solid #000000;
-  border-radius: 30px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 29px;
-  text-align: center;
-  cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    ${(props) => (props.$signup ? `
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+    ` : `
+        background-color: black;
+        color: white;
+    `)}
 `;
 
-const SignUpButton = styled(Button)`
-  top: 427px;
-  background: transparent;
-  color: #000000;
+const SocialLoginText = styled.p`
+    font-size: 12px;
+    margin-top: 20px;
+    color: #777;
 `;
 
-const LoginButton = styled(Button)`
-  top: 503px;
-  background: #000000;
-  color: #FFFFFF;
+const SocialLogin = styled.div`
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
 `;
 
-const LogoButton = styled.img`
-  position: absolute;
-  width: 143px;
-  height: 105.1px;
-  left: calc(50% - 143px/2 - 3.5px);
-  top: 72px;
+const SocialIcon = styled.img`
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 `;
+
+const Title = styled.h1`
+    font-size: 1.5rem;
+  `;
+
+
+const SellerLogin = () => {
+    const [loginState, setLoginState] = useState({
+        email: '',
+        password: '',
+    });
+
+    const navigate = useNavigate();
+
+    const authContext = useAuth();
+
+    const onChange = (e) => {
+        setLoginState({
+            ...loginState,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    async function handleSubmit() {
+        if(await authContext.login(loginState.email, loginState.password, `store`)){
+            navigate(`/Seller`)
+        } else {
+            alert('로그인 실패');
+        }
+    }
+
+    return (
+        <>
+            <Link to="/">
+            <Logo src="/images/main-icon.png" alt="logo" />
+            </Link>
+            <Title>판매자 로그인</Title>
+            <Input type="email" placeholder="email" name={"email"} onChange={onChange} value={loginState.email} />
+            <Input type="password" placeholder="password" name={"password"} onChange={onChange} value={loginState.password}/>
+            <Button $signup>회원가입</Button>
+            <Button onClick={handleSubmit}>로그인</Button>
+        </>
+    );
+}
 
 export default SellerLogin;

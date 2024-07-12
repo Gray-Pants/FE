@@ -88,11 +88,15 @@ const Login = () => {
     }
 
     async function handleSubmit() {
-        if(await authContext.login(loginState.email, loginState.password)){
+        if(await authContext.login(loginState.email, loginState.password, `user`)){
             navigate(`/`)
         } else {
             alert('로그인 실패');
         }
+    }
+
+    const handleSignup = () => {
+        navigate(`/signup`)
     }
 
     return (
@@ -102,7 +106,7 @@ const Login = () => {
             </Link>
             <Input type="email" placeholder="email" name={"email"} onChange={onChange} value={loginState.email} />
             <Input type="password" placeholder="password" name={"password"} onChange={onChange} value={loginState.password}/>
-            <Button $signup>회원가입</Button>
+            <Button onClick={handleSignup} $signup>회원가입</Button>
             <Button onClick={handleSubmit}>로그인</Button>
             <SocialLoginText>소셜 로그인</SocialLoginText>
             <SocialLogin>
