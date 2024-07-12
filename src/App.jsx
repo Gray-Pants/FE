@@ -13,18 +13,16 @@ import Main from "./pages/main/Main";
 import ItemOrder from "./pages/order/ItemOrder";
 import Login from "./pages/user/Login";
 import SignUp from "./pages/user/Signup";
-import AuthProvider, { AuthProtectedRoute } from "./security/AuthContext";
+import AuthProvider,  {AuthProtectedRoute } from "./security/AuthContext";
 import Cart from "./pages/user/Cart";
 import PaymentCompletePage from "./pages/order/PayCompleted";
-import Me from "./pages/Me";
 
-import MyPage from "./pages/MyPage";
-import EditMemberInfo from "./components/EditMemberInfo";
-import EditPassword from "./pages/EditPassword";
-import LikeList from "./pages/LikeList";
-import ReviewPage from "./pages/Review";
-import CreateReviewPage from "./pages/CreateReview";
-import ReviewsListPage from "./pages/ReviewsList";
+import Mypage from "./pages/user/MyPage";
+import EditMemberInfo from "./components/user/EditMemberInfo";
+import EditPasswordPage from "./pages/user/EditPasswordPage";
+import LikeList from "./components/user/LikeList";
+import ReviewPage from "./pages/ReviewPage";
+import CreateReviewPage from "./pages/CreateReviewPage";
 import Category from "./pages/main/Category";
 import GlobalStyle from "./ui/Font";
 import Search from "./pages/order/Search";
@@ -34,8 +32,6 @@ import SellerLoginPage from "./pages/seller/Sellerlogin";
 import SellerProductListPage from "./pages/seller/SellerProductList";
 import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
-
-import MyPage from "./pages/user/MyPage";
 
 function App() {
   return (
@@ -47,7 +43,7 @@ function App() {
           <Route path="/" element={<Main />} />
             <Route path="/mypage/*" element={
               <AuthProtectedRoute>
-               <MyPage />
+               <Mypage />
               </AuthProtectedRoute>
               } />
           <Route path="/itemOrder" element={<ItemOrder />} />
@@ -60,14 +56,17 @@ function App() {
           <Route path="/search" element={<Search/>} />
           <Route path="/sellerItemAdd" element={<SellerItemAdd />}/>
           <Route path="/seller" element={<SellerPage/>}/>
+          <Route path="/editmemberinfo" element={<EditMemberInfo />} />
+          <Route path="/editpassword" element={<EditPasswordPage />} /> 
+          <Route path="/likelist" element={<LikeList />} /> 
           <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
           <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
           <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
           <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
 
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage" element={<Mypage />} />
           <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-          <Route path="/editpassword" element={<EditPassword />} /> 
+          <Route path="/editpassword" element={<EditPasswordPage />} /> 
           <Route path="/likelist" element={<LikeList />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />

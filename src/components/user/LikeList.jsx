@@ -100,7 +100,7 @@ const ItemPrice = styled.div`
 
 // --- 컴포넌트 ---
 
-const WishlistPage = () => {
+const LikeList = () => {
   // 예시 데이터
   const [wishListItems, setWishListItems] = useState([])
 
@@ -150,4 +150,4 @@ const WishlistPage = () => {
   );
 };
 
-export default WishlistPage;
+export default LikeList;
