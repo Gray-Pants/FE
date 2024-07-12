@@ -3,15 +3,8 @@ import styled from "styled-components";
 import SearchHeader from "../../components/header/SearchHeader";
 import FooterNav from "../../components/footer/FooterNav";
 import Filter from "../../components/main/Filter";
-import ItemList from "../../components/item/ItemList";
-
-const ProductSection = styled.div`
-  padding: 10px 0;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  width: 100%;
-  text-align: center;
-`;
+import ItemList from "../../components/item/CategoryBar";
+import ItemSection from "../../components/item/ItemSection";
 
 const ProductItem = styled.div`
   max-width: 100px;
@@ -49,10 +42,7 @@ const ItemListPage = () => {
       <SearchHeader />
       <ItemList />
       <Filter />
-      <ProductSection>
-        <Recommand>상품 갯수: {products.length}</Recommand>
-        {products}
-      </ProductSection>
+      <ItemSection title="상품 검색 : " products={products} />
       <FooterNav />
     </>
   );

@@ -16,7 +16,7 @@ const ItemTitle = styled.div`
   text-align: left; /* Added text-align property */
 `;
 
-function ItemList() {
+function CategoryBar() {
   const { category, subCategory } = useParams();
 
   return (
@@ -28,4 +28,4 @@ function ItemList() {
   );
 }
 
-export default ItemList;
+export default CategoryBar;
