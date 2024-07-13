@@ -56,7 +56,6 @@ export default function AuthProvider({ children }) {
 
     async function login(email, password, role) {
 
-        debugger;
         try {
             if(role === `store`)
                 setIsStore(true);
