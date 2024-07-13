@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FiLock, FiSettings, FiHeart, FiLogOut } from "react-icons/fi"; // react-icons 사용
 import { Link, useNavigate } from "react-router-dom";
 import { getMyProfile } from "../../api/UserApiService";
-import { useCookies } from "react-cookie";
+import {useCookies} from "react-cookie";
 // --- Styled Components ---
 
 const HeaderSpacer = styled.div`
@@ -131,12 +131,12 @@ const MyPage = () => {
         <WhiteButton>white</WhiteButton>
       </ProfileHeader>
       <OrderReviewContainer>
-        <OrderReviewItem>
+        <OrderReviewItem onClick={()=> handleMenuClick("orders")}>
           <div>주문내역</div>
           <div>{profile.orderCount}</div>
         </OrderReviewItem>
         <Divider />
-        <OrderReviewItem>
+        <OrderReviewItem onClick={()=> handleMenuClick("reviews")}>
           <div>나의 리뷰</div>
           <div>{profile.reviewCount}</div>
         </OrderReviewItem>

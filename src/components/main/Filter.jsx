@@ -15,14 +15,14 @@ const FilterBtn = styled.button`
   font-size: 12px; /* Adjusted to make the text smaller */
 `;
 
-function Filter() {
+function Filter({ setSortOrder }) {
   return (
     <FilterContainer>
-      <FilterBtn>낮은 가격순</FilterBtn>
-      <FilterBtn>높은 가격순</FilterBtn>
-      <FilterBtn>판매량순</FilterBtn>
-      <FilterBtn>리뷰 많은 순</FilterBtn>
-      <FilterBtn>최신순</FilterBtn>
+      <FilterBtn onClick={() => setSortOrder('lowPrice')}>낮은 가격순</FilterBtn>
+      <FilterBtn onClick={() => setSortOrder('highPrice')}>높은 가격순</FilterBtn>
+      <FilterBtn onClick={() => setSortOrder('salesVolume')}>판매량순</FilterBtn>
+      <FilterBtn onClick={() => setSortOrder('reviews')}>리뷰 많은 순</FilterBtn>
+      <FilterBtn onClick={() => setSortOrder('newest')}>최신순</FilterBtn>
     </FilterContainer>
   );
 }
