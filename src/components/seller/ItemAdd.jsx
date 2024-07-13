@@ -92,28 +92,45 @@ const ItemAdd = () => {
   let [itemImages, setItemImages] = useState([]);
   const [itemDetailImage, setItemDetailImage] = useState(null);
 
-  const categoryOptions = ['아우터', '긴팔', '반팔', '반바지', '긴바지', '치마', '운동화', '부츠', '슬리퍼', '볼캡', '버킷햇', '비니', '백팩', '크로스백', '숄더백', '팔찌', '반지', '목걸이', '여성속옷', '남성속옷'];
+  const categoryOptions = [
+    { label: '아우터', value: 'OUTER' },
+    { label: '긴팔', value: 'LONG_SLEEVE' },
+    { label: '반팔', value: 'SHORT_SLEEVE' },
+    { label: '반바지', value: 'SHORTS' },
+    { label: '긴바지', value: 'PANTS' },
+    { label: '치마', value: 'SKIRT' },
+    { label: '운동화', value: 'SNIKERS' },
+    { label: '부츠', value: 'BOOTS' },
+    { label: '슬리퍼', value: 'SLIPPER' },
+    { label: '볼캡', value: 'BALL_CAP' },
+    { label: '버킷햇', value: 'BUCKET_HAT' },
+    { label: '비니', value: 'BEANIE' },
+    { label: '백팩', value: 'BACKPACK' },
+    { label: '크로스백', value: 'CROSS_BAG' },
+    { label: '숄더백', value: 'SHOULDER_BAG' },
+    { label: '팔찌', value: 'BRACELET' },
+    { label: '반지', value: 'RING' },
+    { label: '목걸이', value: 'NECKLACE' },
+    { label: '여성속옷', value: 'WOMAN_UNDERWEAR' },
+    { label: '남성속옷', value: 'MAN_UNDERWEAR' }
+  ];
 
   const handleItemImageChange = (e) => {
     const selectImages = Array.from(e.target.files);
-    
-    setItemImages(selectImages); // 최대 3개의 이미지만 유지
+    setItemImages(selectImages);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('itemName', itemName);
-    formData.append('itemCategory', itemCategory);
+    formData.append('category', itemCategory);
     formData.append('itemPrice', itemPrice);
     formData.append('stock', itemStock);
-    itemImages.forEach((itemImage) => formData.append(`itemPhotos`, itemImage));
+    itemImages.forEach((itemImage) => formData.append('itemPhotos', itemImage));
     if (itemDetailImage) {
       formData.append('itemDescImg', itemDetailImage);
     }
-
-    console.log(formData.get('itemPhotos'));
-    console.log(formData.get('itemDescImg'));
 
     apiClient.post('/items/item', formData, {
       headers: {
@@ -122,11 +139,9 @@ const ItemAdd = () => {
     })
       .then(response => {
         console.log('서버 응답:', response);
-        // 성공적으로 데이터를 전송한 후 처리할 로직
       })
       .catch(error => {
         console.error('전송 오류:', error);
-        // 오류 발생 시 처리할 로직
       });
   };
 
@@ -134,8 +149,8 @@ const ItemAdd = () => {
     <form onSubmit={handleSubmit}>
       <Title>상품 등록</Title>
       <FormContainer>
-        <InputContainer> 
-          <Label>상품 이름</Label> {/* Label 컴포넌트 추가 */}
+        <InputContainer>
+          <Label>상품 이름</Label>
           <InputField
             placeholder="상품 이름"
             value={itemName}
@@ -150,34 +165,31 @@ const ItemAdd = () => {
           >
             <option value="">카테고리 선택</option>
             {categoryOptions.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
+              <option key={index} value={option.value}>{option.label}</option>
             ))}
           </SelectField>
         </InputContainer>
-      
         <InputContainer>
           <Label>상품 이미지 (최대 3장)</Label>
           <FileInputField
             type="file"
             onChange={handleItemImageChange}
-            multiple // 다중 파일 선택 가능
-            accept='.jpg, .jpeg, .png'
+            multiple
+            accept=".jpg, .jpeg, .png"
           />
         </InputContainer>
-
         <InputContainer>
           <Label>상품 가격</Label>
           <InputField
-            placeholder="상품 가격" 
+            placeholder="상품 가격"
             value={itemPrice}
             onChange={(e) => setItemPrice(e.target.value)}
           />
-
         </InputContainer>
         <InputContainer>
           <Label>상품 재고</Label>
           <InputField
-            placeholder="상품 재고" 
+            placeholder="상품 재고"
             value={itemStock}
             onChange={(e) => setItemStock(e.target.value)}
           />
