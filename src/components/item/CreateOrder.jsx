@@ -1,87 +1,139 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import FooterNav from "../footer/FooterNav";
+import { apiClient } from "../../api/ApiClient";
 
 const CreateOrder = () => {
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const navigate = useNavigate();
+
+  const handlePaymentMethodChange = (method) => {
+    setPaymentMethod(method);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (paymentMethod === '카드 결제') {
+      navigate('/card-payment');
+    } else if (paymentMethod === '카카오 페이 결제') {
+      try {
+        const response = apiClient.post('/payments/kakaoPay/ready',
+        { 
+          // Replace with your actual JSON payload
+          itemName: '치킨',
+          quantity: 2,
+          totalAmount: 20000,
+          // Add other fields as needed
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },}
+          );
+        // Assuming the API response contains a URL to redirect to Kakao Pay
+        window.location.href = response.data.redirectUrl;
+      } catch (error) {
+        console.error('카카오 페이 결제 오류:', error);
+        // Handle the error, show an error message to the user, etc.
+      }
+  }
+};
+
   return (
     <>
-      <HeaderSpacer /> {/* 헤더와 섹션 사이의 간격을 위한 컴포넌트 */}
-      <Section>
-        <SectionTitle>배송지</SectionTitle>
-        <AddressTypeGroup>
-          <AddressType active>집</AddressType>
-          <AddressType>친구집</AddressType>
-        </AddressTypeGroup>
-        <Input placeholder="이름 " />
-        <Input placeholder="배송지명" />
-        <PhoneInput>
-          <Input placeholder="010" />
-          <Input placeholder="1234" />
-          <Input placeholder="5678" />
-        </PhoneInput>
-        <Input placeholder="주소" />
-        <Input placeholder="상세주소" />
-      </Section>
-      <Section>
-        <SectionTitle>상품정보</SectionTitle>
-        <ProductInfo>
-          <ProductImage
-            src="../public/images/스와퍼(상품이미지).svg"
-            alt="상품 이미지"
-          />
-          <ProductDetails>
-            <Seller>동대문 판매왕</Seller>
-            <ProductName>
-              [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠
-            </ProductName>
-            <ProductOption>멜란지 L</ProductOption>
-            <ProductQuantity>수량 1개</ProductQuantity>
-          </ProductDetails>
-          <ProductPrice>15,200원</ProductPrice>
-        </ProductInfo>
-      </Section>
-      <Section>
-        <SectionTitle>할인혜택</SectionTitle>
-        <DiscountItem>
-          <DiscountName>상품할인</DiscountName>
-          <DiscountAmount>13,000원</DiscountAmount>
-        </DiscountItem>
-        <DiscountItem>
-          <DiscountName>등급할인</DiscountName>
-          <DiscountAmount>2,000원</DiscountAmount>
-        </DiscountItem>
-        <TotalDiscount>
-          <DiscountName>총 할인금액</DiscountName>
-          <DiscountAmount>-15,000원</DiscountAmount>
-        </TotalDiscount>
-      </Section>
-      <Section>
-        <SectionTitle>결제수단</SectionTitle>
-        <PaymentMethod>
-          <RadioButton />
-          <PaymentName>카드 결제</PaymentName>
-        </PaymentMethod>
-        <PaymentMethod>
-          <RadioButton />
-          <PaymentName>계좌 송금</PaymentName>
-        </PaymentMethod>
-      </Section>
-      <Section>
-        <SectionTitle>최종 결제금액</SectionTitle>
-        <PriceItem>
-          <PriceName>상품금액</PriceName>
-          <PriceAmount>30,200원</PriceAmount>
-        </PriceItem>
-        <PriceItem>
-          <PriceName>할인금액</PriceName>
-          <PriceAmount>15,000원</PriceAmount>
-        </PriceItem>
-        <TotalPrice>
-          <PriceName>결제금액</PriceName>
-          <PriceAmount>15,200원</PriceAmount>
-        </TotalPrice>
-      </Section>
-      <FooterNav/>
+      <HeaderSpacer />
+      <form onSubmit={handleSubmit}>
+        <Section>
+          <SectionTitle>배송지</SectionTitle>
+          <AddressTypeGroup>
+            <AddressType active>집</AddressType>
+            <AddressType>친구집</AddressType>
+          </AddressTypeGroup>
+          <Input placeholder="이름 " />
+          <Input placeholder="배송지명" />
+          <PhoneInput>
+            <Input placeholder="010" />
+            <Input placeholder="1234" />
+            <Input placeholder="5678" />
+          </PhoneInput>
+          <Input placeholder="주소" />
+          <Input placeholder="상세주소" />
+        </Section>
+        <Section>
+          <SectionTitle>상품정보</SectionTitle>
+          <ProductInfo>
+            <ProductImage
+              src="../public/images/스와퍼(상품이미지).svg"
+              alt="상품 이미지"
+            />
+            <ProductDetails>
+              <Seller>동대문 판매왕</Seller>
+              <ProductName>
+                [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠
+              </ProductName>
+              <ProductOption>멜란지 L</ProductOption>
+              <ProductQuantity>수량 1개</ProductQuantity>
+            </ProductDetails>
+            <ProductPrice>15,200원</ProductPrice>
+          </ProductInfo>
+        </Section>
+        <Section>
+          <SectionTitle>할인혜택</SectionTitle>
+          <DiscountItem>
+            <DiscountName>상품할인</DiscountName>
+            <DiscountAmount>13,000원</DiscountAmount>
+          </DiscountItem>
+          <DiscountItem>
+            <DiscountName>등급할인</DiscountName>
+            <DiscountAmount>2,000원</DiscountAmount>
+          </DiscountItem>
+          <TotalDiscount>
+            <DiscountName>총 할인금액</DiscountName>
+            <DiscountAmount>-15,000원</DiscountAmount>
+          </TotalDiscount>
+        </Section>
+        <Section>
+          <SectionTitle>결제수단</SectionTitle>
+          <PaymentMethod>
+            <RadioButton
+              type="radio"
+              name="paymentMethod"
+              value="카드 결제"
+              checked={paymentMethod === '카드 결제'}
+              onChange={() => handlePaymentMethodChange('카드 결제')}
+            />
+            <PaymentName>카드 결제</PaymentName>
+          </PaymentMethod>
+          <PaymentMethod>
+            <RadioButton
+              type="radio"
+              name="paymentMethod"
+              value="카카오 페이 결제"
+              checked={paymentMethod === '카카오 페이 결제'}
+              onChange={() => handlePaymentMethodChange('카카오 페이 결제')}
+            />
+            <PaymentName>카카오 페이 결제</PaymentName>
+          </PaymentMethod>
+        </Section>
+        <Section>
+          <SectionTitle>최종 결제금액</SectionTitle>
+          <PriceItem>
+            <PriceName>상품금액</PriceName>
+            <PriceAmount>30,200원</PriceAmount>
+          </PriceItem>
+          <PriceItem>
+            <PriceName>할인금액</PriceName>
+            <PriceAmount>15,000원</PriceAmount>
+          </PriceItem>
+          <TotalPrice>
+            <PriceName>결제금액</PriceName>
+            <PriceAmount>15,200원</PriceAmount>
+          </TotalPrice>
+        </Section>
+        <PayButton type="submit">결제하기</PayButton>
+      </form>
+      <FooterNav />
     </>
   );
 };
@@ -210,7 +262,7 @@ const PaymentMethod = styled.div`
   margin-bottom: 5px;
 `;
 
-const RadioButton = styled.div`
+const RadioButton = styled.input`
   width: 10px;
   height: 10px;
   border-radius: 50%;

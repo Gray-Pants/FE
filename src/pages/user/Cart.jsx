@@ -4,7 +4,7 @@ import PageHeader from "../../components/header/PageHeader";
 import SelectAll from "../../components/item/SelectAll";
 import ProductItem from "../../components/item/ProductItem";
 import PriceSummary from "../../components/item/PriceSummary";
-import OrderFooter from "../../components/footer/OrderFooter";
+import ItemOrderFooter from "../../components/footer/ItemOrderFooter";
 
 const CartContainer = styled.div`
   width: 400px;
@@ -64,7 +64,7 @@ const Cart = () => {
         shippingFee={0}
         totalPrice={totalPrice}
       />
-      <OrderFooter totalPrice={totalPrice} />
+      <ItemOrderFooter />
     </CartContainer>
   );
 };
