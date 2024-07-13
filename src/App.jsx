@@ -31,6 +31,7 @@ import SellerProductListPage from "./pages/seller/SellerProductList";
 import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
 import ItemListPage from "./pages/main/ItemListPage";
+import SearchItemListPage from "./pages/main/SearchItemListPage";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
           <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
           <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
+          <Route path="/searchItemList" element={<SearchItemListPage />} />
 
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />

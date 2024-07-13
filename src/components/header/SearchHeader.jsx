@@ -65,17 +65,17 @@ const SearchHeader = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (searchText) => {
-
-    apiClient.get(`/items/${searchText}`)
-    .then(response => {
-        console.log(response);
-    })
-    .catch(error => {
-        // handle the error
-    });
-};
-
+  const handleSearch = () => {
+    // API 요청을 주석 처리 또는 삭제
+    // apiClient.get(`/items/${searchText}`)
+    //   .then(response => {
+    //       console.log(response);
+    //   })
+    //   .catch(error => {
+    //       // handle the error
+    //   });
+    navigate(`/searchItemList?query=${searchText}`);
+  };
 
   const handleCartClick = () => {
     navigate("/cart");
@@ -93,7 +93,7 @@ const SearchHeader = () => {
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleSearch(searchText);
+              handleSearch();
             }
           }}
         />

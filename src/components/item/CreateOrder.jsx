@@ -11,7 +11,7 @@ const CreateOrder = () => {
           <AddressType active>집</AddressType>
           <AddressType>친구집</AddressType>
         </AddressTypeGroup>
-        <Input placeholder="이름" />
+        <Input placeholder="이름 " />
         <Input placeholder="배송지명" />
         <PhoneInput>
           <Input placeholder="010" />
