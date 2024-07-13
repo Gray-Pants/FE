@@ -36,6 +36,7 @@ const ItemListPage = () => {
     // Simulate fetching data from an API
     const response = apiClient.get(`items/category/` + subCategory);
     console.log(response);
+    console.log(subCategory);
   };
 
   return (
