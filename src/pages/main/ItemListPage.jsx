@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SearchHeader from "../../components/header/SearchHeader";
 import FooterNav from "../../components/footer/FooterNav";
@@ -21,8 +22,14 @@ const Recommand = styled.div`
   text-align: left;
 `;
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 const ItemListPage = () => {
   const [products, setProducts] = useState([]);
+  const query = useQuery();
+  const searchQuery = query.get("query");
 
   useEffect(() => {
     // Load all data
@@ -42,7 +49,7 @@ const ItemListPage = () => {
       <SearchHeader />
       <ItemList />
       <Filter />
-      <ItemSection title="상품 검색 : " products={products} />
+      <ItemSection title={`상품 검색: ${searchQuery || ""}`} products={products} />
       <FooterNav />
     </>
   );
