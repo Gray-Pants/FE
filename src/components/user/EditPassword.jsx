@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FiArrowLeft, FiHome, FiUser } from "react-icons/fi";
-import axios from 'axios';
+import { apiClient } from '../../api/ApiClient';
 
 const Container = styled.div`
   padding: 20px;
@@ -60,7 +60,7 @@ const SaveButton = styled.button`
 `;
 
 const Message = styled.p`
-  color: ${props => props.isError ? 'red' : 'green'};
+  color: ${props => props.$isError ? 'red' : 'green'};
   text-align: center;
   margin-top: 10px;
 `;
@@ -82,7 +82,7 @@ const EditPassword = () => {
     const userId = parseInt(localStorage.getItem('userId'), 10);
 
     try {
-      const response = await axios.post('/api/password/change', {
+      const response = await apiClient.post('/mypage/edit/password', {
         userId: userId,
         password: currentPassword,
         newPassword: newPassword,
@@ -143,7 +143,7 @@ const EditPassword = () => {
         onChange={(e) => setConfirmNewPassword(e.target.value)}
       />
       <SaveButton onClick={handleSave}>변경하기</SaveButton>
-      {message && <Message isError={isError}>{message}</Message>}
+      {message && <Message $isError={isError}>{message}</Message>}
     </Container>
   );
 };
