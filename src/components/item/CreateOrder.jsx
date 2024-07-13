@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import FooterNav from "../footer/FooterNav";
 
 const CreateOrder = () => {
   return (
@@ -80,7 +81,7 @@ const CreateOrder = () => {
           <PriceAmount>15,200원</PriceAmount>
         </TotalPrice>
       </Section>
-      <PayButton>결제하기</PayButton>
+      <FooterNav/>
     </>
   );
 };
