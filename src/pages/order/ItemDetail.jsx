@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import SearchHeader from "../../components/header/SearchHeader";
 import ItemDetailCategory from "../../components/item/ItemDetailCategory";
@@ -7,11 +7,14 @@ import ProductDetailsTab from "../../components/item/ProductDetailsTab";
 import ItemImage from "../../components/item/ItemImage";
 import FooterNav from "../../components/footer/FooterNav";
 import { apiClient } from "../../api/ApiClient";
+import { TabContext, TabProvider } from "../../components/item/TabProvider";
+import ReviewList from "../../components/review/ReviewList";
 
 const ItemDetail = () => {
   const { itemId } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
+  const { activeTab } = useContext(TabContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -27,14 +30,13 @@ const ItemDetail = () => {
     if (itemId) {
       fetchProduct();
     }
-  }, [itemId]);
+  }, [itemId, activeTab]);
 
   if (error) {
     return (
       <div>
         <h2>상품 정보를 불러오는 중 오류가 발생했습니다.</h2>
         <p>잠시 후 다시 시도해 주세요.</p>
-        <p></p>
       </div>
     );
   }
@@ -44,24 +46,37 @@ const ItemDetail = () => {
   }
 
   return (
-    <>
-      <SearchHeader />
-      <ItemDetailCategory category={product.categoryTitle} />
-      <ProductCard
-        sellerAvatar={product.sellerAvatar}
-        sellerName={product.storeName}
-        likes={product.likes}
-        productName={product.itemName}
-        price={product.itemPrice}
-        tags={product.categoryTitle}
-        productImage={product.itemPhotos[0]}
-        reviewCount={product.reviewCount}
-        rating={product.rating}
-      />
-      <ProductDetailsTab />
-      <ItemImage images={product.itemPhotos} />
-      <FooterNav />
-    </>
+    <TabProvider>
+      <>
+        <SearchHeader />
+        <ItemDetailCategory category={product.categoryTitle} />
+        <ProductCard
+          sellerAvatar={product.sellerAvatar}
+          sellerName={product.storeName}
+          likes={product.likes}
+          productName={product.itemName}
+          price={product.itemPrice}
+          tags={product.categoryTitle}
+          productImage={product.itemPhotos[0]}
+          reviewCount={product.reviewCount}
+          rating={product.rating}
+        />
+        <ProductDetailsTab>
+          {(activeTab) => (
+            <>
+              {activeTab === "상세정보" && (
+                <ItemImage images={product.itemPhotos} />
+              )}
+              {activeTab === "리뷰" && (
+                <ReviewList itemId={itemId} product={product} />
+              )}
+              {activeTab === "문의" && <div>문의 내용</div>}
+            </>
+          )}
+        </ProductDetailsTab>
+        <FooterNav />
+      </>
+    </TabProvider>
   );
 };
 

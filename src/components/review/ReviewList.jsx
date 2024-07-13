@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { useLocation } from "react-router-dom";
 import { apiClient } from "../../api/ApiClient";
 
 const CommentContainer = styled.div`
@@ -34,27 +33,63 @@ const LikeButton = styled.button`
   align-items: center;
 `;
 
-function Comment({ itemId }) {
+function ReviewList({ itemId, product }) {
+  // product prop 추가
   const [comments, setComments] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await apiClient.get("items/item/" + itemId);
-        // 백엔드에서 받아오는 데이터 구조에 맞게 comments 데이터 추출
-        const commentsData = response.data.comments;
-        setComments(commentsData);
-        console.log(commentsData);
+        const response = await apiClient.get(`items/item/${itemId}/reviews`);
+        setComments(response.data.response);
       } catch (error) {
         console.error("댓글을 불러오는 중 오류 발생:", error);
+        setError(error); // 에러 상태 업데이트
       }
     };
 
     fetchComments();
-  }, [itemId]); // itemId가 변경될 때마다 댓글 다시 불러오기
+  }, [itemId]);
+
+  if (error) {
+    return <div>Error: {error.message}</div>; // 에러 메시지 표시
+  }
+
+  if (!comments || comments.length === 0) {
+    // 리뷰 데이터가 없을 때
+    return <div>등록된 리뷰가 없습니다.</div>;
+  }
+
+  return (
+    <div>
+      {comments.map((comment) => (
+        <Comment
+          key={comment.id}
+          nickname={comment.nickname}
+          text={comment.content}
+          likes={comment.likes}
+          profileImage={comment.user.profileImage}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Comment({ nickname, text, likes, profileImage }) {
+  // ... (좋아요 기능 관련 코드)
+
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(likes);
+
+  const handleLikeClick = () => {
+    setLiked(!liked);
+    setLikeCount(liked ? likeCount - 1 : likeCount + 1);
+  };
 
   return (
     <CommentContainer>
+      <ProfileImage src={profileImage} alt={`${nickname} 프로필 이미지`} />
       <CommentContent>
         <Nickname>{nickname}</Nickname>
         <CommentText>{text}</CommentText>
@@ -71,4 +106,4 @@ function Comment({ itemId }) {
   );
 }
 
-export default Comment;
+export default ReviewList;
