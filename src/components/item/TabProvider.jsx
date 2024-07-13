@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 
 // 탭의 기본 상태 (상세정보)
-const initialActiveTab = "리뷰";
+const initialActiveTab = "상세정보";
 
 // TabContext 생성
 const TabContext = createContext({
