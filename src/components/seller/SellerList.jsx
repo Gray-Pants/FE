@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { apiClient } from '../../api/ApiClient';
 
 const SellerList = () => {
-  const products = [
+  const [products, setProducts] = useState([]);
+  const productsE = [
     { name: '상품1', stock: '재고', price: '가격' },
     { name: '상품2', stock: '재고', price: '가격' },
     { name: '상품3', stock: '재고', price: '가격' },
@@ -10,16 +12,26 @@ const SellerList = () => {
     { name: '상품5', stock: '재고', price: '가격' },
   ];
 
+  const getSellerList = async () => {
+    const res = await apiClient.get(`stores/myitems`);
+    console.log(res);
+    setProducts(res.data.response);
+  }
+
+  useEffect(() => {
+    getSellerList();
+  }, [])
+
   return (
     <ListContainer>
       <Title>상품 목록</Title>
       {products.map((product, index) => (
         <ProductBox key={index}>
-          <ProductImage />
+          <ProductImage src={product.itemPhotos[0]} />
           <ProductInfo>
             <ProductRow>
               <ProductLabel>이름:</ProductLabel>
-              <ProductName>{product.name}</ProductName>
+              <ProductName>{product.itemName}</ProductName>
               <Placeholder width="30%" />
             </ProductRow>
             <ProductRow>
@@ -29,7 +41,7 @@ const SellerList = () => {
             </ProductRow>
             <ProductRow>
               <ProductLabel>가격:</ProductLabel>
-              <ProductPrice>{product.price}</ProductPrice>
+              <ProductPrice>{product.itemPrice}</ProductPrice>
               <Placeholder width="30%" />
             </ProductRow>
           </ProductInfo>
@@ -57,6 +69,7 @@ const Title = styled.h1`
   color: #000000;
   margin-bottom: 20px;
 `;
+//와쓰
 
 const ProductBox = styled.div`
   width: 100%;
@@ -68,7 +81,7 @@ const ProductBox = styled.div`
   overflow: hidden;
 `;
 
-const ProductImage = styled.div`
+const ProductImage = styled.img`
   width: 120px;
   height: 120px;
   background: #D9D9D9;
