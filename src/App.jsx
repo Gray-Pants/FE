@@ -32,6 +32,7 @@ import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
 import OrderPayListPage from "./pages/user/OrderPaymentList";
 import ItemListPage from "./pages/main/ItemListPage";
+import Editpassword from "./pages/EditPassword";
 
 function App() {
   return (
@@ -68,6 +69,8 @@ function App() {
 
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
+
+          <Route path="/editpassword" element={<Editpassword/>}/>
         </Routes>
         
       </Container>

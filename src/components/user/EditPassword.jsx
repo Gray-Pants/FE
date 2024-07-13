@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FiArrowLeft, FiHome, FiUser } from "react-icons/fi";
-
-// Styled Components
+import axios from 'axios';
 
 const Container = styled.div`
   padding: 20px;
@@ -45,7 +44,7 @@ const Input = styled.input`
   border: 1px solid #F6F6F6;
   border-radius: 10px; 
   margin-bottom: 10px;
-  box-sizing: border-box; /* Include padding in width calculation */
+  box-sizing: border-box;
 `;
 
 const SaveButton = styled.button`
@@ -60,16 +59,55 @@ const SaveButton = styled.button`
   margin-top: 20px;
 `;
 
-// Component
+const Message = styled.p`
+  color: ${props => props.isError ? 'red' : 'green'};
+  text-align: center;
+  margin-top: 10px;
+`;
 
-const Editpassword = () => {
+const EditPassword = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
-  const handleSave = () => {
-    // Save button click logic
-    console.log("Password change:", { currentPassword, newPassword, confirmNewPassword });
+  const handleSave = async () => {
+    if (newPassword !== confirmNewPassword) {
+      setMessage("새 비밀번호가 일치하지 않습니다.");
+      setIsError(true);
+      return;
+    }
+
+    const userId = parseInt(localStorage.getItem('userId'), 10);
+
+    try {
+      const response = await axios.post('/api/password/change', {
+        userId: userId,
+        password: currentPassword,
+        newPassword: newPassword,
+        confirmPassword: confirmNewPassword
+      });
+
+      if (response.data.success) {
+        setMessage(response.data.response);
+        setIsError(false);
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmNewPassword("");
+      } else {
+        setMessage(response.data.response.message);
+        setIsError(true);
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setMessage(error.response.data.response.message);
+      } else {
+        setMessage("비밀번호 변경 중 오류가 발생했습니다.");
+      }
+      setIsError(true);
+      console.error('Error changing password:', error);
+    }
   };
 
   return (
@@ -105,8 +143,9 @@ const Editpassword = () => {
         onChange={(e) => setConfirmNewPassword(e.target.value)}
       />
       <SaveButton onClick={handleSave}>변경하기</SaveButton>
+      {message && <Message isError={isError}>{message}</Message>}
     </Container>
   );
 };
 
-export default Editpassword;
+export default EditPassword;
