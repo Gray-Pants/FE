@@ -25,26 +25,27 @@ const Recommand = styled.div`
 
 const ItemListPage = () => {
   const [products, setProducts] = useState([]);
+  const [sortOrder, setSortOrder] = useState('lowPrice');
   const { subCategory } = useParams();
 
   useEffect(() => {
     // Load all data
-    fetchData();
-  }, [subCategory]);
+    fetchData(sortOrder);
+  }, [subCategory, sortOrder]);
 
-  const fetchData = () => {
+  const fetchData = async() => {
     // Simulate fetching data from an API
-    const response = apiClient.get(`items/category/` + subCategory);
-    console.log(response);
-    console.log(subCategory);
+    const response = await apiClient.get(`items/category?category=${subCategory}&sort=${sortOrder}`);
+    console.log(sortOrder);
+    setProducts(response.data.response);
   };
 
   return (
     <>
       <SearchHeader />
       <ItemList />
-      <Filter />
-      <ItemSection title="상품 검색 : " products={products} />
+      <Filter setSortOrder={setSortOrder} />
+      <ItemSection title={`상품 :`} products={products} />
       <FooterNav />
     </>
   );
