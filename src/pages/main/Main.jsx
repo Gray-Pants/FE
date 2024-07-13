@@ -11,9 +11,10 @@ const MainContent = styled.div`
   width: 100%;
 `;
 
-const Banner = styled.div`
+const Banner = styled.img`
   width: 100%;
   height: 200px; /* Placeholder for banner height */
+  object-fit: cover; /* Ensure the image covers the area */
   background-color: #ddd; /* Placeholder for banner background */
 `;
 
@@ -28,6 +29,7 @@ const Main = () => {
   const fetchData = async () => {
     try {
       const response = await apiClient.get('items');
+      console.log(response);
       setProducts(response.data.response);
     } catch (error) {
       console.error('전송 오류:', error);
@@ -39,7 +41,7 @@ const Main = () => {
     <>
       <SearchHeader />
       <MainContent>
-        <Banner src="" alt="bannerImg" />
+        <Banner src="https://greypants-img-bucket.s3.ap-northeast-2.amazonaws.com/grey-pants.jpg" alt="bannerImg" />
         <Categories />
       </MainContent>
       <ItemSection title="추천 아이템" products={products} />

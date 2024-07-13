@@ -37,14 +37,15 @@ const SearchItemListPage = () => {
 
   useEffect(() => {
     // Load data
-    fetchData();
-  }, [searchQuery]);
+    fetchData(sortOrder);
+  }, [searchQuery, sortOrder]);
 
   const fetchData = async () => {
     try {
-      const response = await apiClient.get("items/" + searchQuery);
+      const response = await apiClient.get(
+        "items/" + searchQuery + `?sort=${sortOrder}`
+      );
       setProducts(response.data.response);
-      console.log(response.data.response); // Check the response data structure
     } catch (error) {
       console.error("전송 오류:", error);
       // 오류 발생 시 처리할 로직
@@ -54,7 +55,7 @@ const SearchItemListPage = () => {
   return (
     <>
       <SearchHeader />
-      <Filter />
+      <Filter setSortOrder={setSortOrder} />
       <ItemSection
         title={`상품 검색: ${searchQuery || ""}`}
         products={products}

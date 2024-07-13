@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import SearchHeader from "../../components/header/SearchHeader";
 import FooterNav from "../../components/footer/FooterNav";
 import Filter from "../../components/main/Filter";
 import ItemList from "../../components/item/CategoryBar";
 import ItemSection from "../../components/item/ItemSection";
+import { apiClient } from "../../api/ApiClient";
 
 const ProductItem = styled.div`
   max-width: 100px;
@@ -22,34 +23,29 @@ const Recommand = styled.div`
   text-align: left;
 `;
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
-
 const ItemListPage = () => {
   const [products, setProducts] = useState([]);
-  const query = useQuery();
-  const searchQuery = query.get("query");
+  const [sortOrder, setSortOrder] = useState('lowPrice');
+  const { subCategory } = useParams();
 
   useEffect(() => {
     // Load all data
-    fetchData();
-  }, []);
+    fetchData(sortOrder);
+  }, [subCategory, sortOrder]);
 
-  const fetchData = () => {
+  const fetchData = async() => {
     // Simulate fetching data from an API
-    const allProducts = Array.from({ length: 30 }, (_, index) => (
-      <ProductItem key={index} />
-    ));
-    setProducts(allProducts);
+    const response = await apiClient.get(`items/category?category=${subCategory}&sort=${sortOrder}`);
+    console.log(sortOrder);
+    setProducts(response.data.response);
   };
 
   return (
     <>
       <SearchHeader />
       <ItemList />
-      <Filter />
-      <ItemSection title={`상품 검색: ${searchQuery || ""}`} products={products} />
+      <Filter setSortOrder={setSortOrder} />
+      <ItemSection title={`상품 :`} products={products} />
       <FooterNav />
     </>
   );

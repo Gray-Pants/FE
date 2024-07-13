@@ -131,12 +131,12 @@ const MyPage = () => {
         <WhiteButton>white</WhiteButton>
       </ProfileHeader>
       <OrderReviewContainer>
-        <OrderReviewItem>
+        <OrderReviewItem onClick={()=> handleMenuClick("orders")}>
           <div>주문내역</div>
           <div>{profile.orderCount}</div>
         </OrderReviewItem>
         <Divider />
-        <OrderReviewItem>
+        <OrderReviewItem onClick={()=> handleMenuClick("reviews")}>
           <div>나의 리뷰</div>
           <div>{profile.reviewCount}</div>
         </OrderReviewItem>

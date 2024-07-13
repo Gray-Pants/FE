@@ -46,6 +46,7 @@ const ItemSection = ({ title, products }) => {
         <ProductItem key={index}>
           <ProductImage src={product.itemPhotos} alt={product.item_name} />
           <ItemName>{product.itemName}</ItemName>
+          <ItemName>{product.itemPrice}원</ItemName>
         </ProductItem>
       ))}
     </ProductSectionContainer>
