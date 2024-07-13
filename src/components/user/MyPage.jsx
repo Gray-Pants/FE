@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FiLock, FiSettings, FiHeart, FiLogOut } from "react-icons/fi"; // react-icons 사용
 import { Link, useNavigate } from "react-router-dom";
 import { getMyProfile } from "../../api/UserApiService";
-import { useCookies } from "react-cookie";
+import {useCookies} from "react-cookie";
 // --- Styled Components ---
 
 const HeaderSpacer = styled.div`
