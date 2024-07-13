@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { apiClient } from '../../api/ApiClient';
+import { useNavigate } from 'react-router-dom';
 
 
 const ReviewTabs = styled.div`
@@ -17,7 +18,7 @@ const Tab = styled.button`
   border: none;
   background: none;
   font-size: 16px;
-  ${props => props.active&& `
+  ${props => props.$active && `
     font-weight: bold;
     border-bottom: 2px solid orange;
   `}
@@ -95,6 +96,7 @@ const ReviewText = styled.div`
 const ReviewsList = () => {
 
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
 
   const getReviews = async () => {
     const res =await apiClient.get('/users/reviews');
@@ -106,24 +108,12 @@ const ReviewsList = () => {
     getReviews();
   }, []);
 
-const reviewsa = [
-  {
-    id: 1,
-    imageUrl: 'https://example.com/image.jpg', // 실제 이미지 URL로 교체하세요
-    storeName: '브렌슨',
-    productName: '미니멀 트레이닝 essential 원턱 반바지',
-    productOption: '블랙 | FREE',
-    rating: 3,
-    date: '2022.08.22',
-    reviewText: '진짜 리뷰 잘 안쓰는데 쓴다. 뭐 대충 그렇다. 사진은 없지만...',
-  },
-  // 필요하면 리뷰를 더 추가하세요
-];
+
   return (
     <>
       <ReviewTabs>
-        <Tab>리뷰 작성</Tab>
-        <Tab $active="true">작성한 리뷰</Tab>
+        <Tab onClick={()=> {navigate("/mypage/reviews")}}>리뷰 작성</Tab>
+        <Tab $active>작성한 리뷰</Tab>
       </ReviewTabs>
 
       {reviews?.map((review) => (
