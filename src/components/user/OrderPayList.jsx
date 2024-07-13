@@ -1,75 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { apiClient } from '../../api/ApiClient';
 
 const OrderPayList = () => {
-  const orders = [
-    {
-      date: '2024.07.01',
-      odrerId: 1,
-      items: [
-        {
-          itemId: 1,
-          status: '구매확정 | 07/03 배송완료',
-          price: '15,200원',
-          name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
-          option: '멜란지 | L',
-          image: 'path_to_image.jpg'
-        },
-        {
-          itemId: 1,
-          status: '구매확정 | 07/03 배송완료',
-          price: '15,200원',
-          name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
-          option: '멜란지 | L',
-          image: 'path_to_image.jpg'
-        }
-      ]
-    },
-    {
-      date: '2024.07.01',
-      odrerId: 2,
-      items: [
-        {
-          itemId: 1,
-          status: '구매확정 | 07/03 배송완료',
-          price: '15,200원',
-          name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
-          option: '멜란지 | L',
-          image: 'path_to_image.jpg'
-        },
-        {
-          itemId: 1,
-          status: '구매확정 | 07/03 배송완료',
-          price: '15,200원',
-          name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
-          option: '멜란지 | L',
-          image: 'path_to_image.jpg'
-        }
-      ]
-    },
-    {
-      date: '2024.07.01',
-      odrerId: 3,
-      items: [
-        {
-          itemId: 1,
-          status: '구매확정 | 07/03 배송완료',
-          price: '15,200원',
-          name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
-          option: '멜란지 | L',
-          image: 'path_to_image.jpg'
-        },
-        {
-          itemId: 1,
-          status: '구매확정 | 07/03 배송완료',
-          price: '15,200원',
-          name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
-          option: '멜란지 | L',
-          image: 'path_to_image.jpg'
-        }
-      ]
-    }
-  ];
+  
+  const [orders, setOrders] = useState([{}]);
+
+  const getMyOrders = async () => {
+    const res = await apiClient.get('/users/orders');
+    setOrders(res.data.response);
+    console.log(res);
+  }
+
+  useEffect(() => {
+    getMyOrders();
+  }, []);
+
 
   return (
     <>
@@ -98,17 +44,17 @@ const OrderPayList = () => {
           </StatusItem>
         </OrderStatus>
 
-        {orders.map((order, index) => (
+        {orders?.map((order, index) => (
           <OrderGroup key={index}>
             <OrderDate>{order.date}</OrderDate>
-            {order.items.map((item, itemIndex) => (
-              <OrderItem key={itemIndex}>
-                <ProductImage src={item.image} alt={item.name} />
+            {order.orderItems?.map((orderItem, index) => (
+              <OrderItem key={index}>
+                <ProductImage src={orderItem.item.itemPhotos[0]} alt={orderItem.item.itemName} />
                 <ItemDetails>
-                  <ItemStatus>{item.status}</ItemStatus>
-                  <ItemPrice>{item.price}</ItemPrice>
-                  <ItemName>{item.name}</ItemName>
-                  <ItemOption>{item.option}</ItemOption>
+                  <ItemStatus>{orderItem.orderItemStatus}</ItemStatus>
+                  <ItemPrice>{orderItem.orderItemPrice}</ItemPrice>
+                  <ItemName>{orderItem.item.itemName}</ItemName>
+                  <ItemOption>{orderItem.orderItemQuantity}</ItemOption>
                 </ItemDetails>
               </OrderItem>
             ))}

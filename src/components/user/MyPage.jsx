@@ -131,7 +131,7 @@ const MyPage = () => {
         <WhiteButton>white</WhiteButton>
       </ProfileHeader>
       <OrderReviewContainer>
-        <OrderReviewItem>
+        <OrderReviewItem onClick={()=> handleMenuClick("orders")}>
           <div>주문내역</div>
           <div>{profile.orderCount}</div>
         </OrderReviewItem>
