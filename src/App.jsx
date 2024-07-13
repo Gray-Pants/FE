@@ -30,6 +30,7 @@ import SellerLoginPage from "./pages/seller/Sellerlogin";
 import SellerProductListPage from "./pages/seller/SellerProductList";
 import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
+import OrderPayListPage from "./pages/user/OrderPaymentList";
 import ItemListPage from "./pages/main/ItemListPage";
 
 function App() {
@@ -62,6 +63,8 @@ function App() {
           <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
           <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
           <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
+
+          <Route path="/orderPayList" element={<OrderPayListPage/>}/>
 
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
