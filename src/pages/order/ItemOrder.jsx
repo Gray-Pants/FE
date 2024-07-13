@@ -8,7 +8,6 @@ const OrderForm = () => {
     <>
       <PageHeader />
       <CreateOrder />
-      <PayFooter />
     </>
   );
 };

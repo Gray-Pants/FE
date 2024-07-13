@@ -133,7 +133,6 @@ const CreateOrder = () => {
         </Section>
         <PayButton type="submit">결제하기</PayButton>
       </form>
-      <FooterNav />
     </>
   );
 };
