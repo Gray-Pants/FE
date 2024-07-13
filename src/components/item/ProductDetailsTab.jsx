@@ -20,7 +20,7 @@ const Tab = styled.button`
   cursor: pointer;
   position: relative;
 
-  color: ${(props) => (props.active ? "black" : "#6d697a")};
+  color: ${(props) => (props.$active ? "black" : "#6d697a")};
 
   &::after {
     content: "";
@@ -29,7 +29,7 @@ const Tab = styled.button`
     bottom: -1px; /* indicator 위치 조절 */
     width: 50px;
     height: 3px;
-    background-color: ${(props) => (props.active ? "#f25f0d" : "transparent")};
+    background-color: ${(props) => (props.$active ? "#f25f0d" : "transparent")};
     transform: translateX(-50%);
     transition: all 0.3s ease; /* 모든 속성에 transition 적용 */
   }
@@ -47,15 +47,15 @@ const ProductDetailsTab = ({ children }) => {
     <>
       <TabContainer className="tab-buttons">
         <Tab
-          active={activeTab === "상세정보"}
+          $active={activeTab === "상세정보"}
           onClick={() => setActiveTab("상세정보")}
         >
           상세정보
         </Tab>
-        <Tab active={activeTab === "리뷰"} onClick={() => setActiveTab("리뷰")}>
+        <Tab $active={activeTab === "리뷰"} onClick={() => setActiveTab("리뷰")}>
           리뷰
         </Tab>
-        <Tab active={activeTab === "문의"} onClick={() => setActiveTab("문의")}>
+        <Tab $active={activeTab === "문의"} onClick={() => setActiveTab("문의")}>
           문의
         </Tab>
       </TabContainer>

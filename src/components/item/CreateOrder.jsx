@@ -165,8 +165,8 @@ const AddressTypeGroup = styled.div`
 const AddressType = styled.button`
   width: 70px;
   height: 29.62px;
-  background-color: ${(props) => (props.active ? "#F4975C" : "#D2DAE8")};
-  color: ${(props) => (props.active ? "#FFFFFF" : "#6D697A")};
+  background-color: ${(props) => (props.$active ? "#F4975C" : "#D2DAE8")};
+  color: ${(props) => (props.$active ? "#FFFFFF" : "#6D697A")};
   border: none;
   border-radius: 30px;
   margin-right: 10px;

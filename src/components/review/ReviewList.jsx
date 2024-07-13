@@ -8,10 +8,19 @@ const CommentContainer = styled.div`
   align-items: flex-start;
   padding: 15px;
   border-bottom: 1px solid #f0f0f0;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const CommentContent = styled.div`
+  width:100%
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
   flex: 1;
+  box-sizing: border-box;
+
 `;
 
 const Nickname = styled.div`
@@ -33,6 +42,24 @@ const LikeButton = styled.button`
   align-items: center;
 `;
 
+const Rating = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+`;
+
+const Stars = styled.span`
+  color: gold;
+  margin-left: 5px;
+`;
+
+const CommentBox = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+
+`;
+
 function ReviewList({ itemId, product }) {
   // product prop 추가
   const [comments, setComments] = useState([]);
@@ -41,8 +68,9 @@ function ReviewList({ itemId, product }) {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await apiClient.get(`items/item/${itemId}/reviews`);
+        const response = await apiClient.get(`reviews/item/${itemId}`);
         setComments(response.data.response);
+        console.log(response.data.response)
       } catch (error) {
         console.error("댓글을 불러오는 중 오류 발생:", error);
         setError(error); // 에러 상태 업데이트
@@ -62,47 +90,44 @@ function ReviewList({ itemId, product }) {
   }
 
   return (
-    <div>
-      {comments.map((comment) => (
+    <>
+      {comments?.map((comment) => (
         <Comment
-          key={comment.id}
-          nickname={comment.nickname}
-          text={comment.content}
-          likes={comment.likes}
-          profileImage={comment.user.profileImage}
+          key={comment?.reviewId}
+          nickname={comment?.username}
+          text={comment?.reviewContent}
+          score={comment?.reviewScore}
         />
       ))}
-    </div>
+    </>
   );
 }
 
-function Comment({ nickname, text, likes, profileImage }) {
+function Comment({ nickname, text, score }) {
   // ... (좋아요 기능 관련 코드)
 
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
+  // const [liked, setLiked] = useState(false);
+  // const [likeCount, setLikeCount] = useState(likes);
 
-  const handleLikeClick = () => {
-    setLiked(!liked);
-    setLikeCount(liked ? likeCount - 1 : likeCount + 1);
-  };
+  // const handleLikeClick = () => {
+  //   setLiked(!liked);
+  //   setLikeCount(liked ? likeCount - 1 : likeCount + 1);
+  // };
 
   return (
-    <CommentContainer>
-      <ProfileImage src={profileImage} alt={`${nickname} 프로필 이미지`} />
       <CommentContent>
+        <CommentBox>
         <Nickname>{nickname}</Nickname>
         <CommentText>{text}</CommentText>
+        </CommentBox>
+        <CommentBox>
+            <Rating>
+                      <Stars>      {Array.from({ length: 5 }, (_, index) => (
+        <span key={index}>{index < score ? '★' : '☆'}</span>
+      ))}</Stars> {/* 평점에 따라 별 개수를 조정하세요 */}
+            </Rating>
+        </CommentBox>
       </CommentContent>
-      <LikeButton onClick={handleLikeClick}>
-        {liked ? (
-          <AiFillHeart style={{ color: "red", marginRight: "5px" }} />
-        ) : (
-          <AiOutlineHeart style={{ color: "#ccc", marginRight: "5px" }} />
-        )}
-        {likeCount}
-      </LikeButton>
-    </CommentContainer>
   );
 }
 
