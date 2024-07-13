@@ -89,7 +89,7 @@ function App() {
             />
             <Route path="/searchItemList" element={<SearchItemListPage />} />
 
-            <Route path="/orderPayList" element={<OrderPayListPage />} />
+            {/* <Route path="/orderPayList" element={<OrderPayListPage />} /> */}
 
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/createreview" element={<CreateReviewPage />} />
