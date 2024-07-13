@@ -5,8 +5,10 @@ const OrderPayList = () => {
   const orders = [
     {
       date: '2024.07.01',
+      odrerId: 1,
       items: [
         {
+          itemId: 1,
           status: '구매확정 | 07/03 배송완료',
           price: '15,200원',
           name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
@@ -14,6 +16,7 @@ const OrderPayList = () => {
           image: 'path_to_image.jpg'
         },
         {
+          itemId: 1,
           status: '구매확정 | 07/03 배송완료',
           price: '15,200원',
           name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
@@ -24,8 +27,10 @@ const OrderPayList = () => {
     },
     {
       date: '2024.07.01',
+      odrerId: 2,
       items: [
         {
+          itemId: 1,
           status: '구매확정 | 07/03 배송완료',
           price: '15,200원',
           name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
@@ -33,6 +38,7 @@ const OrderPayList = () => {
           image: 'path_to_image.jpg'
         },
         {
+          itemId: 1,
           status: '구매확정 | 07/03 배송완료',
           price: '15,200원',
           name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
@@ -43,8 +49,10 @@ const OrderPayList = () => {
     },
     {
       date: '2024.07.01',
+      odrerId: 3,
       items: [
         {
+          itemId: 1,
           status: '구매확정 | 07/03 배송완료',
           price: '15,200원',
           name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
@@ -52,6 +60,7 @@ const OrderPayList = () => {
           image: 'path_to_image.jpg'
         },
         {
+          itemId: 1,
           status: '구매확정 | 07/03 배송완료',
           price: '15,200원',
           name: '[동대문 판매왕] [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠',
