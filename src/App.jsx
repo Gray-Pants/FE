@@ -6,7 +6,6 @@ import {
   Outlet,
   HashRouter,
 } from "react-router-dom";
-import Home from "./pages/main/Home";
 import { Container } from "./ui/container";
 import ItemDetail from "./pages/order/ItemDetail";
 import Main from "./pages/main/Main";
@@ -18,13 +17,12 @@ import Cart from "./pages/user/Cart";
 import PaymentCompletePage from "./pages/order/PayCompleted";
 import Me from "./pages/Me";
 
-import MyPage from "./pages/MyPage";
-import EditMemberInfo from "./components/EditMemberInfo";
-import EditPassword from "./pages/EditPassword";
-import LikeList from "./pages/LikeList";
-import ReviewPage from "./pages/Review";
-import CreateReviewPage from "./pages/CreateReview";
-import ReviewsListPage from "./pages/ReviewsList";
+import MyPage from "./pages/user/MyPage";
+import EditMemberInfo from "./pages/user/EditMemberInfo";
+import EditPassword from "./pages/user/EditPassword";
+import LikeList from "./pages/user/LikeList";
+import ReviewPage from "./pages/review/Review";
+import CreateReviewPage from "./pages/review/CreateReview";
 import Category from "./pages/main/Category";
 import GlobalStyle from "./ui/Font";
 import Search from "./pages/order/Search";
@@ -34,11 +32,7 @@ import SellerLoginPage from "./pages/seller/Sellerlogin";
 import SellerProductListPage from "./pages/seller/SellerProductList";
 import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
-
-import MyPage from "./pages/user/MyPage";
-import EditMemberInfo from "./components/user/EditMemberInfo";
-import EditPassword from "./pages/user/EditPassword";
-import LikeList from "./pages/user/LikeList";
+import ReviewsListPage from "./pages/review/ReviewsList";
 
 function App() {
   return (
@@ -77,6 +71,7 @@ function App() {
           <Route path="/likelist" element={<LikeList />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
+          <Route path="/reviewslist" element={<ReviewsListPage />} />
         </Routes>
         
       </Container>

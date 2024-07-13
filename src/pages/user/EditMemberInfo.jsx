@@ -1,7 +1,6 @@
 import React from "react";
-import EditMemberInfo from "../../components/EditMemberInfo";
-import PageHeader from "../../components/PageHeader";
-import FooterNav from "../../components/FooterNav";
+import PageHeader from "../../components/header/PageHeader";
+import FooterNav from "../../components/footer/FooterNav";
 
 const EditMemberInfo = () => {
   return (
@@ -13,3 +12,4 @@ const EditMemberInfo = () => {
   );
 };
 
+export default EditMemberInfo;

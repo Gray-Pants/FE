@@ -1,7 +1,7 @@
 import React from "react";
-import PageHeader from "../components/PageHeader";
-import CreateReview from "../components/CreateReview";
-import FooterNav from "../components/FooterNav";
+import PageHeader from "../../components/header/PageHeader";
+import CreateReview from "../../components/review/CreateReview";
+import FooterNav from "../../components/footer/FooterNav";
 
 const CreateReviewPage = () => {
   return (
