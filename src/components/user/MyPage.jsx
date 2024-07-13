@@ -1,12 +1,13 @@
-import { React, useEffect, useState} from "react";
+import { React, useEffect, useState } from "react";
 import styled from "styled-components";
-import { FiLock, FiSettings, FiHeart } from "react-icons/fi"; // react-icons 사용
+import { FiLock, FiSettings, FiHeart, FiLogOut } from "react-icons/fi"; // react-icons 사용
 import { Link, useNavigate } from "react-router-dom";
 import { getMyProfile } from "../../api/UserApiService";
+import {useCookies} from "react-cookie";
 // --- Styled Components ---
 
 const HeaderSpacer = styled.div`
-  height: 80px;  // 헤더와 섹션 사이의 간격
+  height: 80px; // 헤더와 섹션 사이의 간격
 `;
 
 const ProfileHeader = styled.div`
@@ -39,11 +40,11 @@ const OrderReviewContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%; 
+  width: 100%;
   padding: 10px 0;
   background-color: #fff;
-  border-top: 1px solid #ffa500; 
-  border-bottom: 7px solid #ffa500; 
+  border-top: 1px solid #ffa500;
+  border-bottom: 7px solid #ffa500;
 `;
 
 const OrderReviewItem = styled.div`
@@ -61,7 +62,7 @@ const Divider = styled.div`
 `;
 
 const MenuContainer = styled.div`
-  width: 100%; 
+  width: 100%;
   background-color: #fff;
 `;
 
@@ -92,11 +93,13 @@ const MenuText = styled.div`
 // --- 컴포넌트 ---
 
 const MyPage = () => {
+  const [, , removeCookie] = useCookies(["refresh_token"]);
+
   const [profile, setProfile] = useState({
     username: "지갑이 얇아 슬픈 짐승",
     orderCount: 0,
-    reviewCount: 0
-  })
+    reviewCount: 0,
+  });
 
   const navigate = useNavigate();
 
@@ -105,56 +108,65 @@ const MyPage = () => {
     navigate(`/mypage/${menu}`);
   };
 
+  const handleLogout = () => {
+    removeCookie("refresh_token", { path: "/" });
+  };
+
   const setData = async () => {
     const data = await getMyProfile();
     console.log(data);
     setProfile(data.data.response);
-  }
+  };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     setData();
-  }, [])
+  }, []);
 
   return (
     <>
       <HeaderSpacer />
-        <ProfileHeader>
-          <div>👤</div> {/* 프로필 이미지 대체 아이콘 */}
-          <ProfileName>{profile.username}</ProfileName>
-          <WhiteButton>white</WhiteButton>
-        </ProfileHeader>
-        <OrderReviewContainer>
-          <OrderReviewItem>
-            <div>주문내역</div>
-            <div>{profile.orderCount}</div>
-          </OrderReviewItem>
-          <Divider />
-          <OrderReviewItem>
-            <div>나의 리뷰</div>
-            <div>{profile.reviewCount}</div>
-          </OrderReviewItem>
-        </OrderReviewContainer>
-        <MenuContainer>
-          <MenuItem onClick={() => handleMenuClick("edit/password")}>
-            <MenuIcon>
-              <FiLock />
-            </MenuIcon>
-            <MenuText>비밀번호 수정</MenuText>
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("edit/profile")}>
-            <MenuIcon>
-              <FiSettings />
-            </MenuIcon>
-            <MenuText>회원 정보 수정</MenuText>
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("likes")}>
-            <MenuIcon>
-              <FiHeart />
-            </MenuIcon>
-            <MenuText>찜 목록</MenuText>
-          </MenuItem>
-        </MenuContainer>
+      <ProfileHeader>
+        <div>👤</div> {/* 프로필 이미지 대체 아이콘 */}
+        <ProfileName>{profile.username}</ProfileName>
+        <WhiteButton>white</WhiteButton>
+      </ProfileHeader>
+      <OrderReviewContainer>
+        <OrderReviewItem>
+          <div>주문내역</div>
+          <div>{profile.orderCount}</div>
+        </OrderReviewItem>
+        <Divider />
+        <OrderReviewItem>
+          <div>나의 리뷰</div>
+          <div>{profile.reviewCount}</div>
+        </OrderReviewItem>
+      </OrderReviewContainer>
+      <MenuContainer>
+        <MenuItem onClick={() => handleMenuClick("edit/password")}>
+          <MenuIcon>
+            <FiLock />
+          </MenuIcon>
+          <MenuText>비밀번호 수정</MenuText>
+        </MenuItem>
+        <MenuItem onClick={() => handleMenuClick("edit/profile")}>
+          <MenuIcon>
+            <FiSettings />
+          </MenuIcon>
+          <MenuText>회원 정보 수정</MenuText>
+        </MenuItem>
+        <MenuItem onClick={() => handleMenuClick("likes")}>
+          <MenuIcon>
+            <FiHeart />
+          </MenuIcon>
+          <MenuText>찜 목록</MenuText>
+        </MenuItem>
+        <MenuItem onClick={() => handleLogout()}>
+          <MenuIcon>
+            <FiLogOut />
+          </MenuIcon>
+          <MenuText>로그아웃</MenuText>
+        </MenuItem>
+      </MenuContainer>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FiShoppingBag, FiSmartphone, FiHeadphones, FiWatch } from 'react-icons/fi';
-import { GiTShirt } from 'react-icons/gi';
 
 const CategoryContainer = styled.div`
   display: flex;
@@ -18,6 +17,7 @@ const Category = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 12px;
+  cursor: pointer;
 `;
 
 const ImageIcon = styled.img`
@@ -26,37 +26,31 @@ const ImageIcon = styled.img`
   padding: 10px;
 `;
 
+const categories = [
+  { name: '상의', icon: '/icons/shirt-2.png' },
+  { name: '하의', icon: '/icons/pants.png' },
+  { name: '신발', icon: '/icons/sneakers.png' },
+  { name: '모자', icon: '/icons/cap.png' },
+  { name: '가방', icon: '/icons/school-bag.png' },
+  { name: '소품', icon: '/icons/necklace.png' },
+  { name: '언더웨어', icon: '/icons/panties.png' }
+];
+
 const Categories = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    navigate(`/GreyPants/${category}`);
+  };
+
   return (
     <CategoryContainer>
-      <Category>
-        <ImageIcon src="/icons/shirt-2.png" alt="top image" />
-        상의
-      </Category>
-      <Category>
-        <ImageIcon src="/icons/pants.png" alt="top image" />
-        하의
-      </Category>
-      <Category>
-        <ImageIcon src="/icons/sneakers.png" alt="top image" />
-        신발
-      </Category>
-      <Category>
-        <ImageIcon src="/icons/cap.png" alt="top image" />
-        모자
-      </Category>
-      <Category>
-        <ImageIcon src="/icons/school-bag.png" alt="top image" />
-        가방
-      </Category>
-      <Category>
-        <ImageIcon src="/icons/necklace.png" alt="top image" />
-        소품
-      </Category>
-      <Category>
-        <ImageIcon src="/icons/panties.png" alt="top image" />
-        언더웨어
-      </Category>
+      {categories.map((category) => (
+        <Category key={category.name} onClick={() => handleCategoryClick(category.name)}>
+          <ImageIcon src={category.icon} alt={`${category.name} image`} />
+          {category.name}
+        </Category>
+      ))}
     </CategoryContainer>
   );
 };

@@ -78,8 +78,7 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    // 검색 로직 구현
-    console.log("검색어:", searchText);
+    navigate(`/searchItemList?query=${searchText}`);
   };
 
   const handleClearInput = () => {

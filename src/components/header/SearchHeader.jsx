@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
-import { apiClient } from "../../api/ApiClient";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -65,17 +64,9 @@ const SearchHeader = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (searchText) => {
-
-    apiClient.get(`/items/${searchText}`)
-    .then(response => {
-        console.log(response);
-    })
-    .catch(error => {
-        // handle the error
-    });
-};
-
+  const handleSearch = () => {
+    navigate(`/searchItemList?query=${searchText}`);
+  };
 
   const handleCartClick = () => {
     navigate("/cart");
@@ -83,7 +74,9 @@ const SearchHeader = () => {
 
   return (
     <HeaderContainer>
-      <Logo src="/images/greyPantsIcon.png" alt="logo image" />
+      <Link to="/">
+        <Logo src="/images/greyPantsIcon.png" alt="logo image" />
+      </Link>
       <SearchBarContainer>
         <FiSearch />
         <Input
@@ -93,7 +86,7 @@ const SearchHeader = () => {
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleSearch(searchText);
+              handleSearch();
             }
           }}
         />

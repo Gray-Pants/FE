@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container } from "../../ui/container";
+import { sendEmail, signUpReqeust, verifyEmail } from "../../api/AuthenticationApiService";
+import { useAuth } from "../../security/AuthContext";
 
 const Logo = styled.img`
     width: 100px;
@@ -57,6 +59,9 @@ const VerifyButton = styled(Button)`
 
 // 회원가입 컴포넌트
 function SignUp() {
+  const navigate = useNavigate();
+  const authContext = useAuth();
+
     const [singupState, setSignupState] = useState({
         name: "",
         email: "",
@@ -69,27 +74,46 @@ function SignUp() {
     });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
   const [authCode, setAuthCode] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
 
-  const handleSignUp = () => {
-    // 회원가입 로직 (API 요청 등)
-    console.log("회원가입 정보:", {
-      name,
-      email,
-      authCode,
-      password,
-      passwordCheck,
-      phoneNumber,
-      address,
-    });
+  const handleSignUp = async () => {
+    const res = await signUpReqeust(name, email, password, verificationCode, `user`);
+
+    if(res.status == 200) {
+      alert("회원가입이 완료되었습니다.");
+      const jwtToken = 'Bearer ' + res.headers['access-token'];
+      authContext.setUserAccessToken(jwtToken);
+      navigate(`/`);
+    }
+    else {
+      alert("회원가입에 실패했습니다.");
+    }
   };
 
-  const handleVerifyEmail = () => {
-    // 이메일 인증 로직 (API 요청 등)
+  const handleSendEmail = async () => {
+    await sendEmail(email, `user`);
+    alert("인증 이메일을 전송했습니다.");
+  }
+
+  const handleVerifyEmail = async () => {
+    if(email === null || email === "") {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+    const res = await verifyEmail(email, code, `user`);
+    console.log(res);
+    if(res.status == 200) {
+      alert("이메일 인증이 완료되었습니다.");
+      setVerificationCode(res.data.response.verifiedCode);
+    } else {
+      alert("이메일 인증에 실패했습니다.");
+    }
     console.log("이메일 인증 요청:", email);
   };
 
@@ -103,13 +127,14 @@ function SignUp() {
         <InputField type="text" placeholder="name" value={name} onChange={(e) => setName(e.target.value)} />
         <EmailContainer >
           <InputField type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <VerifyButton onClick={handleSendEmail}>전송</VerifyButton>
+        </EmailContainer>    
+         <EmailContainer >
+          <InputField type="number" placeholder="인증번호" value={code} onChange={(e) => setCode(e.target.value)} />
           <VerifyButton onClick={handleVerifyEmail}>인증</VerifyButton>
         </EmailContainer>
-        <InputField type="text" placeholder="인증번호" value={authCode} onChange={(e) => setAuthCode(e.target.value)} />
         <InputField type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <InputField type="password" placeholder="Check the password" value={passwordCheck} onChange={(e) => setPasswordCheck(e.target.value)} />
-        <InputField type="tel" placeholder="휴대폰 번호" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-        <InputField type="text" placeholder="주소" value={address} onChange={(e) => setAddress(e.target.value)} />
         <Button onClick={handleSignUp}>회원가입</Button>
       </InputWrapper>
     </>

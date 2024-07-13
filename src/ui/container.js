@@ -15,4 +15,5 @@ export const Container = styled.div`
   min-height: 100vh;
   height: 100%;
   margin: 0 auto; /* 중앙 정렬을 위한 margin 설정 */
+  padding-bottom: 80px;
 `;
