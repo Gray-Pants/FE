@@ -1,54 +1,35 @@
-import { React, useState, useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from "react-router-dom";
-import { getMyItems } from "../../api/ItemApiService";
 
 const SellerList = () => {
-  const [products, setProduct] = useState([{
-    itemId: 111,
-    itemName: "무뚝뚝한 고구마 칩",
-    stock: 100,
-    itemPrice: 2700
-  }])
-
-  const navigate = useNavigate();
-
-  const handleMenuClick = (menu) => {
-    console.log(menu);
-    navigate(`/sellerlist/${menu}`);
-  };
-
-  const setData = async () => {
-    const data = await getMyItems();
-    console.log(data);
-    setProduct(data.data.response);
-  }
-
-
-  useEffect(()=>{
-    setData();
-  }, [])
+  const products = [
+    { name: '상품1', stock: '재고', price: '가격' },
+    { name: '상품2', stock: '재고', price: '가격' },
+    { name: '상품3', stock: '재고', price: '가격' },
+    { name: '상품4', stock: '재고', price: '가격' },
+    { name: '상품5', stock: '재고', price: '가격' },
+  ];
 
   return (
     <ListContainer>
       <Title>상품 목록</Title>
-      {products.map((products, index) => (
+      {products.map((product, index) => (
         <ProductBox key={index}>
-          <ProductImage onClick={() => handleMenuClick("edit/sellerProductDetails")}/>
+          <ProductImage />
           <ProductInfo>
             <ProductRow>
               <ProductLabel>이름:</ProductLabel>
-              <ProductName>{products.itemName}</ProductName>
+              <ProductName>{product.name}</ProductName>
               <Placeholder width="30%" />
             </ProductRow>
             <ProductRow>
               <ProductLabel>재고:</ProductLabel>
-              <ProductStock>{products.stock}</ProductStock>
+              <ProductStock>{product.stock}</ProductStock>
               <Placeholder width="30%" />
             </ProductRow>
             <ProductRow>
               <ProductLabel>가격:</ProductLabel>
-              <ProductPrice>{products.itemPrice}</ProductPrice>
+              <ProductPrice>{product.price}</ProductPrice>
               <Placeholder width="30%" />
             </ProductRow>
           </ProductInfo>
