@@ -33,10 +33,14 @@ import PaymentCompletePage from "./pages/order/PayCompleted";
 import ItemOrder from "./pages/order/ItemOrder";
 import Category from "./pages/main/Category";
 import ItemListPage from "./pages/main/ItemListPage";
+
+import Editpassword from "./pages/EditPassword";
+
 import Search from "./pages/main/Search";
 import SearchItemListPage from "./pages/main/SearchItemListPage";
 import ItemDetail from "./pages/order/ItemDetail";
 import ReviewsList from "./pages/review/ReviewsList";
+
 
 function App() {
   return (
@@ -72,7 +76,12 @@ function App() {
 
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
+
+
+          <Route path="/editpassword" element={<Editpassword/>}/>
+
           <Route path="/reviewslist" element={<ReviewsList />} />
+
         </Routes>
         
       </Container>
