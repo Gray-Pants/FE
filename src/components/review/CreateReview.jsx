@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { apiClient } from '../../api/ApiClient';
 
 // --- Styled Components ---
 
@@ -117,26 +119,55 @@ const SubmitButton = styled.button`
 
 const ReviewPage = () => {
   const [rating, setRating] = useState(0);
+  const [content, setContent] = useState('');
+  const [item, setItem] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+  const orderItemId = searchParams.get('orderitem');
+
+  const navigate = useNavigate();
+
+  console.log(orderItemId);
 
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
 
-  const handleSubmit = () => {
-    console.log('리뷰 데이터 전송:', { rating });
+  const handleSubmit = async () => {
+    console.log('리뷰 데이터 전송:', { rating, content });
+    const res = await apiClient.post('/reviews', {
+      reviewContent: content,
+      reviewScore: rating,
+      orderItemId: orderItemId
+    })
+    if(res.status !== 200) {
+      alert('리뷰 등록에 실패했습니다.');
+      return;
+    }
+    alert('리뷰가 등록되었습니다.');
+    navigate('/mypage/reviews/list');
     // 서버로 리뷰 데이터 전송하는 로직 추가
   };
+
+  const getItem = async() => {
+    const res = await apiClient.get(`/order-items/${orderItemId}`);
+    console.log(res.data.response);
+    setItem(res.data.response);
+  }
+
+  useEffect(()=>{
+    getItem();
+  },[]);
 
   return (
     <>
       <ProductContainer>
         <ProductImage>
-          <Image src="https://via.placeholder.com/80" alt="Product" />
+          <Image src={item?.item?.itemPhotos[0]} alt="Product" />
         </ProductImage>
         <ProductDetails>
-          <BrandName>브렌슨</BrandName>
-          <ProductName>미니멀 트레이닝 essential 윌텍 반바지</ProductName>
-          <ProductInfo>블랙 | FREE</ProductInfo>
+          <BrandName>{item?.item?.storeName}</BrandName>
+          <ProductName>{item?.item?.itemName}</ProductName>
+          {/* <ProductInfo>블랙 | FREE</ProductInfo> */}
         </ProductDetails>
       </ProductContainer>
       <RatingContainer>
@@ -154,7 +185,8 @@ const ReviewPage = () => {
           ))}
         </RatingStars>
       </RatingContainer>
-      <ReviewInput placeholder="리뷰를 작성해주세요." />
+      <ReviewInput placeholder="리뷰를 작성해주세요." value={content} 
+        onChange={(e)=>{setContent(e.target.value) }}/>
       <ButtonContainer>
         <CancelButton>취소</CancelButton>
         <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
