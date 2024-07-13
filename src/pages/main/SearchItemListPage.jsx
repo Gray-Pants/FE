@@ -5,20 +5,24 @@ import SearchHeader from "../../components/header/SearchHeader";
 import FooterNav from "../../components/footer/FooterNav";
 import Filter from "../../components/main/Filter";
 import ItemSection from "../../components/item/ItemSection";
+import { apiClient } from "../../api/ApiClient";
 
 const ProductItem = styled.div`
   max-width: 100px;
   min-width: 100px;
   margin: 5px;
-  background-color: #000;
-  height: 100px; /* Placeholder for product image */
-  display: inline-block;
+  background-color: #fff; /* Change background color to white */
+  height: 150px; /* Increase height to accommodate image and details */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 `;
 
-const Recommand = styled.div`
-  font-family: 'TheJamsil3Regular';
-  padding: 10px;
-  text-align: left;
+const ProductImage = styled.img`
+  width: 100%;
+  height: 100px; /* Placeholder for product image */
+  object-fit: cover; /* Ensure the image covers the area */
 `;
 
 const useQuery = () => {
@@ -27,26 +31,30 @@ const useQuery = () => {
 
 const SearchItemListPage = () => {
   const [products, setProducts] = useState([]);
+  const [sortOrder, setSortOrder] = useState('lowPrice');
   const query = useQuery();
   const searchQuery = query.get("query");
 
   useEffect(() => {
-    // Load all data
+    // Load data
     fetchData();
-  }, []);
+  }, [searchQuery]);
 
-  const fetchData = () => {
-    // Simulate fetching data from an API
-    const allProducts = Array.from({ length: 30 }, (_, index) => (
-      <ProductItem key={index} />
-    ));
-    setProducts(allProducts);
+  const fetchData = async () => {
+    try {
+      const response = await apiClient.get('items/' + searchQuery);
+      setProducts(response.data.response);
+      console.log(response.data.response); // Check the response data structure
+    } catch (error) {
+      console.error('전송 오류:', error);
+      // 오류 발생 시 처리할 로직
+    }
   };
 
   return (
     <>
       <SearchHeader />
-      <Filter />
+      <Filter/>
       <ItemSection title={`상품 검색: ${searchQuery || ""}`} products={products} />
       <FooterNav />
     </>

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiBell } from "react-icons/fi";
-import { apiClient } from "../../api/ApiClient";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -66,14 +65,6 @@ const SearchHeader = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    // API 요청을 주석 처리 또는 삭제
-    // apiClient.get(`/items/${searchText}`)
-    //   .then(response => {
-    //       console.log(response);
-    //   })
-    //   .catch(error => {
-    //       // handle the error
-    //   });
     navigate(`/searchItemList?query=${searchText}`);
   };
 
@@ -83,7 +74,9 @@ const SearchHeader = () => {
 
   return (
     <HeaderContainer>
-      <Logo src="/images/greyPantsIcon.png" alt="logo image" />
+      <Link to="/">
+        <Logo src="/images/greyPantsIcon.png" alt="logo image" />
+      </Link>
       <SearchBarContainer>
         <FiSearch />
         <Input
