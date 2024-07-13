@@ -36,6 +36,7 @@ import ItemListPage from "./pages/main/ItemListPage";
 import Search from "./pages/main/Search";
 import SearchItemListPage from "./pages/main/SearchItemListPage";
 import ItemDetail from "./pages/order/ItemDetail";
+import ReviewsList from "./pages/review/ReviewsList";
 
 function App() {
   return (
@@ -71,7 +72,7 @@ function App() {
 
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
-          <Route path="/reviewslist" element={<ReviewsListPage />} />
+          <Route path="/reviewslist" element={<ReviewsList />} />
         </Routes>
         
       </Container>
