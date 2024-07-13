@@ -71,6 +71,7 @@ function App() {
 
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />
+          <Route path="/reviewslist" element={<ReviewsListPage />} />
         </Routes>
         
       </Container>
