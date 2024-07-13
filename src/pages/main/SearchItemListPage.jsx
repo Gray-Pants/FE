@@ -31,7 +31,7 @@ const useQuery = () => {
 
 const SearchItemListPage = () => {
   const [products, setProducts] = useState([]);
-  const [sortOrder, setSortOrder] = useState('lowPrice');
+  const [sortOrder, setSortOrder] = useState("lowPrice");
   const query = useQuery();
   const searchQuery = query.get("query");
 
@@ -42,11 +42,11 @@ const SearchItemListPage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await apiClient.get('items/' + searchQuery);
+      const response = await apiClient.get("items/" + searchQuery);
       setProducts(response.data.response);
       console.log(response.data.response); // Check the response data structure
     } catch (error) {
-      console.error('전송 오류:', error);
+      console.error("전송 오류:", error);
       // 오류 발생 시 처리할 로직
     }
   };
@@ -54,8 +54,11 @@ const SearchItemListPage = () => {
   return (
     <>
       <SearchHeader />
-      <Filter/>
-      <ItemSection title={`상품 검색: ${searchQuery || ""}`} products={products} />
+      <Filter />
+      <ItemSection
+        title={`상품 검색: ${searchQuery || ""}`}
+        products={products}
+      />
       <FooterNav />
     </>
   );

@@ -5,13 +5,14 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; // 하트 아이�
 const ProductCardContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
+  width: 400px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const ProductImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 500px;
   object-fit: cover;
 `;
 
@@ -67,52 +68,61 @@ const LikeCount = styled.span`
   margin-left: 5px;
 `;
 
-function ProductCard() {
+function ProductCard({
+  sellerAvatar,
+  sellerName,
+  likes,
+  productName,
+  price,
+  tags,
+  productImage,
+  reviewCount,
+  rating,
+}) {
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(345);
+  const [likeCount, setLikeCount] = useState(likes); // likes 초기값 설정
 
-  const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+  const handleLikeClick = async () => {
+    try {
+      const response = await apiClient.post(`/items/item/${itemId}/like`, {
+        liked: !isLiked, // 변경된 좋아요 상태 전송
+      });
+      setLiked(!isLiked);
+      setLikeCount(response.data.likes); // 업데이트된 좋아요 수 반영
+    } catch (error) {
+      console.error("좋아요 상태 변경 중 오류 발생:", error);
+      // 에러 처리 (예: 사용자에게 알림 메시지 표시)
+    }
   };
 
   return (
     <ProductCardContainer>
-      <ProductImage
-        src="../../public/images/스와퍼(상품이미지).svg"
-        alt="상품 이미지"
-      />
+      <ProductImage src={productImage} alt="상품 이미지" />
       <ProductInfo>
         <SellerInfo>
-          <SellerAvatar
-            src="../../public/images/김바덕.jpg"
-            alt="판매자 이미지"
-          />
-          <SellerName>동대문 판매왕</SellerName>
+          <SellerAvatar src={sellerAvatar} alt="판매자 이미지" />
+          <SellerName>{sellerName}</SellerName>
+
           <LikeButton onClick={handleLikeClick}>
             {isLiked ? (
-              <AiFillHeart size={24} color="red" /> // 빨간 하트
+              <AiFillHeart size={24} color="red" />
             ) : (
-              <AiOutlineHeart size={24} /> // 빈 하트
+              <AiOutlineHeart size={24} />
             )}
             <LikeCount>{likeCount}</LikeCount>
           </LikeButton>
         </SellerInfo>
-        <ProductTags>#캐주얼 #신상 34.5만</ProductTags>
-        <ProductName>
-          [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠
-        </ProductName>
-        <ProductPrice>50,000원</ProductPrice>
-        <ProductName>
-          [real cheap] Gray pants. Signature Cotton Bermuda pants
-        </ProductName>
+
+        <ProductTags>{tags}</ProductTags>
+        <ProductName>{productName}</ProductName>
+        <ProductPrice>{price}원</ProductPrice>
         <div style={{ display: "flex", alignItems: "center" }}>
           <span>★★★★★</span>
           <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
-            4.8
+            {rating}
           </span>
           <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
-            리뷰 5개
+            리뷰 {reviewCount}개
           </span>
         </div>
       </ProductInfo>

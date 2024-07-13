@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const ProductSectionContainer = styled.div`
   padding: 10px 0;
@@ -27,13 +27,13 @@ const ProductImage = styled.img`
 `;
 
 const ItemName = styled.div`
-  font-family: 'TheJamsil3Regular';
+  font-family: "TheJamsil3Regular";
   font-size: 10px;
   text-align: center;
 `;
 
 const Recommand = styled.div`
-  font-family: 'TheJamsil3Regular';
+  font-family: "TheJamsil3Regular";
   padding: 10px;
   text-align: left;
 `;
