@@ -7,7 +7,7 @@ const NavigationBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -45,7 +45,7 @@ const NavText = styled.span`
   font-size: 12px;
 `;
 
-const PageHeader = ({props}) => {
+const PageHeader = ({ props }) => {
   return (
     <>
       <NavigationBar>
