@@ -5,7 +5,7 @@ import FooterNav from "../footer/FooterNav";
 import { apiClient } from "../../api/ApiClient";
 
 const HeaderSpacer = styled.div`
-  height: 80px;
+  // height: 80px;
 `;
 
 const Section = styled.section`
@@ -162,7 +162,24 @@ const PayButton = styled.button`
 const CreateOrder = () => {
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState({});
+  const [selectedAddress, setSelectedAddress] = useState({index:0});
+  const [addressList, setAddressList] = useState([]);
+  const [ username, setUsername] = useState("");
+
+  const getAddressList = async() => {
+    const res = await apiClient.get("/users/info");
+    console.log(res.data.response);
+    setAddressList(res.data.response.addrs);
+    setUsername(res.data.response.username);
+  }
+
+  useEffect(()=>{
+    getAddressList();
+  },[]);
+
+
+
 
   // 카카오페이 결제 준비 API 호출
   const requestKakaoPay = async () => {
@@ -238,18 +255,20 @@ const CreateOrder = () => {
         <Section>
           <SectionTitle>배송지</SectionTitle>
           <AddressTypeGroup>
-            <AddressType active>집</AddressType>
-            <AddressType>친구집</AddressType>
+            {addressList.map((address, index) => (
+              <AddressType
+                key={index}
+                type="button"
+                $active={selectedAddress.index === index}
+                onClick={() => setSelectedAddress({addr:addressList[index], index: index})}
+              >
+                {address.userAddrName}
+              </AddressType>
+            ))}
           </AddressTypeGroup>
-          <Input placeholder="이름 " />
-          <Input placeholder="배송지명" />
-          <PhoneInput>
-            <Input placeholder="010" />
-            <Input placeholder="1234" />
-            <Input placeholder="5678" />
-          </PhoneInput>
-          <Input placeholder="주소" />
-          <Input placeholder="상세주소" />
+          <Input placeholder="이름" value={username}/>
+          <Input placeholder="전화번호" value={selectedAddress.addr.userAddrPhone}/>
+          <Input placeholder="주소" value={selectedAddress.addr.userAddr}/>
         </Section>
 
         {/* 상품 정보 */}
