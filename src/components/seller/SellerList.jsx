@@ -1,54 +1,40 @@
-import { React, useState, useEffect} from 'react';
+import React ,{useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from "react-router-dom";
-import { getMyItems } from "../../api/ItemApiService";
+import { apiClient } from '../../api/ApiClient';
 
 const SellerList = () => {
-  const [products, setProduct] = useState([{
-    itemId: 111,
-    itemName: "무뚝뚝한 고구마 칩",
-    stock: 100,
-    itemPrice: 2700
-  }])
+  const [products, setProducts] = useState([]);
 
-  const navigate = useNavigate();
-
-  const handleMenuClick = (menu) => {
-    console.log(menu);
-    navigate(`/sellerlist/${menu}`);
-  };
-
-  const setData = async () => {
-    const data = await getMyItems();
-    console.log(data);
-    setProduct(data.data.response);
+  const getSellerList = async() => {
+    const res = await apiClient.get(`stores/myitems`);
+    console.log(res);
+    setProducts(res.data.response);
   }
 
-
   useEffect(()=>{
-    setData();
+    getSellerList();
   }, [])
 
   return (
     <ListContainer>
       <Title>상품 목록</Title>
-      {products.map((products, index) => (
+      {products.map((product, index) => (
         <ProductBox key={index}>
-          <ProductImage onClick={() => handleMenuClick("edit/sellerProductDetails")}/>
+          <ProductImage src={product.itemPhotos[0]}/>
           <ProductInfo>
             <ProductRow>
               <ProductLabel>이름:</ProductLabel>
-              <ProductName>{products.itemName}</ProductName>
+              <ProductName>{product.itemName}</ProductName>
               <Placeholder width="30%" />
             </ProductRow>
             <ProductRow>
               <ProductLabel>재고:</ProductLabel>
-              <ProductStock>{products.stock}</ProductStock>
+              <ProductStock>{product.stock}</ProductStock>
               <Placeholder width="30%" />
             </ProductRow>
             <ProductRow>
               <ProductLabel>가격:</ProductLabel>
-              <ProductPrice>{products.itemPrice}</ProductPrice>
+              <ProductPrice>{product.itemPrice}</ProductPrice>
               <Placeholder width="30%" />
             </ProductRow>
           </ProductInfo>
@@ -76,6 +62,7 @@ const Title = styled.h1`
   color: #000000;
   margin-bottom: 20px;
 `;
+//와쓰
 
 const ProductBox = styled.div`
   width: 100%;
@@ -87,7 +74,7 @@ const ProductBox = styled.div`
   overflow: hidden;
 `;
 
-const ProductImage = styled.div`
+const ProductImage = styled.img`
   width: 120px;
   height: 120px;
   background: #D9D9D9;
