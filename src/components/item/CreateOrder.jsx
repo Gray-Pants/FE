@@ -12,34 +12,46 @@ const CreateOrder = () => {
     setPaymentMethod(method);
   };
 
-  const handleSubmit = (e) => {
+  const isMobile = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (paymentMethod === '카드 결제') {
       navigate('/card-payment');
     } else if (paymentMethod === '카카오 페이 결제') {
-      try {
-        const response = apiClient.post('/payments/kakaoPay/ready',
-        { 
-          // Replace with your actual JSON payload
-          itemName: '치킨',
-          quantity: 2,
+    try {
+      const response = await apiClient.post(
+        '/payments/kakaoPay/ready',
+        {
+          itemName: '치킨', // 유효한 주문 ID로 설정
+          quantity: 1,
           totalAmount: 20000,
-          // Add other fields as needed
         },
         {
           headers: {
             'Content-Type': 'application/json',
-          },}
-          );
-        // Assuming the API response contains a URL to redirect to Kakao Pay
-        window.location.href = response.data.redirectUrl;
-      } catch (error) {
-        console.error('카카오 페이 결제 오류:', error);
-        // Handle the error, show an error message to the user, etc.
+          },
+        }
+      );
+
+      window.localStorage.setItem("tid", response.data.tid);
+      if (response.data) {
+        const redirectUrl = isMobile() ? response.data.next_redirect_mobile_url : response.data.next_redirect_pc_url;
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        } else {
+          console.error('카카오 페이 리디렉션 URL이 없습니다:', response.data);
+          // 추가적인 에러 처리 로직
+        }
       }
+    } catch (error) {
+      console.error('카카오 페이 결제 오류:', error);
+      // 에러 처리 로직 추가
+    }
   }
 };
-
   return (
     <>
       <HeaderSpacer />

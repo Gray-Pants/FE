@@ -96,7 +96,9 @@ function App() {
 
             <Route path="/editpassword" element={<Editpassword />} />
 
+            <Route path="/kakaoPay/approve" element={<PaymentCompletePage />} />
             <Route path="/reviewslist" element={<ReviewsList />} />
+
           </Routes>
         </Container>
       </BrowserRouter>
