@@ -4,8 +4,7 @@ import styled from "styled-components";
 const FooterContainer = styled.div`
   position: fixed;
   bottom: 0;
-  width: 100%;
-  max-width: 518px;
+  width: 400px;
   background: #fff;
   transition: height 0.3s ease-in-out;
   height: ${(props) => (props.expanded ? "200px" : "60px")};
@@ -86,9 +85,13 @@ const PutItemToCart = ({ onAddToCart }) => {
       </FooterContent>
       {expanded && (
         <QuantitySelector>
-          <QuantityButton onClick={() => handleQuantityChange(-1)}>-</QuantityButton>
+          <QuantityButton onClick={() => handleQuantityChange(-1)}>
+            -
+          </QuantityButton>
           <QuantityDisplay>{quantity}</QuantityDisplay>
-          <QuantityButton onClick={() => handleQuantityChange(1)}>+</QuantityButton>
+          <QuantityButton onClick={() => handleQuantityChange(1)}>
+            +
+          </QuantityButton>
           <OrderButton onClick={handleAddToCart}>장바구니에 담기</OrderButton>
         </QuantitySelector>
       )}

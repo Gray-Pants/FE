@@ -62,7 +62,7 @@ function Cart() {
           productName: item.item.itemName,
           itemPrice: item.item.itemPrice,
           id: item.cartItemId,
-          checked: false
+          checked: false,
         }));
         setCartItems(itemsWithImage);
         console.log("Cart items fetched:", itemsWithImage);
@@ -78,8 +78,12 @@ function Cart() {
 
   useEffect(() => {
     console.log("Cart items updated:", cartItems);
-    const totalQuantity = cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.cartItemQuantity, 0);
-    const totalPrice = cartItems.filter(item => item.checked).reduce((acc, item) => acc + (item.itemPrice * item.cartItemQuantity), 0);
+    const totalQuantity = cartItems
+      .filter((item) => item.checked)
+      .reduce((acc, item) => acc + item.cartItemQuantity, 0);
+    const totalPrice = cartItems
+      .filter((item) => item.checked)
+      .reduce((acc, item) => acc + item.itemPrice * item.cartItemQuantity, 0);
 
     setTotalQuantity(totalQuantity);
     setTotalPrice(totalPrice);
