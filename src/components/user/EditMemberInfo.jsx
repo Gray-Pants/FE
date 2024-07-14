@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FiArrowLeft, FiHome } from "react-icons/fi";
 import PropTypes from 'prop-types';
+import { apiClient } from "../../api/ApiClient";
 
 const Header = styled.div`
   display: flex;
@@ -29,10 +30,12 @@ const BackIcon = styled.div`
 `;
 
 const Label = styled.label`
+
   display: block;
   font-size: 0.8rem;
   color: #333;
-  margin-bottom: 5px;
+  margin-top: 15px;
+  margin-bottom: 10px;
 `;
 
 const Input = styled.input`
@@ -78,17 +81,56 @@ const SaveButton = styled.button`
 `;
 
 const EditMemberInfo = () => {
-  const [nickname, setNickname] = useState("지갑이 얇아 슬픈 짐승");
-  const [phone, setPhone] = useState("010-9071-9904");
-  const [address, setAddress] = useState("상도동 7-104 초원빌라 105호");
+  const [userInfo, setUserInfo] = useState({});
+  const [nickname, setNickname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressName, setAddressName] = useState("");
+  const [addrList, setAddrList] = useState([]);
+  
+  const getUserInfo = async () => {
+    const res = await apiClient.get("/users/info");
+    console.log(res);
+    setUserInfo(res.data.response);
+    setNickname(res.data.response.username);
 
-  const handleSave = () => {
-    console.log("정보 저장:", { nickname, phone, address });
+  }
+
+  useEffect(() => {
+    getUserInfo();
+  }, [])
+
+  const handleSave = async () => {
+    if (nickname === "" || nickname === userInfo.username) {
+      alert("변경할 닉네임을 입력해주세요.");
+      return;
+    }
+    const res = await apiClient.put("/users/username", {
+      changeName: nickname,
+    });
+    if(res.status === 200) {
+      setAddrList([...addrList, address])
+      alert("회원 정보가 변경되었습니다.");
+    } else {
+      alert("회원 정보 변경에 실패했습니다.");
+    }
+
   };
 
-  const handleDelete = () => {
-    console.log("회원 정보 삭제");
-  };
+
+  const handleAddAddress = async () => {
+    const res = await apiClient.post("/users/newaddr", {
+      userAddrName: addressName,
+      userAddr: address,
+      userAddrPhone: phone
+    });
+    console.log(res);
+    if(res.status === 200) {
+      alert("배송지가 추가되었습니다.");
+    } else {
+      alert("배송지 추가에 실패했습니다.");
+    }
+  }
 
   return (
     <>
@@ -105,12 +147,15 @@ const EditMemberInfo = () => {
       </Header>
       <Label>닉네임</Label>
       <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      <tr/>
+      <Label>배송지명</Label>
+      <Input value={addressName} placeholder="배송지명" onChange={(e) => setAddressName(e.target.value)} />
       <Label>휴대폰 번호</Label>
-      <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
+      <Input value={phone} placeholder="휴대폰 번호" onChange={(e) => setPhone(e.target.value)} />
       <Label>주소</Label>
-      <Input value={address} onChange={(e) => setAddress(e.target.value)} />
-      <AddAddressButton>배송지 추가</AddAddressButton>
-      <DeleteTextButton onClick={handleDelete}>회원 정보 삭제</DeleteTextButton>
+      <Input value={address} placeholder="주소" onChange={(e) => setAddress(e.target.value)} />
+      <AddAddressButton onClick={()=>handleAddAddress()}>배송지 추가</AddAddressButton>
+      {/* <DeleteTextButton onClick={handleDelete}>회원 정보 삭제</DeleteTextButton> */}
       <SaveButton onClick={handleSave}>변경하기</SaveButton>
     </>
   );

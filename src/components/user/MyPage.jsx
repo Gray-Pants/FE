@@ -6,10 +6,6 @@ import { getMyProfile } from "../../api/UserApiService";
 import {useCookies} from "react-cookie";
 // --- Styled Components ---
 
-const HeaderSpacer = styled.div`
-  height: 80px; // 헤더와 섹션 사이의 간격
-`;
-
 const ProfileHeader = styled.div`
   display: flex;
   align-items: center;
@@ -124,7 +120,6 @@ const MyPage = () => {
 
   return (
     <>
-      <HeaderSpacer />
       <ProfileHeader>
         <div>👤</div> {/* 프로필 이미지 대체 아이콘 */}
         <ProfileName>{profile.username}</ProfileName>

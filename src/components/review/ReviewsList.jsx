@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const ReviewTabs = styled.div`
-  margin-top: 50px;
+  // margin-top: 50px;
   display: flex;
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
