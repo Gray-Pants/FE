@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const OrderButtonContainer = styled.div`
@@ -31,6 +31,11 @@ const OrderButton = styled.button`
     filter: brightness(1.1);
     color: #fff;
   }
+
+  &:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
 `;
 
 const ButtonText = styled.span`
@@ -40,13 +45,12 @@ const ButtonText = styled.span`
   transition: all 0.3s ease; // 텍스트 변화에 대한 부드러운 전환 효과
 `;
 
-function ItemOrderFooter() {
+function ItemOrderFooter({ cartItems }) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
-  const location = useLocation();
-  const { cartItems } = location.state || { cartItems: [] };
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     // 상품 가격 및 수량 계산
@@ -62,6 +66,10 @@ function ItemOrderFooter() {
     setTotalQuantity(newTotalQuantity);
   }, [cartItems]);
 
+  useEffect(() => {
+    setIsDisabled(totalQuantity === 0); // totalQuantity에 따라 버튼 활성화/비활성화 업데이트
+  }, [totalQuantity]);
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -71,7 +79,10 @@ function ItemOrderFooter() {
   };
 
   const handleOrderClick = () => {
-    navigate("/itemOrder");
+    const selectedItems = cartItems.filter((item) => item.checked);
+    if (selectedItems.length > 0) {
+      navigate("/itemOrder", { state: { cartItems: selectedItems } }); // 선택된 상품 정보 전달
+    }
   };
 
   return (

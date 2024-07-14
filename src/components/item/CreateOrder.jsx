@@ -1,101 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
-
-const CreateOrder = () => {
-  return (
-    <>
-      <HeaderSpacer /> {/* 헤더와 섹션 사이의 간격을 위한 컴포넌트 */}
-      <Section>
-        <SectionTitle>배송지</SectionTitle>
-        <AddressTypeGroup>
-          <AddressType $active>집</AddressType>
-          <AddressType>친구집</AddressType>
-        </AddressTypeGroup>
-        <Input placeholder="이름 " />
-        <Input placeholder="배송지명" />
-        <PhoneInput>
-          <Input placeholder="010" />
-          <Input placeholder="1234" />
-          <Input placeholder="5678" />
-        </PhoneInput>
-        <Input placeholder="주소" />
-        <Input placeholder="상세주소" />
-      </Section>
-      <Section>
-        <SectionTitle>상품정보</SectionTitle>
-        <ProductInfo>
-          <ProductImage
-            src="../public/images/스와퍼(상품이미지).svg"
-            alt="상품 이미지"
-          />
-          <ProductDetails>
-            <Seller>동대문 판매왕</Seller>
-            <ProductName>
-              [진짜 쌈] 회색바지단 시그니처 코튼 버뮤다 팬츠
-            </ProductName>
-            <ProductOption>멜란지 L</ProductOption>
-            <ProductQuantity>수량 1개</ProductQuantity>
-          </ProductDetails>
-          <ProductPrice>15,200원</ProductPrice>
-        </ProductInfo>
-      </Section>
-      <Section>
-        <SectionTitle>할인혜택</SectionTitle>
-        <DiscountItem>
-          <DiscountName>상품할인</DiscountName>
-          <DiscountAmount>13,000원</DiscountAmount>
-        </DiscountItem>
-        <DiscountItem>
-          <DiscountName>등급할인</DiscountName>
-          <DiscountAmount>2,000원</DiscountAmount>
-        </DiscountItem>
-        <TotalDiscount>
-          <DiscountName>총 할인금액</DiscountName>
-          <DiscountAmount>-15,000원</DiscountAmount>
-        </TotalDiscount>
-      </Section>
-      <Section>
-        <SectionTitle>결제수단</SectionTitle>
-        <PaymentMethod>
-          <RadioButton />
-          <PaymentName>카드 결제</PaymentName>
-        </PaymentMethod>
-        <PaymentMethod>
-          <RadioButton />
-          <PaymentName>계좌 송금</PaymentName>
-        </PaymentMethod>
-      </Section>
-      <Section>
-        <SectionTitle>최종 결제금액</SectionTitle>
-        <PriceItem>
-          <PriceName>상품금액</PriceName>
-          <PriceAmount>30,200원</PriceAmount>
-        </PriceItem>
-        <PriceItem>
-          <PriceName>할인금액</PriceName>
-          <PriceAmount>15,000원</PriceAmount>
-        </PriceItem>
-        <TotalPrice>
-          <PriceName>결제금액</PriceName>
-          <PriceAmount>15,200원</PriceAmount>
-        </TotalPrice>
-      </Section>
-      <PayButton>결제하기</PayButton>
-    </>
-  );
-};
-
-// Styled components
+import FooterNav from "../footer/FooterNav";
+import { apiClient } from "../../api/ApiClient";
 
 const HeaderSpacer = styled.div`
-  height: 80px; // 헤더와 섹션 사이의 간격
+  height: 80px;
 `;
 
 const Section = styled.section`
-  width: 100%;
-  max-width: 518px;
+  width: 400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 20px;
   box-sizing: border-box;
 `;
 
@@ -209,7 +125,7 @@ const PaymentMethod = styled.div`
   margin-bottom: 5px;
 `;
 
-const RadioButton = styled.div`
+const RadioButton = styled.input`
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -242,5 +158,183 @@ const PayButton = styled.button`
   margin-top: 20px;
   margin-bottom: 70px;
 `;
+
+const CreateOrder = () => {
+  const location = useLocation();
+  const cartItems = location.state?.cartItems || [];
+  const [paymentMethod, setPaymentMethod] = useState("");
+
+  // 카카오페이 결제 준비 API 호출
+  const requestKakaoPay = async () => {
+    try {
+      const response = await apiClient.post(
+        "/payments/kakaoPay/ready",
+        {
+          // TODO: 실제 상품 정보를 사용하여 itemName, quantity, totalAmount 설정
+          itemName: cartItems.map((item) => item.productName).join(", "),
+          quantity: cartItems.reduce(
+            (acc, item) => acc + item.cartItemQuantity,
+            0
+          ),
+          totalAmount: cartItems.reduce(
+            (acc, item) => acc + item.itemPrice * item.cartItemQuantity,
+            0
+          ),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      window.localStorage.setItem("tid", response.data.tid);
+      if (response.data) {
+        const redirectUrl = isMobile()
+          ? response.data.next_redirect_mobile_url
+          : response.data.next_redirect_pc_url;
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        } else {
+          console.error("카카오 페이 리디렉션 URL이 없습니다:", response.data);
+          // 추가적인 에러 처리 로직
+        }
+      }
+    } catch (error) {
+      console.error("카카오 페이 결제 오류:", error);
+      // 에러 처리 로직 추가
+    }
+  };
+
+  const handlePaymentMethodChange = (method) => {
+    setPaymentMethod(method);
+  };
+
+  const isMobile = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (paymentMethod === "카드 결제") {
+      navigate("/card-payment");
+    } else if (paymentMethod === "카카오 페이 결제") {
+      requestKakaoPay();
+    }
+  };
+
+  const totalDiscount = 15000; // 임시 할인 금액
+  const originalPrice = cartItems.reduce(
+    (sum, item) => sum + item.itemPrice * item.cartItemQuantity,
+    0
+  );
+  const finalPrice = originalPrice - totalDiscount;
+
+  return (
+    <>
+      <HeaderSpacer />
+      <form onSubmit={handleSubmit}>
+        {/* 배송지 정보 */}
+        <Section>
+          <SectionTitle>배송지</SectionTitle>
+          <AddressTypeGroup>
+            <AddressType active>집</AddressType>
+            <AddressType>친구집</AddressType>
+          </AddressTypeGroup>
+          <Input placeholder="이름 " />
+          <Input placeholder="배송지명" />
+          <PhoneInput>
+            <Input placeholder="010" />
+            <Input placeholder="1234" />
+            <Input placeholder="5678" />
+          </PhoneInput>
+          <Input placeholder="주소" />
+          <Input placeholder="상세주소" />
+        </Section>
+
+        {/* 상품 정보 */}
+        <Section>
+          <SectionTitle>상품 정보</SectionTitle>
+          {cartItems.map((item) => (
+            <ProductInfo key={item.id}>
+              <ProductImage src={item.productImage} alt={item.productName} />
+              <ProductDetails>
+                <Seller>{item.storeName}</Seller>
+                <ProductName>{item.productName}</ProductName>
+                <ProductOption>{item.itemOption}</ProductOption>
+                <ProductQuantity>
+                  수량 {item.cartItemQuantity}개
+                </ProductQuantity>
+              </ProductDetails>
+              <ProductPrice>
+                {item.itemPrice * item.cartItemQuantity}원
+              </ProductPrice>
+            </ProductInfo>
+          ))}
+        </Section>
+
+        {/* 할인 혜택 */}
+        <Section>
+          <SectionTitle>할인 혜택</SectionTitle>
+          <DiscountItem>
+            <DiscountName>상품할인</DiscountName>
+            <DiscountAmount>{totalDiscount}원</DiscountAmount>
+          </DiscountItem>
+          {/* TODO: 다른 할인 항목 추가 (필요한 경우) */}
+          <TotalDiscount>
+            <DiscountName>총 할인금액</DiscountName>
+            <DiscountAmount>- {totalDiscount}원</DiscountAmount>
+          </TotalDiscount>
+        </Section>
+
+        {/* 결제 수단 */}
+        <Section>
+          <SectionTitle>결제 수단</SectionTitle>
+          <PaymentMethod>
+            <RadioButton
+              type="radio"
+              name="paymentMethod"
+              value="카드 결제"
+              checked={paymentMethod === "카드 결제"}
+              onChange={() => handlePaymentMethodChange("카드 결제")}
+            />
+            <PaymentName>카드 결제</PaymentName>
+          </PaymentMethod>
+          <PaymentMethod>
+            <RadioButton
+              type="radio"
+              name="paymentMethod"
+              value="카카오 페이 결제"
+              checked={paymentMethod === "카카오 페이 결제"}
+              onChange={() => handlePaymentMethodChange("카카오 페이 결제")}
+            />
+            <PaymentName>카카오 페이 결제</PaymentName>
+          </PaymentMethod>
+        </Section>
+
+        {/* 최종 결제 금액 */}
+        <Section>
+          <SectionTitle>최종 결제금액</SectionTitle>
+          <PriceItem>
+            <PriceName>상품금액</PriceName>
+            <PriceAmount>{originalPrice.toLocaleString()}원</PriceAmount>
+          </PriceItem>
+          <PriceItem>
+            <PriceName>할인금액</PriceName>
+            <PriceAmount>- {totalDiscount.toLocaleString()}원</PriceAmount>
+          </PriceItem>
+          <TotalPrice>
+            <PriceName>결제금액</PriceName>
+            <PriceAmount>{finalPrice.toLocaleString()}원</PriceAmount>
+          </TotalPrice>
+        </Section>
+
+        <PayButton type="submit">결제하기</PayButton>
+      </form>
+
+      <FooterNav />
+    </>
+  );
+};
 
 export default CreateOrder;

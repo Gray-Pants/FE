@@ -5,10 +5,10 @@ import ItemDetailCategory from "../../components/item/ItemDetailCategory";
 import ProductCard from "../../components/item/ProductCard";
 import ProductDetailsTab from "../../components/item/ProductDetailsTab";
 import ItemImage from "../../components/item/ItemImage";
-import FooterNav from "../../components/footer/FooterNav";
 import { apiClient } from "../../api/ApiClient";
 import { TabContext, TabProvider } from "../../components/item/TabProvider";
 import ReviewList from "../../components/review/ReviewList";
+import PutItemToCart from "../../components/footer/PutItemToCart";
 
 const ItemDetail = () => {
   const { itemId } = useParams();
@@ -31,6 +31,11 @@ const ItemDetail = () => {
       fetchProduct();
     }
   }, [itemId, activeTab]);
+
+  const handleAddToCart = (quantity) => {
+    // 장바구니에 담는 로직 추가
+    console.log("장바구니에 담기:", product.itemName, "수량:", quantity);
+  };
 
   if (error) {
     return (
@@ -74,7 +79,7 @@ const ItemDetail = () => {
             </>
           )}
         </ProductDetailsTab>
-        <FooterNav />
+        <PutItemToCart onAddToCart={handleAddToCart} />
       </>
     </TabProvider>
   );

@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const PaymentCompletePage = () => {
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
   return (
     <PageContainer>
       <MainContent>
@@ -9,35 +16,36 @@ const PaymentCompletePage = () => {
           <Logo src="/images/greyPantsIcon.png" alt="logo image" />
         </LogoContainer>
         <CompletionMessage>결제 완료 되었습니다!</CompletionMessage>
-        <HomeButton>홈으로</HomeButton>
+        <HomeButton onClick={handleHomeClick}>홈으로</HomeButton>
       </MainContent>
     </PageContainer>
   );
 };
 
 const PageContainer = styled.div`
-  position: relative;
-  width: 1440px;
-  height: 2836px;
-  background: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: #f9f9f9;
 `;
 
 const MainContent = styled.div`
-  position: absolute;
-  width: 600px;
-  height: 2836px;
-  left: 417px;
-  top: 0px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
 `;
 
 const LogoContainer = styled.div`
-  position: absolute;
-  width: 223px;
-  height: 163.89px;
-  left: calc(50% - 223px/2 - 0.5px);
-  top: 55px;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 10px;
 `;
 
 const Logo = styled.img`
@@ -47,40 +55,27 @@ const Logo = styled.img`
 `;
 
 const CompletionMessage = styled.p`
-  position: absolute;
-  width: 270px;
-  height: 29px;
-  left: calc(50% - 219px/2 - 0.5px);
-  top: 287px;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'TheJamsil3Regular';
   font-size: 24px;
-  line-height: 29px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #000000;
+  color: #333;
+  margin-bottom: 70px;
 `;
 
 const HomeButton = styled.button`
-  position: absolute;
-  width: 284.65px;
-  height: 60px;
-  left: calc(50% - 284.65px/2 - 0.68px);
-  top: 427px;
-  box-sizing: border-box;
-  border: 2px solid #000000;
+  padding: 15px 30px;
+  border: none;
   border-radius: 30px;
-  background: transparent;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 29px;
-  text-align: center;
-  color: #000000;
+  background-color: #f4975c;
+  font-family: 'TheJamsil2Light';
+  font-weight: 500;
+  font-size: 18px;
+  color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #e2854f;
+  }
 `;
 
 export default PaymentCompletePage;

@@ -46,7 +46,7 @@ const ItemListPage = () => {
       <ItemList />
       <Filter setSortOrder={setSortOrder} />
       <ItemSection title={`상품 :`} products={products} />
-      <FooterNav />
+      <FooterNav /> 
     </>
   );
 };
