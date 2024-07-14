@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { TabContext } from "./TabProvider";
+import { useNavigate } from "react-router-dom";
 
 const TabContainer = styled.div`
   display: flex;
@@ -41,25 +42,34 @@ const Tab = styled.button`
 `;
 
 const SellerHeaderTab = ({ children }) => {
-  const { activeTab, setActiveTab } = useContext(TabContext);
+  const navigate = useNavigate();
+  const [tab, setTab] = useState('list');
 
   return (
     <>
       <TabContainer className="tab-buttons">
         <Tab
-          $active={activeTab === "상품 목록"}
-          onClick={() => setActiveTab("상품 목록")}
-        >
+          $active={tab === 'list'}
+          onClick={() => {
+            setTab('list');
+            navigate("/seller");
+        }}>
           상품 목록
         </Tab>
-        <Tab $active={activeTab === "상품 등록"} onClick={() => setActiveTab("상품 등록")}>
+        <Tab $active={tab==='add'} onClick={() => {
+          setTab('add');
+          navigate('/seller/new/item')
+        }}>
         상품 등록
         </Tab>
-        <Tab $active={activeTab === "상품 판매 내역"} onClick={() => setActiveTab("상품 판매 내역")}>
+        <Tab $active={tab==='sales'} onClick={() => {
+          setTab('sales');
+          navigate("/seller/product/sales/details")
+        }}>
         상품 판매 내역
         </Tab>
       </TabContainer>
-      <div className="tab-content">{children(activeTab)}</div>
+      <div className="tab-content">{children}</div>
     </>
   );
 };

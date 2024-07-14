@@ -38,34 +38,41 @@ import ReviewsList from "./pages/review/ReviewsList";
 function App() {
   return (
     <AuthProvider>
-    <BrowserRouter>
-    <GlobalStyle />
-      <Container>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/itemList" element={<ItemListPage />} />
-          <Route path="/me" element={<Me />} />
-            <Route path="/mypage/*" element={
-              <AuthProtectedRoute>
-               <Mypage />
-              </AuthProtectedRoute>
-              } />
-          <Route path="/itemOrder" element={<ItemOrder />} />
-          <Route path="/details" element={<ItemDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/payCompleted" element={<PaymentCompletePage/>}/>
-          <Route path="/category" element={<Category />} />
-          <Route path="/:category/:subCategory" element={<ItemListPage />} />
-          <Route path="/search" element={<Search/>} />
-          <Route path="/sellerItemAdd" element={<SellerItemAdd />}/>
-          <Route path="/seller" element={<SellerPage/>}/>
-          <Route path="/sellerLogin" element={<SellerLoginPage/>}/>
-          <Route path="/sellerProductList" element={<SellerProductListPage/>}/>
-          <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
-          <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
-          <Route path="/searchItemList" element={<SearchItemListPage />} />
+      <BrowserRouter>
+        <GlobalStyle />
+        <Container>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/itemList" element={<ItemListPage />} />
+            <Route path="/me" element={<Me />} />
+            <Route
+              path="/mypage/*"
+              element={
+                <AuthProtectedRoute>
+                  <Mypage />
+                </AuthProtectedRoute>
+              }
+            />
+            <Route path="/itemOrder" element={<ItemOrder />} />
+            <Route path="/:itemId/details" element={<ItemDetail />} />
+            <Route
+              path="/:itemId/details/review"
+              element={<ItemDetailReview />}
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/payCompleted" element={<PaymentCompletePage />} />
+            <Route path="/category" element={<Category />} />
+            <Route path="/:category/:subCategory" element={<ItemListPage />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/seller/*" element={
+              <SellerAuthProtectedRoute>
+                <SellerPage />
+              </SellerAuthProtectedRoute>}
+            />
+
+            {/* <Route path="/orderPayList" element={<OrderPayListPage />} /> */}
 
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/createreview" element={<CreateReviewPage />} />
