@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { apiClient } from "../api/ApiClient";
 import { executeJwtAuthenticationService, executeRefreshTokenService } from "../api/AuthenticationApiService";
 import Login from "../pages/user/Login";
+import SellerLogin from "../components/seller/SellerLogin";
 
 //1: Create a Context
 export const AuthContext = createContext()
@@ -13,6 +14,12 @@ export function AuthProtectedRoute({ children }) {
   const auth = useAuth();
 
   return auth.isAuthenticated ? children : <Login />;
+}
+
+export function SellerAuthProtectedRoute({ children }) {
+  const auth = useAuth();
+
+  return auth.isAuthenticated ? children : <SellerLogin />;
 }
 
 //2: Share the created context with other components
@@ -56,7 +63,6 @@ export default function AuthProvider({ children }) {
 
     async function login(email, password, role) {
 
-        debugger;
         try {
             if(role === `store`)
                 setIsStore(true);

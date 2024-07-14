@@ -1,5 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { FiChevronRight } from "react-icons/fi";
 
 const ProductSectionContainer = styled.div`
   padding: 10px 0;
@@ -27,25 +29,35 @@ const ProductImage = styled.img`
 `;
 
 const ItemName = styled.div`
-  font-family: 'TheJamsil3Regular';
+  font-family: "TheJamsil3Regular";
   font-size: 10px;
   text-align: center;
 `;
 
 const Recommand = styled.div`
-  font-family: 'TheJamsil3Regular';
+  font-family: "TheJamsil3Regular";
   padding: 10px;
   text-align: left;
 `;
 
 const ItemSection = ({ title, products }) => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
+  const handleClickProduct = (itemId) => {
+    navigate(`/${itemId}/details`); // itemId를 사용하여 페이지 이동
+  };
+
   return (
     <ProductSectionContainer>
       <Recommand>{title}</Recommand>
       {products.map((product, index) => (
-        <ProductItem key={index}>
-          <ProductImage src={product.itemPhotos} alt={product.item_name} />
+        <ProductItem
+          key={index}
+          onClick={() => handleClickProduct(product.itemId)}
+        >
+          <ProductImage src={product.itemPhotos} alt={product.itemName} />
           <ItemName>{product.itemName}</ItemName>
+          <ItemName>{product.itemPrice}원</ItemName>
         </ProductItem>
       ))}
     </ProductSectionContainer>

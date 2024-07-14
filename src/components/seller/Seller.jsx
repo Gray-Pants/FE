@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import SellerList from './SellerList';
 
 const TitleContainer = styled.div`
   display: flex;
@@ -65,7 +66,7 @@ const Seller = () => {
   };
 
   const handleSalesHistoryClick = () => {
-    navigate('/sellerProductSalesDetails');
+    navigate('/seller/product/sales/details');
   };
 
   return (
@@ -80,11 +81,7 @@ const Seller = () => {
       <Button onClick={handleSalesHistoryClick}>
         <ButtonText>판매 내역 페이지</ButtonText>
       </Button>
-      <ImageGrid>
-        {[...Array(9)].map((_, index) => (
-          <ImageBox key={index} />
-        ))}
-      </ImageGrid>
+      <SellerList />
     </>
   );
 };

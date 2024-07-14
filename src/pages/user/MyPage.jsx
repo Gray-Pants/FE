@@ -8,6 +8,8 @@ import EditMemberInfo from "../../components/user/EditMemberInfo";
 import LikeList from "../../components/user/LikeList";
 import OrderPayList from "../../components/user/OrderPayList";
 import ReviewsList from "../../components/review/ReviewsList";
+import Review from "../../components/review/Review"
+import CreateReview from "../../components/review/CreateReview";
 
 const Mypage = () => {
   return (
@@ -19,7 +21,9 @@ const Mypage = () => {
         <Route path="edit/profile" element={<EditMemberInfo />} />
         <Route path="likes" element={<LikeList />} />
         <Route path="orders" element={<OrderPayList />} />
-        <Route path="reviews" element={<ReviewsList />} />
+        <Route path="reviews" element={<Review />} />
+        <Route path="reviews/list" element={<ReviewsList />} />
+        <Route path="reviews/new" element={<CreateReview />} />
       </Routes>
     <FooterNav />
     </>
