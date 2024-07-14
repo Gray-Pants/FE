@@ -6,7 +6,7 @@ import { apiClient } from "../../api/ApiClient";
 import PageHeader from "../../components/header/PageHeader";
 import Checkbox from "../../components/cart/Checkbox";
 import Button from "../../components/cart/Button";
-import ItemOrderFooter from "../../components/footer/itemOrderFooter";
+import ItemOrderFooter from "../../components/footer/ItemOrderFooter";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
