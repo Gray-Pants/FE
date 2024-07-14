@@ -3,24 +3,21 @@ import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { apiClient } from "../../api/ApiClient";
 
-const CommentContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  padding: 15px;
-  border-bottom: 1px solid #f0f0f0;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
-`;
-
 const CommentContent = styled.div`
-  width:100%
-  display:flex;
+  width: 400px;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex: 1;
   box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 0 10px;
+`;
 
+const LeftCommentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Nickname = styled.div`
@@ -31,15 +28,6 @@ const Nickname = styled.div`
 const CommentText = styled.div`
   font-size: 14px;
   line-height: 1.4;
-`;
-
-const LikeButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
 `;
 
 const Rating = styled.div`
@@ -54,10 +42,9 @@ const Stars = styled.span`
 `;
 
 const CommentBox = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 function ReviewList({ itemId, product }) {
@@ -70,7 +57,7 @@ function ReviewList({ itemId, product }) {
       try {
         const response = await apiClient.get(`reviews/item/${itemId}`);
         setComments(response.data.response);
-        console.log(response.data.response)
+        console.log(response.data.response);
       } catch (error) {
         console.error("댓글을 불러오는 중 오류 발생:", error);
         setError(error); // 에러 상태 업데이트
@@ -115,19 +102,25 @@ function Comment({ nickname, text, score }) {
   // };
 
   return (
+    <>
       <CommentContent>
+        <LeftCommentBox>
+          <Nickname>{nickname}</Nickname>
+          <CommentText>{text}</CommentText>
+        </LeftCommentBox>
         <CommentBox>
-        <Nickname>{nickname}</Nickname>
-        <CommentText>{text}</CommentText>
-        </CommentBox>
-        <CommentBox>
-            <Rating>
-                      <Stars>      {Array.from({ length: 5 }, (_, index) => (
-        <span key={index}>{index < score ? '★' : '☆'}</span>
-      ))}</Stars> {/* 평점에 따라 별 개수를 조정하세요 */}
-            </Rating>
+          <Rating>
+            <Stars>
+              {" "}
+              {Array.from({ length: 5 }, (_, index) => (
+                <span key={index}>{index < score ? "★" : "☆"}</span>
+              ))}
+            </Stars>{" "}
+            {/* 평점에 따라 별 개수를 조정하세요 */}
+          </Rating>
         </CommentBox>
       </CommentContent>
+    </>
   );
 }
 

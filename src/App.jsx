@@ -12,7 +12,7 @@ import { Container } from "./ui/container";
 import Main from "./pages/main/Main";
 import Login from "./pages/user/Login";
 import SignUp from "./pages/user/Signup";
-import AuthProvider, { AuthProtectedRoute } from "./security/AuthContext";
+import AuthProvider, { AuthProtectedRoute, SellerAuthProtectedRoute } from "./security/AuthContext";
 
 import Mypage from "./pages/user/MyPage";
 import Me from "./pages/Me";
@@ -20,12 +20,7 @@ import CreateReviewPage from "./pages/CreateReviewPage";
 import ReviewPage from "./pages/ReviewPage";
 import Cart from "./pages/user/Cart";
 
-import SellerItemAdd from "./pages/seller/SellerItemAdd";
-import SellerPage from "./pages/seller/Seller";
-import SellerLoginPage from "./pages/seller/Sellerlogin";
-import SellerProductListPage from "./pages/seller/SellerProductList";
-import SellerProductDetailsPage from "./pages/seller/SellerDetails";
-import SellerSalesListPage from "./pages/seller/SellerProductSalesDetails";
+import SellerPage from "./pages/seller/SellerPage";
 
 import PaymentCompletePage from "./pages/order/PayCompleted";
 
@@ -36,7 +31,6 @@ import ItemListPage from "./pages/main/ItemListPage";
 import Editpassword from "./pages/EditPassword";
 
 import Search from "./pages/main/Search";
-import SearchItemListPage from "./pages/main/SearchItemListPage";
 import ItemDetail from "./pages/order/ItemDetail";
 import ItemDetailReview from "./pages/order/ItemDetailReview";
 import ReviewsList from "./pages/review/ReviewsList";
@@ -72,22 +66,11 @@ function App() {
             <Route path="/category" element={<Category />} />
             <Route path="/:category/:subCategory" element={<ItemListPage />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/sellerItemAdd" element={<SellerItemAdd />} />
-            <Route path="/seller" element={<SellerPage />} />
-            <Route path="/sellerLogin" element={<SellerLoginPage />} />
-            <Route
-              path="/sellerProductList"
-              element={<SellerProductListPage />}
+            <Route path="/seller/*" element={
+              <SellerAuthProtectedRoute>
+                <SellerPage />
+              </SellerAuthProtectedRoute>}
             />
-            <Route
-              path="/sellerProductDetails"
-              element={<SellerProductDetailsPage />}
-            />
-            <Route
-              path="/sellerProductSalesDetails"
-              element={<SellerSalesListPage />}
-            />
-            <Route path="/searchItemList" element={<SearchItemListPage />} />
 
             {/* <Route path="/orderPayList" element={<OrderPayListPage />} /> */}
 
