@@ -9,7 +9,7 @@ const OrderButtonContainer = styled.div`
   bottom: 0;
   padding: 15px;
   background-color: #fff;
-  width: 100%;
+  width: 400px;
   height: 60px;
 `;
 

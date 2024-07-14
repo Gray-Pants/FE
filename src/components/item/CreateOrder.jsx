@@ -249,7 +249,7 @@ const CreateOrder = () => {
     }
   };
 
-  const totalDiscount = 15000; // 임시 할인 금액
+  const totalDiscount = 0; // 임시 할인 금액
   const originalPrice = cartItems.reduce(
     (sum, item) => sum + item.itemPrice * item.cartItemQuantity,
     0

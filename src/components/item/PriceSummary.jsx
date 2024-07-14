@@ -41,7 +41,7 @@ function PriceSummary({ cartItems, onPriceChange }) {
 
   useEffect(() => {
     // 배송비 계산 (예시: 50000원 이상 무료 배송, 미만 3000원)
-    const newShippingFee = totalPrice >= 50000 ? 0 : 3000;
+    const newShippingFee = totalPrice === 0 || totalPrice >= 50000 ? 0 : 3000;
     setShippingFee(newShippingFee);
 
     // 최종 가격 계산
