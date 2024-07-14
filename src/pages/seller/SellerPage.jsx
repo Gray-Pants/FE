@@ -23,7 +23,7 @@ const SellerPage = () => {
           element={<SellerProductDetails />}
         />
         <Route
-          path="/seller/product/sales/details"
+          path="/product/sales/details"
           element={<SellerSalesList />}
         />
       </Routes>
