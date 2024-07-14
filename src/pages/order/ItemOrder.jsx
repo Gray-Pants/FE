@@ -1,14 +1,13 @@
 import React from "react";
 import CreateOrder from "../../components/item/CreateOrder";
-import FooterNav from "../../components/footer/FooterNav";
 import PageHeader from "../../components/header/PageHeader";
+import PayFooter from "../../components/footer/PayFooter";
 
 const OrderForm = () => {
   return (
     <>
       <PageHeader />
       <CreateOrder />
-      <FooterNav />
     </>
   );
 };
