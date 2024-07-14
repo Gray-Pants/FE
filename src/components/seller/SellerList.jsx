@@ -4,15 +4,8 @@ import { apiClient } from '../../api/ApiClient';
 
 const SellerList = () => {
   const [products, setProducts] = useState([]);
-  const productsE = [
-    { name: '상품1', stock: '재고', price: '가격' },
-    { name: '상품2', stock: '재고', price: '가격' },
-    { name: '상품3', stock: '재고', price: '가격' },
-    { name: '상품4', stock: '재고', price: '가격' },
-    { name: '상품5', stock: '재고', price: '가격' },
-  ];
 
-  const getSellerList = async () => {
+  const getSellerList = async() => {
     const res = await apiClient.get(`stores/myitems`);
     console.log(res);
     setProducts(res.data.response);
@@ -27,22 +20,22 @@ const SellerList = () => {
       <Title>상품 목록</Title>
       {products.map((product, index) => (
         <ProductBox key={index}>
-          <ProductImage src={product.itemPhotos[0]} />
+          <ProductImage src={product.itemPhotos[0]} onClick={() => handleMenuClick("edit/sellerProductDetails")}/>
           <ProductInfo>
             <ProductRow>
               <ProductLabel>이름:</ProductLabel>
               <ProductName>{product.itemName}</ProductName>
-              <Placeholder width="30%" />
+              {/* <Placeholder width="30%" /> */}
             </ProductRow>
             <ProductRow>
               <ProductLabel>재고:</ProductLabel>
               <ProductStock>{product.stock}</ProductStock>
-              <Placeholder width="30%" />
+              {/* <Placeholder width="30%" /> */}
             </ProductRow>
             <ProductRow>
               <ProductLabel>가격:</ProductLabel>
               <ProductPrice>{product.itemPrice}</ProductPrice>
-              <Placeholder width="30%" />
+              {/* <Placeholder width="30%" /> */}
             </ProductRow>
           </ProductInfo>
         </ProductBox>
@@ -119,7 +112,7 @@ const ProductText = styled.p`
   line-height: 17px;
   color: #000000;
   margin: 0;
-  width: 60px;
+  width: 100%;
 `;
 
 const ProductName = styled(ProductText)``;
