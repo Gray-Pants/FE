@@ -6,7 +6,6 @@ const SalesHistoryWrapper = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 20px;
 `;
 
 const Title = styled.h1`
