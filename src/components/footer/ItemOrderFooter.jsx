@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const OrderButtonContainer = styled.div`
@@ -40,9 +40,27 @@ const ButtonText = styled.span`
   transition: all 0.3s ease; // 텍스트 변화에 대한 부드러운 전환 효과
 `;
 
-function ItemOrderFooter({ totalPrice }) {
-  const navigate = useNavigate(); // useNavigate 훅 추가
+function ItemOrderFooter() {
+  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const location = useLocation();
+  const { cartItems } = location.state || { cartItems: [] };
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+
+  useEffect(() => {
+    // 상품 가격 및 수량 계산
+    let newTotalPrice = 0;
+    let newTotalQuantity = 0;
+    for (const item of cartItems) {
+      if (item.checked) {
+        newTotalPrice += item.item.itemPrice * item.cartItemQuantity;
+        newTotalQuantity += item.cartItemQuantity;
+      }
+    }
+    setTotalPrice(newTotalPrice);
+    setTotalQuantity(newTotalQuantity);
+  }, [cartItems]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -53,7 +71,7 @@ function ItemOrderFooter({ totalPrice }) {
   };
 
   const handleOrderClick = () => {
-    navigate("/itemOrder"); // 주문하기 버튼 클릭 시 /itemOrder 페이지로 이동
+    navigate("/itemOrder");
   };
 
   return (
@@ -61,12 +79,11 @@ function ItemOrderFooter({ totalPrice }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <OrderButton onClick={handleOrderClick}>
+      <OrderButton onClick={handleOrderClick} disabled={totalQuantity === 0}>
         <ButtonText>
-          {/* {isHovered
-            ? `총 상품금액 ${(totalPrice || 0).toLocaleString()}원 결제하기` // totalPrice가 undefined면 0으로 처리
-            : "주문하기"} */}
-          주문하기
+          {isHovered
+            ? `총 상품금액 ${(totalPrice || 0).toLocaleString()}원 결제하기`
+            : "주문하기"}
         </ButtonText>
       </OrderButton>
     </OrderButtonContainer>
