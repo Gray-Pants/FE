@@ -79,8 +79,9 @@ function ItemOrderFooter({ cartItems }) {
   };
 
   const handleOrderClick = () => {
-    if (totalQuantity > 0) {
-      navigate("/itemOrder");
+    const selectedItems = cartItems.filter((item) => item.checked);
+    if (selectedItems.length > 0) {
+      navigate("/itemOrder", { state: { cartItems: selectedItems } }); // 선택된 상품 정보 전달
     }
   };
 

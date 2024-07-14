@@ -153,10 +153,7 @@ function Cart() {
 
         <PriceSummary cartItems={cartItems} />
       </Container>
-      <ItemOrderFooter
-        cartItems={cartItems} // cartItems 값 전달
-        onClick={handleOrderClick}
-      />
+      <ItemOrderFooter cartItems={cartItems} onClick={handleOrderClick} />
     </>
   );
 }
