@@ -55,7 +55,7 @@ function Cart() {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await apiClient.get("/carts/myitems"); // 인증된 사용자의 장바구니 정보 가져오기
+        const response = await apiClient.get("/carts/myitems");
         const itemsWithImage = response.data.response.map((item) => ({
           ...item,
           productImage: item.item.itemPhotos[0],
@@ -67,7 +67,7 @@ function Cart() {
       } catch (error) {
         console.error("장바구니 아이템을 가져오는 중 오류 발생:", error);
       } finally {
-        setIsLoading(false); // 로딩 상태 해제
+        setIsLoading(false);
       }
     };
 
@@ -83,6 +83,21 @@ function Cart() {
   useEffect(() => {
     // 장바구니 아이템 변경 시 로컬 스토리지에 저장
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    // 상품 가격 및 수량 계산
+    const newTotalPrice = cartItems.reduce(
+      (sum, item) =>
+        sum + (item.checked ? item.itemPrice * item.cartItemQuantity : 0),
+      0
+    );
+    const newTotalQuantity = cartItems.reduce(
+      (sum, item) => sum + (item.checked ? item.cartItemQuantity : 0),
+      0
+    );
+    setTotalPrice(newTotalPrice);
+    setTotalQuantity(newTotalQuantity);
   }, [cartItems]);
 
   const handlePriceChange = (priceData) => {
@@ -111,6 +126,8 @@ function Cart() {
     return <div>Loading...</div>;
   }
 
+  console.log(totalQuantity);
+
   return (
     <>
       <PageHeader />
@@ -134,12 +151,11 @@ function Cart() {
           ))}
         </CartList>
 
-        <PriceSummary cartItems={cartItems} onPriceChange={handlePriceChange} />
+        <PriceSummary cartItems={cartItems} />
       </Container>
       <ItemOrderFooter
-        totalPrice={totalPrice} // totalPrice 값 전달
+        cartItems={cartItems} // cartItems 값 전달
         onClick={handleOrderClick}
-        disabled={totalQuantity === 0}
       />
     </>
   );
