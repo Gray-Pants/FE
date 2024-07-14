@@ -169,7 +169,6 @@ const CreateOrder = () => {
 
   const getAddressList = async() => {
     const res = await apiClient.get("/users/info");
-    console.log(res.data.response);
     setAddressList(res.data.response.addrs);
     setUsername(res.data.response.username);
   }

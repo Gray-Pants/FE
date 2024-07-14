@@ -34,6 +34,7 @@ import Search from "./pages/main/Search";
 import ItemDetail from "./pages/order/ItemDetail";
 import ItemDetailReview from "./pages/order/ItemDetailReview";
 import ReviewsList from "./pages/review/ReviewsList";
+import CreateOrder from "./components/item/CreateOrder";
 
 function App() {
   return (
@@ -61,7 +62,10 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+
             <Route path="/cart" element={<Cart />} />
+            <Route path="/createOrder" element={<CreateOrder />} />
+
             <Route path="/payCompleted" element={<PaymentCompletePage />} />
             <Route path="/category" element={<Category />} />
             <Route path="/:category/:subCategory" element={<ItemListPage />} />

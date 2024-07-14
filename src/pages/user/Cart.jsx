@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import CartItem from "../../components/cart/CartItem";
 import PriceSummary from "../../components/item/PriceSummary";
 import { apiClient } from "../../api/ApiClient";
@@ -7,7 +8,6 @@ import PageHeader from "../../components/header/PageHeader";
 import Checkbox from "../../components/cart/Checkbox";
 import Button from "../../components/cart/Button";
 import ItemOrderFooter from "../../components/footer/ItemOrderFooter";
-import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 400px;
@@ -23,16 +23,16 @@ const CartList = styled.ul`
 const CartHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 양쪽 정렬 */
-  padding: 10px 0; /* 상하 패딩 추가 */
-  border-bottom: 1px solid #f0f0f0; /* 아래쪽 테두리 추가 */
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
 `;
 
 const DeleteButton = styled(Button)`
-  font-size: 10px; /* 폰트 크기 조정 */
-  color: #999; /* 글씨 색상 변경 */
+  font-size: 10px;
+  color: #999;
   border: none;
-  font-weight: normal; /* 폰트 굵기 변경 */
+  font-weight: normal;
   cursor: pointer;
   width: 100px;
   padding-right: 5px;
@@ -62,8 +62,10 @@ function Cart() {
           productName: item.item.itemName,
           itemPrice: item.item.itemPrice,
           id: item.cartItemId,
+          checked: false
         }));
         setCartItems(itemsWithImage);
+        console.log("Cart items fetched:", itemsWithImage);
       } catch (error) {
         console.error("장바구니 아이템을 가져오는 중 오류 발생:", error);
       } finally {
@@ -75,35 +77,13 @@ function Cart() {
   }, []);
 
   useEffect(() => {
-    // 로컬 스토리지에서 장바구니 아이템 불러오기
-    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(storedCartItems);
-  }, []);
+    console.log("Cart items updated:", cartItems);
+    const totalQuantity = cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.cartItemQuantity, 0);
+    const totalPrice = cartItems.filter(item => item.checked).reduce((acc, item) => acc + (item.itemPrice * item.cartItemQuantity), 0);
 
-  useEffect(() => {
-    // 장바구니 아이템 변경 시 로컬 스토리지에 저장
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    setTotalQuantity(totalQuantity);
+    setTotalPrice(totalPrice);
   }, [cartItems]);
-
-  useEffect(() => {
-    // 상품 가격 및 수량 계산
-    const newTotalPrice = cartItems.reduce(
-      (sum, item) =>
-        sum + (item.checked ? item.itemPrice * item.cartItemQuantity : 0),
-      0
-    );
-    const newTotalQuantity = cartItems.reduce(
-      (sum, item) => sum + (item.checked ? item.cartItemQuantity : 0),
-      0
-    );
-    setTotalPrice(newTotalPrice);
-    setTotalQuantity(newTotalQuantity);
-  }, [cartItems]);
-
-  const handlePriceChange = (priceData) => {
-    setTotalPrice(priceData.totalPrice);
-    setTotalQuantity(priceData.totalQuantity);
-  };
 
   const handleSelectAllChange = (e) => {
     const isChecked = e.target.checked;
@@ -114,19 +94,20 @@ function Cart() {
   const handleDeleteSelected = () => {
     const updatedCartItems = cartItems.filter((item) => !item.checked);
     setCartItems(updatedCartItems);
-    // TODO: API 요청으로 선택된 상품 삭제
   };
 
   const handleOrderClick = () => {
     const selectedItems = cartItems.filter((item) => item.checked);
-    navigate("/itemOrder", { state: { cartItems: selectedItems } }); // 선택된 상품 정보 전달
+    navigate("/createOrder", { state: { cartItems: selectedItems } });
   };
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  console.log(totalQuantity);
+  if (!Array.isArray(cartItems)) {
+    return <div>장바구니에 오류가 있습니다.</div>;
+  }
 
   return (
     <>
@@ -146,14 +127,18 @@ function Cart() {
               key={item.id}
               item={item}
               setCartItems={setCartItems}
-              selectAll={selectAll} // selectAll 상태를 CartItem에 전달
+              cartItems={cartItems} // Add this prop to pass current state
             />
           ))}
         </CartList>
 
         <PriceSummary cartItems={cartItems} />
       </Container>
-      <ItemOrderFooter cartItems={cartItems} onClick={handleOrderClick} />
+      <ItemOrderFooter
+        totalPrice={totalPrice}
+        onClick={handleOrderClick}
+        disabled={totalQuantity === 0}
+      />
     </>
   );
 }
