@@ -4,6 +4,8 @@ import styled from "styled-components";
 import FooterNav from "../footer/FooterNav";
 import { apiClient } from "../../api/ApiClient";
 
+import { Cookies } from "react-cookie";
+
 const HeaderSpacer = styled.div`
   // height: 80px;
 `;
@@ -160,47 +162,56 @@ const PayButton = styled.button`
 `;
 
 const CreateOrder = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
-  const [paymentMethod, setPaymentMethod] = useState({});
-  const [selectedAddress, setSelectedAddress] = useState({index:0});
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState({ index: 0 });
   const [addressList, setAddressList] = useState([]);
-  const [ username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
 
-  const getAddressList = async() => {
+  const getAddressList = async () => {
     const res = await apiClient.get("/users/info");
-    console.log(res.data.response);
     setAddressList(res.data.response.addrs);
     setUsername(res.data.response.username);
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getAddressList();
-  },[]);
+  }, []);
 
-
-
-
-  // 카카오페이 결제 준비 API 호출
   const requestKakaoPay = async () => {
     try {
+      const orderAddr = selectedAddress.addr.userAddr;
+      const orderPhone = selectedAddress.addr.userAddrPhone;
+      const orderItems = cartItems.map((item) => ({
+        productName: item.productName,
+        quantity: item.cartItemQuantity,
+        totalAmount: item.itemPrice * item.cartItemQuantity,
+      }));
+      const totalAmount = orderItems.reduce(
+        (sum, item) => sum + item.totalAmount,
+        0
+      );
+      const itemName = orderItems.map((item) => item.productName).join(", ");
+      const quantity = orderItems.reduce((sum, item) => sum + item.quantity, 0);
+      const userId = 1; // 사용자의 실제 userId로 교체
+
       const response = await apiClient.post(
         "/payments/kakaoPay/ready",
         {
-          // TODO: 실제 상품 정보를 사용하여 itemName, quantity, totalAmount 설정
-          itemName: cartItems.map((item) => item.productName).join(", "),
-          quantity: cartItems.reduce(
-            (acc, item) => acc + item.cartItemQuantity,
-            0
-          ),
-          totalAmount: cartItems.reduce(
-            (acc, item) => acc + item.itemPrice * item.cartItemQuantity,
-            0
-          ),
+          orderAddr,
+          orderPhone,
+          orderItems,
+          userId,
+          totalAmount,
+          itemName,
+          quantity,
         },
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${yourToken}`, // 실제 토큰으로 교체
           },
         }
       );
@@ -214,12 +225,10 @@ const CreateOrder = () => {
           window.location.href = redirectUrl;
         } else {
           console.error("카카오 페이 리디렉션 URL이 없습니다:", response.data);
-          // 추가적인 에러 처리 로직
         }
       }
     } catch (error) {
       console.error("카카오 페이 결제 오류:", error);
-      // 에러 처리 로직 추가
     }
   };
 
@@ -260,15 +269,25 @@ const CreateOrder = () => {
                 key={index}
                 type="button"
                 $active={selectedAddress.index === index}
-                onClick={() => setSelectedAddress({addr:addressList[index], index: index})}
+                onClick={() =>
+                  setSelectedAddress({ addr: addressList[index], index: index })
+                }
               >
                 {address.userAddrName}
               </AddressType>
             ))}
           </AddressTypeGroup>
-          <Input placeholder="이름" value={username}/>
-          <Input placeholder="전화번호" value={selectedAddress.addr.userAddrPhone}/>
-          <Input placeholder="주소" value={selectedAddress.addr.userAddr}/>
+          <Input placeholder="이름" value={username} readOnly />
+          <Input
+            placeholder="전화번호"
+            value={selectedAddress.addr?.userAddrPhone || ""}
+            readOnly
+          />
+          <Input
+            placeholder="주소"
+            value={selectedAddress.addr?.userAddr || ""}
+            readOnly
+          />
         </Section>
 
         {/* 상품 정보 */}
