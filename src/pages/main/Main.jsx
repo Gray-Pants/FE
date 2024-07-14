@@ -5,6 +5,8 @@ import Categories from "../../components/main/Categories";
 import FooterNav from "../../components/footer/FooterNav";
 import { apiClient } from "../../api/ApiClient";
 import ItemSection from "../../components/item/ItemSection";
+import { FiBriefcase } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const MainContent = styled.div`
   flex-grow: 1;
@@ -18,8 +20,13 @@ const Banner = styled.img`
   background-color: #ddd; /* Placeholder for banner background */
 `;
 
+const SallerButton = styled.button`
+  width: 100%
+`;
+
 const Main = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Load data
@@ -45,6 +52,9 @@ const Main = () => {
         <Categories />
       </MainContent>
       <ItemSection title="추천 아이템" products={products} />
+      <SallerButton onClick={()=>navigate('/seller')}>
+        <FiBriefcase  /> 비즈니스 계정으로 이동
+      </SallerButton>
       <FooterNav />
     </>
   );
