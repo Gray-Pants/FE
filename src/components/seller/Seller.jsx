@@ -65,7 +65,7 @@ const Seller = () => {
   };
 
   const handleSalesHistoryClick = () => {
-    navigate('/sellerProductList');
+    navigate('/sellerProductSalesDetails');
   };
 
   return (

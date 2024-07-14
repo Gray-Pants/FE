@@ -26,6 +26,7 @@ import SellerLoginPage from "./pages/seller/Sellerlogin";
 import SellerProductListPage from "./pages/seller/SellerProductList";
 import SellerProductDetailsPage from "./pages/seller/SellerDetails";
 import SellerSalesListPage from './pages/seller/SellerProductSalesDetails';
+import SellerHeaderTab from './pages/seller/SellerHeaderTab';
 
 import PaymentCompletePage from "./pages/order/PayCompleted";
 
@@ -73,6 +74,7 @@ function App() {
           <Route path="/sellerProductDetails" element={<SellerProductDetailsPage/>}/>
           <Route path="/sellerProductSalesDetails" element={<SellerSalesListPage/>}/>
           <Route path="/searchItemList" element={<SearchItemListPage />} />
+          <Route path="/sellerHeader" element={<SellerHeaderTab/>}/>
 
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/createreview" element={<CreateReviewPage />} />

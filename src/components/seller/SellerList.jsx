@@ -69,7 +69,7 @@ const Title = styled.h1`
   color: #000000;
   margin-bottom: 20px;
 `;
-//와쓰
+
 
 const ProductBox = styled.div`
   width: 100%;
