@@ -6,8 +6,12 @@ import {
   Outlet,
   HashRouter,
 } from "react-router-dom";
+<<<<<<< Updated upstream
 
 import GlobalStyle from "./ui/Font";
+=======
+import Home from "./pages/main/Home";
+>>>>>>> Stashed changes
 import { Container } from "./ui/container";
 import Main from "./pages/main/Main";
 import Login from "./pages/user/Login";

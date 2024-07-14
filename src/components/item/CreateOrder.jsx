@@ -20,7 +20,6 @@ const SectionTitle = styled.h2`
   font-weight: 700;
   margin-bottom: 10px;
 `;
-
 const AddressTypeGroup = styled.div`
   display: flex;
   margin-bottom: 10px;
@@ -163,23 +162,20 @@ const CreateOrder = () => {
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
   const [paymentMethod, setPaymentMethod] = useState({});
-  const [selectedAddress, setSelectedAddress] = useState({index:0});
+  const [selectedAddress, setSelectedAddress] = useState({ index: 0 });
   const [addressList, setAddressList] = useState([]);
-  const [ username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
 
-  const getAddressList = async() => {
+  const getAddressList = async () => {
     const res = await apiClient.get("/users/info");
     console.log(res.data.response);
-    setAddressList(res.data.response.addrs);
+    setAddressList(res.data.response.addr);
     setUsername(res.data.response.username);
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getAddressList();
-  },[]);
-
-
-
+  }, []);
 
   // 카카오페이 결제 준비 API 호출
   const requestKakaoPay = async () => {
@@ -247,6 +243,7 @@ const CreateOrder = () => {
   );
   const finalPrice = originalPrice - totalDiscount;
 
+  console.log(selectedAddress);
   return (
     <>
       <HeaderSpacer />
@@ -260,15 +257,17 @@ const CreateOrder = () => {
                 key={index}
                 type="button"
                 $active={selectedAddress.index === index}
-                onClick={() => setSelectedAddress({addr:addressList[index], index: index})}
+                onClick={() =>
+                  setSelectedAddress({ addr: addressList[index], index: index })
+                }
               >
                 {address.userAddrName}
               </AddressType>
             ))}
           </AddressTypeGroup>
-          <Input placeholder="이름" value={username}/>
-          <Input placeholder="전화번호" value={selectedAddress.addr.userAddrPhone}/>
-          <Input placeholder="주소" value={selectedAddress.addr.userAddr}/>
+          <Input placeholder="이름" value={username} />
+          <Input placeholder="전화번호" value={selectedAddress.addr} />
+          <Input placeholder="주소" value={selectedAddress.addr} />
         </Section>
 
         {/* 상품 정보 */}
