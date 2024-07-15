@@ -167,7 +167,7 @@ const CreateOrder = () => {
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [selectedAddress, setSelectedAddress] = useState({index: 0 });
+  const [selectedAddress, setSelectedAddress] = useState({ index: 0 });
   const [addrUserName, setAddrUserName] = useState("");
   const [addrPhoneNum, setAddrPhoneNum] = useState("");
   const [addr, setAddr] = useState("");
@@ -189,8 +189,8 @@ const CreateOrder = () => {
 
   const requestKakaoPay = async () => {
     try {
-      const orderAddr = selectedAddress.addr.userAddr;
-      const orderPhone = selectedAddress.addr.userAddrPhone;
+      const orderAddr = addr;
+      const orderPhone = addrPhoneNum;
       const orderItems = cartItems.map((item) => ({
         productName: item.productName,
         quantity: item.cartItemQuantity,
@@ -200,12 +200,12 @@ const CreateOrder = () => {
         (sum, item) => sum + item.totalAmount,
         0
       );
-      const itemName = orderItems.map((item) => item.productName).join(", ");
+      const itemName = orderItems[0].productName + " 외 " + (orderItems.length - 1) + "개";
       const quantity = orderItems.reduce((sum, item) => sum + item.quantity, 0);
 
-      console.log(orderAddr);
-      console.log(orderPhone);
-      console.log(quantity);
+      // itemIdList와 itemQuantityList 생성
+      const itemIdList = cartItems.map(item => item.item.itemId);
+      const itemQuantityList = cartItems.map(item => item.cartItemQuantity);
 
       const response = await apiClient.post(
         "/payments/kakaoPay/ready",
@@ -216,6 +216,8 @@ const CreateOrder = () => {
           totalAmount,
           itemName,
           quantity,
+          itemIdList,
+          itemQuantityList,
         },
         {
           headers: {
@@ -278,7 +280,7 @@ const CreateOrder = () => {
                 key={index}
                 type="button"
                 $active={selectedAddress.index === index}
-                onClick={() =>{
+                onClick={() => {
                   setSelectedAddress({ index: index });
                   setAddr(address.userAddr);
                   setAddrPhoneNum(address.userAddrPhone);
@@ -288,16 +290,16 @@ const CreateOrder = () => {
               </AddressType>
             ))}
           </AddressTypeGroup>
-          <Input placeholder="이름" value={addrUserName} onChange={e=>setAddrUserName(e.target.value)} />
+          <Input placeholder="이름" value={addrUserName} onChange={e => setAddrUserName(e.target.value)} />
           <Input
             placeholder="전화번호"
             value={addrPhoneNum}
-            onChange={(e) => {setAddrPhoneNum(e.target.value)}}
+            onChange={(e) => { setAddrPhoneNum(e.target.value) }}
           />
           <Input
             placeholder="주소"
             value={addr}
-            onChange={(e) => {setAddr(e.target.value)}}
+            onChange={(e) => { setAddr(e.target.value) }}
           />
         </Section>
 
