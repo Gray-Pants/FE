@@ -110,13 +110,13 @@ const Login = () => {
             <Button onClick={handleSubmit}>로그인</Button>
             <SocialLoginText>소셜 로그인</SocialLoginText>
             <SocialLogin>
-                <Link to="http://localhost:8080/oauth2/authorization/kakao">
+                <Link to="http://192.168.100.211:8080/oauth2/authorization/kakao">
                 <SocialIcon src="/images/login-kakao.webp" alt="Kakao" />
                 </Link>
-                <Link to="http://localhost:8080/oauth2/authorization/naver">
+                <Link to="http://192.168.100.211:8080/oauth2/authorization/naver">
                 <SocialIcon src="/images/login-naver.png" alt="Naver" />
                 </Link>
-                <Link to="http://localhost:8080/oauth2/authorization/google">
+                <Link to="http://192.168.100.211:8080/oauth2/authorization/google">
                 <SocialIcon src="/images/login-google.png" alt="Google" />
                 </Link>
             </SocialLogin>
