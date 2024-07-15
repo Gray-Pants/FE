@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiChevronLeft, FiHome, FiUser } from "react-icons/fi";
 
@@ -46,13 +46,14 @@ const NavText = styled.span`
 `;
 
 const PageHeader = ({ props }) => {
+  const navigate = useNavigate();
   return (
     <>
       <NavigationBar>
-        <NavItem to="/footer">
+        <NavItem onClick={()=>navigate(-1)}>
           <FiChevronLeft />
         </NavItem>
-        <NavItem to="/footer">
+        <NavItem >
           <NavText>{props}</NavText>
         </NavItem>
         <div
@@ -65,11 +66,6 @@ const PageHeader = ({ props }) => {
           <NavItem to="/">
             <NavIcon>
               <FiHome />
-            </NavIcon>
-          </NavItem>
-          <NavItem to="/footer">
-            <NavIcon>
-              <FiUser />
             </NavIcon>
           </NavItem>
         </div>

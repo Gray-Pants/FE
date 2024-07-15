@@ -24,6 +24,8 @@ const SectionTitle = styled.h2`
 const AddressTypeGroup = styled.div`
   display: flex;
   margin-bottom: 10px;
+  overflow-x: scroll;
+  scrollbar-width: none;
 `;
 
 const AddressType = styled.button`
@@ -36,6 +38,7 @@ const AddressType = styled.button`
   margin-right: 10px;
   font-size: 13px;
   font-weight: 300;
+  flex-shrink: 0;
 `;
 
 const Input = styled.input`
