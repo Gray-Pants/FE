@@ -40,11 +40,18 @@ const ItemDetail = () => {
 
   const handleAddToCart = async (quantity) => {
     try {
-      await apiClient.post("/carts/items", {
-        itemId: itemId,
-        quantity: quantity,
-      });
-      console.log("장바구니에 담기:", product.itemName, "수량:", quantity);
+      const response = await apiClient.post(
+        "/carts/items",
+        {
+          itemId: itemId,
+          quantity: quantity,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       navigate("/cart");
     } catch (error) {
       console.error("장바구니에 담는 중 오류 발생:", error);
