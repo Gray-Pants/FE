@@ -8,6 +8,7 @@ import PageHeader from "../../components/header/PageHeader";
 import Checkbox from "../../components/cart/Checkbox";
 import Button from "../../components/cart/Button";
 import ItemOrderFooter from "../../components/footer/ItemOrderFooter";
+import ErrorBoundary from "../../components/cart/ErrorBoundary";
 
 const Container = styled.div`
   width: 400px;
@@ -127,12 +128,14 @@ function Cart() {
 
         <CartList>
           {cartItems.map((item) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              setCartItems={setCartItems}
-              cartItems={cartItems} // Add this prop to pass current state
-            />
+            <ErrorBoundary key={item.id}>
+              <CartItem
+                key={item.id}
+                item={item}
+                setCartItems={setCartItems}
+                cartItems={cartItems} // Add this prop to pass current state
+              />
+            </ErrorBoundary>
           ))}
         </CartList>
 

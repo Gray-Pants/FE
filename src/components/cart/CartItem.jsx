@@ -45,17 +45,18 @@ const DeleteButton = styled(Button)`
   left: 5px;
 `;
 
-function CartItem({ item, setCartItems, selectAll }) {
-  const [quantity, setQuantity] = useState(item.cartItemQuantity || 1);
-  const [isChecked, setIsChecked] = useState(selectAll);
+function CartItem({ item, setCartItems, cartItems }) {
+  const [quantity, setQuantity] = useState(item.cartItemQuantity);
+  const [isChecked, setIsChecked] = useState(item.checked);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsChecked(selectAll);
-  }, [selectAll]);
+    setIsChecked(item.checked);
+    setQuantity(item.cartItemQuantity);
+  }, [item.checked, item.cartItemQuantity]);
 
-  const handleCheckboxChange = () => {
-    const newChecked = !isChecked;
+  const handleCheckboxChange = (e) => {
+    const newChecked = e.target.checked;
     setIsChecked(newChecked);
 
     // 선택 상태 변경 API 요청 (필요에 따라 구현)
