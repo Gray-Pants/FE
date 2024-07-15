@@ -166,14 +166,20 @@ const CreateOrder = () => {
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [selectedAddress, setSelectedAddress] = useState({ index: 0 });
-  const [addressList, setAddressList] = useState([]);
-  const [username, setUsername] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState({index: 0 });
+  const [addrUserName, setAddrUserName] = useState("");
+  const [addrPhoneNum, setAddrPhoneNum] = useState("");
+  const [addr, setAddr] = useState("");
+  const [addressList, setAddressList] = useState([{
+    userAddrName: "직접입력",
+    userAddrPhone: "",
+    userAddr: "",
+  }]);
 
   const getAddressList = async () => {
     const res = await apiClient.get("/users/info");
-    setAddressList(res.data.response.addrs);
-    setUsername(res.data.response.username);
+    setAddressList([...addressList, ...res.data.response.addrs]);
+    setAddrUserName(res.data.response.username);
   };
 
   useEffect(() => {
@@ -261,6 +267,8 @@ const CreateOrder = () => {
       <HeaderSpacer />
       <form onSubmit={handleSubmit}>
         {/* 배송지 정보 */}
+        {
+    console.log(addressList)}
         <Section>
           <SectionTitle>배송지</SectionTitle>
           <AddressTypeGroup>
@@ -269,24 +277,26 @@ const CreateOrder = () => {
                 key={index}
                 type="button"
                 $active={selectedAddress.index === index}
-                onClick={() =>
-                  setSelectedAddress({ addr: addressList[index], index: index })
-                }
+                onClick={() =>{
+                  setSelectedAddress({ index: index });
+                  setAddr(address.userAddr);
+                  setAddrPhoneNum(address.userAddrPhone);
+                }}
               >
                 {address.userAddrName}
               </AddressType>
             ))}
           </AddressTypeGroup>
-          <Input placeholder="이름" value={username} readOnly />
+          <Input placeholder="이름" value={addrUserName} onChange={e=>setAddrUserName(e.target.value)} />
           <Input
             placeholder="전화번호"
-            value={selectedAddress.addr?.userAddrPhone || ""}
-            readOnly
+            value={addrPhoneNum}
+            onChange={(e) => {setAddrPhoneNum(e.target.value)}}
           />
           <Input
             placeholder="주소"
-            value={selectedAddress.addr?.userAddr || ""}
-            readOnly
+            value={addr}
+            onChange={(e) => {setAddr(e.target.value)}}
           />
         </Section>
 
