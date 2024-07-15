@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; // 하트 아이콘
+import { apiClient } from "../../api/ApiClient"; // Ensure you import apiClient correctly
 
 const ProductCardContainer = styled.div`
   border: 1px solid #ddd;
@@ -68,6 +69,23 @@ const LikeCount = styled.span`
   margin-left: 5px;
 `;
 
+const Stars = styled.span`
+  color: gold;
+  margin-left: 5px;
+`;
+
+const ProductDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const PriceAndRating = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 function ProductCard({
   sellerAvatar,
   sellerName,
@@ -87,12 +105,30 @@ function ProductCard({
       const response = await apiClient.post(`/items/item/${itemId}/like`, {
         liked: !isLiked, // 변경된 좋아요 상태 전송
       });
-      setLiked(!isLiked);
+      setIsLiked(!isLiked);
       setLikeCount(response.data.likes); // 업데이트된 좋아요 수 반영
     } catch (error) {
       console.error("좋아요 상태 변경 중 오류 발생:", error);
       // 에러 처리 (예: 사용자에게 알림 메시지 표시)
     }
+  };
+
+  const renderStars = (rating) => {
+    const totalStars = 5;
+    const roundedRating = Math.round(rating);
+    const filledStars = roundedRating;
+    const emptyStars = totalStars - filledStars;
+
+    return (
+      <>
+        {Array.from({ length: filledStars }, (_, index) => (
+          <span key={`filled-${index}`}>★</span>
+        ))}
+        {Array.from({ length: emptyStars }, (_, index) => (
+          <span key={`empty-${index}`}>☆</span>
+        ))}
+      </>
+    );
   };
 
   return (
@@ -114,17 +150,21 @@ function ProductCard({
         </SellerInfo>
 
         <ProductTags>{tags}</ProductTags>
-        <ProductName>{productName}</ProductName>
-        <ProductPrice>{price}원</ProductPrice>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span>★★★★★</span>
-          <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
-            {rating}
-          </span>
-          <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
-            리뷰 {reviewCount}개
-          </span>
-        </div>
+        <ProductDetails>
+          <ProductName>{productName}</ProductName>
+          <PriceAndRating>
+            <ProductPrice>{price}원</ProductPrice>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Stars>{renderStars(rating)}</Stars>
+              <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
+                {rating.toFixed(1)}
+              </span>
+              <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
+                리뷰 {reviewCount}개
+              </span>
+            </div>
+          </PriceAndRating>
+        </ProductDetails>
       </ProductInfo>
     </ProductCardContainer>
   );
