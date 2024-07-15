@@ -4,8 +4,6 @@ import styled from "styled-components";
 import FooterNav from "../footer/FooterNav";
 import { apiClient } from "../../api/ApiClient";
 
-import { Cookies } from "react-cookie";
-
 const HeaderSpacer = styled.div`
   // height: 80px;
 `;
@@ -201,7 +199,10 @@ const CreateOrder = () => {
       );
       const itemName = orderItems.map((item) => item.productName).join(", ");
       const quantity = orderItems.reduce((sum, item) => sum + item.quantity, 0);
-      const userId = 1; // 사용자의 실제 userId로 교체
+
+      console.log(orderAddr);
+      console.log(orderPhone);
+      console.log(quantity);
 
       const response = await apiClient.post(
         "/payments/kakaoPay/ready",
@@ -209,7 +210,6 @@ const CreateOrder = () => {
           orderAddr,
           orderPhone,
           orderItems,
-          userId,
           totalAmount,
           itemName,
           quantity,
@@ -217,16 +217,14 @@ const CreateOrder = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${yourToken}`, // 실제 토큰으로 교체
           },
         }
       );
-
-      window.localStorage.setItem("tid", response.data.tid);
+      window.localStorage.setItem("tid", response.data.response.tid);
       if (response.data) {
         const redirectUrl = isMobile()
-          ? response.data.next_redirect_mobile_url
-          : response.data.next_redirect_pc_url;
+          ? response.data.response.next_redirect_mobile_url
+          : response.data.response.next_redirect_pc_url;
         if (redirectUrl) {
           window.location.href = redirectUrl;
         } else {
