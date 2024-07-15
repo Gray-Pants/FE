@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; // 하트 아이콘
+import { apiClient } from "../../api/ApiClient";
 
 const ProductCardContainer = styled.div`
   border: 1px solid #ddd;
@@ -69,6 +70,7 @@ const LikeCount = styled.span`
 `;
 
 function ProductCard({
+  itemId,
   sellerAvatar,
   sellerName,
   likes,
@@ -80,15 +82,32 @@ function ProductCard({
   rating,
 }) {
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes); // likes 초기값 설정
+  const [likeCount, setLikeCount] = useState(0); // likes 초기값 설정
+
+  useEffect(()=> {
+    getLikeCount();
+    getLikeStatus();
+  })
+
+  const getLikeCount = async() => {
+    const res = await apiClient.get(`items/${itemId}/likes/count`);
+    console.log(res);
+    setLikeCount(res.data.response.likesCount);
+  }
+
+  const getLikeStatus = async() => {
+    const res = await apiClient.get(`/users/mylikes/${itemId}`);
+    if(res.status === 200)
+      setIsLiked(res.data.response);
+  }
 
   const handleLikeClick = async () => {
     try {
-      const response = await apiClient.post(`/items/item/${itemId}/like`, {
-        liked: !isLiked, // 변경된 좋아요 상태 전송
+      const response = await apiClient.patch(`/likes`, {
+        itemId: itemId, // 변경된 좋아요 상태 전송
       });
-      setLiked(!isLiked);
-      setLikeCount(response.data.likes); // 업데이트된 좋아요 수 반영
+      setLikeCount((isLiked ?  (likeCount - 1) : (likeCount + 1)));
+      setIsLiked(!isLiked); // 업데이트된 좋아요 수 반영
     } catch (error) {
       console.error("좋아요 상태 변경 중 오류 발생:", error);
       // 에러 처리 (예: 사용자에게 알림 메시지 표시)

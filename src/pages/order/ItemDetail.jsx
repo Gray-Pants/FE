@@ -65,6 +65,7 @@ const ItemDetail = () => {
         <SearchHeader />
         <ItemDetailCategory category={product.categoryTitle} />
         <ProductCard
+          itemId={product.itemId}
           sellerAvatar={product.sellerAvatar}
           sellerName={product.storeName}
           likes={product.likes}

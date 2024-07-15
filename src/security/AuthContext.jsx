@@ -19,7 +19,7 @@ export function AuthProtectedRoute({ children }) {
 export function SellerAuthProtectedRoute({ children }) {
   const auth = useAuth();
 
-  return auth.isAuthenticated ? children : <SellerLogin />;
+  return auth.isAuthenticated && auth.isStore ? children : <SellerLogin />;
 }
 
 //2: Share the created context with other components
