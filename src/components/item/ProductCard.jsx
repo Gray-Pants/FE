@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; // 하트 아이콘
-import { apiClient } from "../../api/ApiClient";
+import { apiClient } from "../../api/ApiClient"; // Ensure you import apiClient correctly
 
 const ProductCardContainer = styled.div`
   border: 1px solid #ddd;
@@ -69,6 +69,23 @@ const LikeCount = styled.span`
   margin-left: 5px;
 `;
 
+const Stars = styled.span`
+  color: gold;
+  margin-left: 5px;
+`;
+
+const ProductDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const PriceAndRating = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 function ProductCard({
   itemId,
   sellerAvatar,
@@ -114,6 +131,24 @@ function ProductCard({
     }
   };
 
+  const renderStars = (rating) => {
+    const totalStars = 5;
+    const roundedRating = Math.round(rating);
+    const filledStars = roundedRating;
+    const emptyStars = totalStars - filledStars;
+
+    return (
+      <>
+        {Array.from({ length: filledStars }, (_, index) => (
+          <span key={`filled-${index}`}>★</span>
+        ))}
+        {Array.from({ length: emptyStars }, (_, index) => (
+          <span key={`empty-${index}`}>☆</span>
+        ))}
+      </>
+    );
+  };
+
   return (
     <ProductCardContainer>
       <ProductImage src={productImage} alt="상품 이미지" />
@@ -133,17 +168,21 @@ function ProductCard({
         </SellerInfo>
 
         <ProductTags>{tags}</ProductTags>
-        <ProductName>{productName}</ProductName>
-        <ProductPrice>{price}원</ProductPrice>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span>★★★★★</span>
-          <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
-            {rating}
-          </span>
-          <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
-            리뷰 {reviewCount}개
-          </span>
-        </div>
+        <ProductDetails>
+          <ProductName>{productName}</ProductName>
+          <PriceAndRating>
+            <ProductPrice>{price}원</ProductPrice>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Stars>{renderStars(rating)}</Stars>
+              <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
+                {rating.toFixed(1)}
+              </span>
+              <span style={{ marginLeft: "5px", color: "#999", fontSize: "14px" }}>
+                리뷰 {reviewCount}개
+              </span>
+            </div>
+          </PriceAndRating>
+        </ProductDetails>
       </ProductInfo>
     </ProductCardContainer>
   );

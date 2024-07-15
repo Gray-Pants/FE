@@ -14,6 +14,7 @@ const ItemDetail = () => {
   const { itemId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const { activeTab } = useContext(TabContext);
 
@@ -22,6 +23,10 @@ const ItemDetail = () => {
       try {
         const response = await apiClient.get("items/item/" + itemId);
         setProduct(response.data.response);
+
+        // 리뷰 데이터 가져오기
+        const reviewResponse = await apiClient.get(`/reviews/item/${itemId}`);
+        setReviews(reviewResponse.data.response);
       } catch (error) {
         console.error("상품 정보를 불러오는 중 오류 발생:", error);
         setError(error);
@@ -59,6 +64,13 @@ const ItemDetail = () => {
     return <div>Loading...</div>;
   }
 
+  // 리뷰 갯수와 평균 별점 계산
+  console.log(reviews);
+  const reviewCount = reviews.length;
+  const sum = reviews.map(review => review.reviewScore).reduce((sum, score) => sum + score, 0);
+  const rating = sum/reviewCount;
+
+
   return (
     <TabProvider>
       <>
@@ -73,8 +85,8 @@ const ItemDetail = () => {
           price={product.itemPrice}
           tags={product.categoryTitle}
           productImage={product.itemPhotos[0]}
-          reviewCount={product.reviewCount}
-          rating={product.rating}
+          reviewCount={reviewCount}
+          rating={rating}
         />
         <ProductDetailsTab>
           {(activeTab) => (
