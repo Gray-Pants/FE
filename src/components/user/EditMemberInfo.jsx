@@ -58,7 +58,7 @@ const AddAddressButton = styled.button`
   color: #333;
   cursor: pointer;
   margin-top: 10px;
-  margin-bottom: 200px;
+  margin-bottom: 20px;
 `;
 
 const DeleteTextButton = styled.div`
@@ -70,7 +70,7 @@ const DeleteTextButton = styled.div`
 `;
 
 const SaveButton = styled.button`
-  width: 100%;
+  width: auto;
   padding: 10px;
   background-color: #EAEAEA;
   border: none;
@@ -78,6 +78,47 @@ const SaveButton = styled.button`
   font-size: 0.9rem;
   color: #000000;
   cursor: pointer;
+  margin-left: 20px;
+  flex-shrink: 0;
+`;
+
+const UserNameContainer = styled.div`
+  display: flex;
+  justify: space-between;
+  width: 100%;
+  align-items: start;
+`;
+
+const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+`;
+
+const SavedAddressItem = styled.div`
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  background: #F7F7F7;
+  border-radius: 15px;
+`;
+
+const AddressHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
+const AddressName = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const AddressInfo = styled.div`
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
 `;
 
 const EditMemberInfo = () => {
@@ -93,7 +134,7 @@ const EditMemberInfo = () => {
     console.log(res);
     setUserInfo(res.data.response);
     setNickname(res.data.response.username);
-
+    setAddrList(res.data.response.addrs);
   }
 
   useEffect(() => {
@@ -109,7 +150,6 @@ const EditMemberInfo = () => {
       changeName: nickname,
     });
     if(res.status === 200) {
-      setAddrList([...addrList, address])
       alert("회원 정보가 변경되었습니다.");
     } else {
       alert("회원 정보 변경에 실패했습니다.");
@@ -127,6 +167,8 @@ const EditMemberInfo = () => {
     console.log(res);
     if(res.status === 200) {
       alert("배송지가 추가되었습니다.");
+      setAddrList([...addrList, res.data.response]);
+      console.log(res.data.response);
     } else {
       alert("배송지 추가에 실패했습니다.");
     }
@@ -134,19 +176,11 @@ const EditMemberInfo = () => {
 
   return (
     <>
-      <Header>
-        <HeaderIcon>
-          <BackIcon>
-            <FiArrowLeft aria-label="뒤로 가기" />
-          </BackIcon>
-        </HeaderIcon>
-        <span>회원 정보</span>
-        <HeaderIcon>
-          <FiHome aria-label="홈" />
-        </HeaderIcon>
-      </Header>
       <Label>닉네임</Label>
-      <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      <UserNameContainer>     
+        <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
+        <SaveButton onClick={handleSave}>변경하기</SaveButton>
+      </UserNameContainer>
       <tr/>
       <Label>배송지명</Label>
       <Input value={addressName} placeholder="배송지명" onChange={(e) => setAddressName(e.target.value)} />
@@ -155,8 +189,17 @@ const EditMemberInfo = () => {
       <Label>주소</Label>
       <Input value={address} placeholder="주소" onChange={(e) => setAddress(e.target.value)} />
       <AddAddressButton onClick={()=>handleAddAddress()}>배송지 추가</AddAddressButton>
-      {/* <DeleteTextButton onClick={handleDelete}>회원 정보 삭제</DeleteTextButton> */}
-      <SaveButton onClick={handleSave}>변경하기</SaveButton>
+      <Label>주소목록</Label>
+      {addrList.map((savedAddress, index) => (
+        <SavedAddressItem key={index}>
+          <AddressHeader>
+            <AddressName>{savedAddress.userAddrName}</AddressName>
+          </AddressHeader>
+          <Divider />
+          <AddressInfo>{savedAddress.userAddrPhone}</AddressInfo>
+          <AddressInfo>{savedAddress.userAddr}</AddressInfo>
+        </SavedAddressItem>
+      ))}
     </>
   );
 };
