@@ -46,7 +46,7 @@ const InputWrapper = styled.div`
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: 92%;
   height: 41px;
   background: #F7F7F7;
   border: none;
