@@ -61,7 +61,7 @@ function PayFooter({ totalPrice }) {
           {/* {isHovered
             ? `총 상품금액 ${totalPrice.toLocaleString()}원 결제하기`
             : "주문하기"} */}
-          주문하기
+          결제하기
         </ButtonText>
       </OrderButton>
     </OrderButtonContainer>

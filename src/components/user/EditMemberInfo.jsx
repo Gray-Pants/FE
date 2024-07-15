@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { FiArrowLeft, FiHome } from "react-icons/fi";
+import PropTypes from 'prop-types';
+import { apiClient } from "../../api/ApiClient";
 
 const Header = styled.div`
   display: flex;
@@ -34,9 +37,10 @@ const InputField = styled.div`
 `;
 
 const Label = styled.label`
+
   display: block;
-  font-size: 15px;
-  color: #474747;
+  font-size: 0.8rem;
+  color: #333;
   margin-bottom: 5px;
 `;
 
@@ -126,20 +130,17 @@ const AddressInfo = styled.div`
   margin-bottom: 5px;
 `;
 
-function UserInfoEditPage() {
+const EditMemberInfo = () => {
   const [nickname, setNickname] = useState("지갑이 얇아 슬픈 짐승");
-  const [addressName, setAddressName] = useState("우리집");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [savedAddresses, setSavedAddresses] = useState([]);
+  const [phone, setPhone] = useState("010-9071-9904");
+  const [address, setAddress] = useState("상도동 7-104 초원빌라 105호");
 
-  const handleAddAddress = () => {
-    if (addressName && phoneNumber && address) {
-      setSavedAddresses([...savedAddresses, { addressName, phoneNumber, address }]);
-      setAddressName("");
-      setPhoneNumber("");
-      setAddress("");
-    }
+  const handleSave = () => {
+    console.log("정보 저장:", { nickname, phone, address });
+  };
+
+  const handleDelete = () => {
+    console.log("회원 정보 삭제");
   };
 
   return (
@@ -153,71 +154,15 @@ function UserInfoEditPage() {
           <span>🛒</span>
         </IconContainer>
       </Header>
-      <Divider />
-
-      <InputField>
-        <Label>닉네임</Label>
-        <InputWrapper>
-          <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
-        </InputWrapper>
-      </InputField>
-
-      <Button>변경하기</Button>
-
-      <InputField>
-        <Label>주소 이름</Label>
-        <InputWrapper>
-          <Input 
-            placeholder="우리집" 
-            value={addressName} 
-            onChange={(e) => setAddressName(e.target.value)}
-          />
-          <ClearButton onClick={() => setAddressName("")}>×</ClearButton>
-        </InputWrapper>
-      </InputField>
-
-      <InputField>
-        <Label>휴대폰 번호</Label>
-        <InputWrapper>
-          <Input 
-            placeholder="010-9071-9904" 
-            value={phoneNumber} 
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <ClearButton onClick={() => setPhoneNumber("")}>×</ClearButton>
-        </InputWrapper>
-      </InputField>
-
-      <InputField>
-        <Label>주소</Label>
-        <InputWrapper>
-          <Input 
-            placeholder="상도동 7-104 초원빌라 105호" 
-            value={address} 
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <ClearButton onClick={() => setAddress("")}>×</ClearButton>
-        </InputWrapper>
-      </InputField>
-
-      <Button onClick={handleAddAddress}>배송지 추가</Button>
-
-      {savedAddresses.map((savedAddress, index) => (
-        <SavedAddressItem key={index}>
-          <AddressHeader>
-            <AddressName>{savedAddress.addressName}</AddressName>
-          </AddressHeader>
-          <Divider />
-          <AddressInfo>{savedAddress.phoneNumber}</AddressInfo>
-          <AddressInfo>{savedAddress.address}</AddressInfo>
-        </SavedAddressItem>
-      ))}
-
-      {/* <AddressInput>
-        <Label>{addressName || '배송지 추가'}</Label>
-        <AddressField placeholder="서울특별시 어쩌고 ~" />
-        <AddressField placeholder="01011112222" />
-      </AddressInput> */}
+      <Label>닉네임</Label>
+      <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      <Label>휴대폰 번호</Label>
+      <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
+      <Label>주소</Label>
+      <Input value={address} onChange={(e) => setAddress(e.target.value)} />
+      <AddAddressButton>배송지 추가</AddAddressButton>
+      <DeleteTextButton onClick={handleDelete}>회원 정보 삭제</DeleteTextButton>
+      <SaveButton onClick={handleSave}>변경하기</SaveButton>
     </>
   );
 }

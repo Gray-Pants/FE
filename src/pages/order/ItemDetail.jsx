@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import SearchHeader from "../../components/header/SearchHeader";
 import ItemDetailCategory from "../../components/item/ItemDetailCategory";
 import ProductCard from "../../components/item/ProductCard";
 import ProductDetailsTab from "../../components/item/ProductDetailsTab";
 import ItemImage from "../../components/item/ItemImage";
-import FooterNav from "../../components/footer/FooterNav";
 import { apiClient } from "../../api/ApiClient";
 import { TabContext, TabProvider } from "../../components/item/TabProvider";
 import ReviewList from "../../components/review/ReviewList";
+import PutItemToCart from "../../components/footer/PutItemToCart";
 
 const ItemDetail = () => {
   const { itemId } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const { activeTab } = useContext(TabContext);
@@ -31,6 +32,19 @@ const ItemDetail = () => {
       fetchProduct();
     }
   }, [itemId, activeTab]);
+
+  const handleAddToCart = async (quantity) => {
+    try {
+      await apiClient.post("/carts/items", {
+        itemId: itemId,
+        quantity: quantity,
+      });
+      console.log("장바구니에 담기:", product.itemName, "수량:", quantity);
+      navigate("/cart");
+    } catch (error) {
+      console.error("장바구니에 담는 중 오류 발생:", error);
+    }
+  };
 
   if (error) {
     return (
@@ -74,7 +88,7 @@ const ItemDetail = () => {
             </>
           )}
         </ProductDetailsTab>
-        <FooterNav />
+        <PutItemToCart onAddToCart={handleAddToCart} />
       </>
     </TabProvider>
   );

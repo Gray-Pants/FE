@@ -1,13 +1,10 @@
 import React from "react";
 import Seller from "../../components/seller/Seller";
-import FooterNav from "../../components/footer/FooterNav";
 import {Routes, Route} from "react-router-dom";
-import SellerLogin from "../../components/seller/SellerLogin";
 import SellerList from "../../components/seller/SellerList";
 import SellerProductDetails from "../../components/seller/SellerProductDetails";
 import SellerSalesList from "../../components/seller/SellerSalesList";
 import ItemAdd from "../../components/seller/ItemAdd";
-import SellerRegister from "../../components/seller/SellerRegister";
 import SellerHeaderTab from "../../components/seller/SellerHeader";
 
 

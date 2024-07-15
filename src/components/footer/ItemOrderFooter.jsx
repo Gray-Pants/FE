@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
 
 const OrderButtonContainer = styled.div`
@@ -11,7 +10,7 @@ const OrderButtonContainer = styled.div`
   padding: 15px;
   background-color: #fff;
   width: 400px;
-  height: 40px;
+  height: 60px;
 `;
 
 const OrderButton = styled.button`
@@ -24,49 +23,35 @@ const OrderButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   width: 300px;
-  transition: all 0.3s ease; /* 모든 속성에 대한 부드러운 전환 효과 */
+  transition: all 0.3s ease;
 
   &:hover {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
     filter: brightness(1.1);
     color: #fff;
   }
+
+  &:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
 `;
 
 const ButtonText = styled.span`
-  display: inline-block; // 텍스트를 블록 요소처럼 취급하여 width, height 설정 가능
+  display: inline-block;
   width: auto;
   height: auto;
-  transition: all 0.3s ease; // 텍스트 변화에 대한 부드러운 전환 효과
+  transition: all 0.3s ease;
 `;
 
-function ItemOrderFooter({ totalPrice }) {
-  const navigate = useNavigate(); // useNavigate 훅 추가
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const handleOrderClick = () => {
-    navigate("/itemOrder"); // 주문하기 버튼 클릭 시 /itemOrder 페이지로 이동
-  };
-
+function ItemOrderFooter({ totalPrice, totalQuantity, onClick, disabled }) {
   return (
-    <OrderButtonContainer
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <OrderButton onClick={handleOrderClick}>
+    <OrderButtonContainer>
+      <OrderButton onClick={onClick} disabled={disabled}>
         <ButtonText>
-          {/* {isHovered
-            ? `총 상품금액 ${(totalPrice || 0).toLocaleString()}원 결제하기` // totalPrice가 undefined면 0으로 처리
-            : "주문하기"} */}
-          주문하기
+          {disabled
+            ? "주문하기"
+            : `총 상품금액 ${(totalPrice || 0).toLocaleString()}원 결제하기`}
         </ButtonText>
       </OrderButton>
     </OrderButtonContainer>
