@@ -1,97 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { apiClient } from '../../api/ApiClient';
+import { useNavigate } from 'react-router-dom';
 
-const Header = styled.div`
+
+const ReviewTabs = styled.div`
+  // margin-top: 50px;
   display: flex;
-  justify-content: space-between;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+`;
+
+const Tab = styled.button`
+  flex: 1;
+  padding: 15px 10px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  ${props => props.$active && `
+    font-weight: bold;
+    border-bottom: 2px solid orange;
+  `}
+`;
+
+const ReviewItem = styled.div`
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+`;
+
+const ReviewHeader = styled.div`
+//margin-top: 10px;
+  display: flex;
   align-items: center;
-  width: 100%;
-  padding: 10px 0;
 `;
 
-const BackButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  padding: 0;
+const ProductImage = styled.img`
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 500;
-  margin: 0;
+const ProductInfo = styled.div`
+  flex-grow: 1;
 `;
 
-const IconContainer = styled.div`
-  display: flex;
-  gap: 12px;
-  font-size: 20px;
+const StoreName = styled.div`
+  font-size: 12px;
+  font-weight: bold;
 `;
 
-const InputField = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
+const ProductName = styled.div`
+  font-size: 14px;
 `;
 
-const Label = styled.label`
-  display: block;
-  font-size: 15px;
-  color: #474747;
-  margin-bottom: 5px;
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 41px;
-  background: #F7F7F7;
-  border: none;
-  border-radius: 15px;
-  padding: 0 15px;
-  font-size: 15px;
-  color: #7C7C7C;
-`;
-
-const ClearButton = styled.button`
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: #7D7D7D;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 59px;
-  background: #EAEAEA;
-  border: none;
-  border-radius: 5px;
-  font-size: 20px;
-  color: #000000;
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
-
-const AddressInput = styled.div`
-  width: 100%;
-  margin-top: 20px;
-`;
-
-const AddressField = styled.input`
-  width: 100%;
-  height: 23px;
-  border: 1px solid #6D697A;
-  border-radius: 30px;
-  padding: 0 10px;
-  margin-bottom: 10px;
-  font-size: 15px;
+const ProductOption = styled.div`
+  font-size: 12px;
+  color: #555;
 `;
 
 const Divider = styled.hr`
@@ -100,126 +67,80 @@ const Divider = styled.hr`
   margin: 10px 0;
 `;
 
-const SavedAddressItem = styled.div`
-  margin-bottom: 20px;
-  padding: 10px;
-  width: 100%;
-  background: #F7F7F7;
-  border-radius: 15px;
+const ReviewBody = styled.div`
+  padding-top: 10px;
+  border-bottom: 4px solid orange;
 `;
 
-const AddressHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const AddressName = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const AddressInfo = styled.div`
+const Rating = styled.div`
   font-size: 14px;
-  color: #555;
+  font-weight: bold;
   margin-bottom: 5px;
 `;
 
-function UserInfoEditPage() {
-  const [nickname, setNickname] = useState("지갑이 얇아 슬픈 짐승");
-  const [addressName, setAddressName] = useState("우리집");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [savedAddresses, setSavedAddresses] = useState([]);
+const Stars = styled.span`
+  color: gold;
+  margin-left: 5px;
+`;
 
-  const handleAddAddress = () => {
-    if (addressName && phoneNumber && address) {
-      setSavedAddresses([...savedAddresses, { addressName, phoneNumber, address }]);
-      setAddressName("");
-      setPhoneNumber("");
-      setAddress("");
-    }
-  };
+const ReviewDate = styled.div`
+  font-size: 9px;
+  color: #7D7D7D;
+  margin-bottom: 10px;
+`;
+
+const ReviewText = styled.div`
+  font-size: 14px;
+`;
+
+const ReviewsList = () => {
+
+  const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
+
+  const getReviews = async () => {
+    const res =await apiClient.get('/users/reviews');
+    console.log(res);
+    setReviews(res.data.response);
+  }
+
+  useEffect(() => {
+    getReviews();
+  }, []);
+
 
   return (
     <>
-      <Header>
-        <BackButton>←</BackButton>
-        <Title>회원 정보</Title>
-        <IconContainer>
-          <span>🏠</span>
-          <span>👤</span>
-          <span>🛒</span>
-        </IconContainer>
-      </Header>
-      <Divider />
+      <ReviewTabs>
+        <Tab onClick={()=> {navigate("/mypage/reviews")}}>리뷰 작성</Tab>
+        <Tab $active>작성한 리뷰</Tab>
+      </ReviewTabs>
 
-      <InputField>
-        <Label>닉네임</Label>
-        <InputWrapper>
-          <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
-        </InputWrapper>
-      </InputField>
-
-      <Button>변경하기</Button>
-
-      <InputField>
-        <Label>주소 이름</Label>
-        <InputWrapper>
-          <Input 
-            placeholder="우리집" 
-            value={addressName} 
-            onChange={(e) => setAddressName(e.target.value)}
-          />
-          <ClearButton onClick={() => setAddressName("")}>×</ClearButton>
-        </InputWrapper>
-      </InputField>
-
-      <InputField>
-        <Label>휴대폰 번호</Label>
-        <InputWrapper>
-          <Input 
-            placeholder="010-9071-9904" 
-            value={phoneNumber} 
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <ClearButton onClick={() => setPhoneNumber("")}>×</ClearButton>
-        </InputWrapper>
-      </InputField>
-
-      <InputField>
-        <Label>주소</Label>
-        <InputWrapper>
-          <Input 
-            placeholder="상도동 7-104 초원빌라 105호" 
-            value={address} 
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <ClearButton onClick={() => setAddress("")}>×</ClearButton>
-        </InputWrapper>
-      </InputField>
-
-      <Button onClick={handleAddAddress}>배송지 추가</Button>
-
-      {savedAddresses.map((savedAddress, index) => (
-        <SavedAddressItem key={index}>
-          <AddressHeader>
-            <AddressName>{savedAddress.addressName}</AddressName>
-          </AddressHeader>
+      {reviews?.map((review) => (
+        <ReviewItem key={review.reviewId}>
+          <ReviewHeader>
+            <ProductImage src={review.item.itemPhotos[0]} alt={review.item.itemName} />
+            <ProductInfo>
+              <StoreName>{review.item.storeName}</StoreName>
+              <ProductName>{review.item.itemName}</ProductName>
+              {/* <ProductOption>{review.productOption}</ProductOption> */}
+            </ProductInfo>
+          </ReviewHeader>
           <Divider />
-          <AddressInfo>{savedAddress.phoneNumber}</AddressInfo>
-          <AddressInfo>{savedAddress.address}</AddressInfo>
-        </SavedAddressItem>
+          <ReviewBody>
+            <Rating>
+              {review.reviewScore}/5
+              <Stars>      {Array.from({ length: 5 }, (_, index) => (
+        <span key={index}>{index < review.reviewScore ? '★' : '☆'}</span>
+      ))}</Stars> {/* 평점에 따라 별 개수를 조정하세요 */}
+            </Rating>
+            <ReviewDate>작성일 {review.createdAt}</ReviewDate>
+            <ReviewText>{review.reviewContent}</ReviewText>
+          </ReviewBody>
+        </ReviewItem>
       ))}
-
-      <AddressInput>
-        <Label>{addressName || '배송지 추가'}</Label>
-        <AddressField placeholder="서울특별시 어쩌고 ~" />
-        <AddressField placeholder="01011112222" />
-      </AddressInput>
     </>
   );
-}
+};
 
-export default UserInfoEditPage;
+export default ReviewsList;

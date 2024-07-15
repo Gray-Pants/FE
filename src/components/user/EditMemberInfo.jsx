@@ -1,7 +1,104 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-// ... (이전의 styled components는 그대로 유지)
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+`;
+
+const BackButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 24px;
+  padding: 0;
+`;
+
+const Title = styled.h1`
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  gap: 12px;
+  font-size: 20px;
+`;
+
+const InputField = styled.div`
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: 15px;
+  color: #474747;
+  margin-bottom: 5px;
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 41px;
+  background: #F7F7F7;
+  border: none;
+  border-radius: 15px;
+  padding: 0 15px;
+  font-size: 15px;
+  color: #7C7C7C;
+`;
+
+const ClearButton = styled.button`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #7D7D7D;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 59px;
+  background: #EAEAEA;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #000000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+const AddressInput = styled.div`
+  width: 100%;
+  margin-top: 20px;
+`;
+
+const AddressField = styled.input`
+  width: 100%;
+  height: 23px;
+  border: 1px solid #6D697A;
+  border-radius: 30px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+`;
+
+const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+`;
 
 const SavedAddressItem = styled.div`
   margin-bottom: 20px;
@@ -31,7 +128,7 @@ const AddressInfo = styled.div`
 
 function UserInfoEditPage() {
   const [nickname, setNickname] = useState("지갑이 얇아 슬픈 짐승");
-  const [addressName, setAddressName] = useState("");
+  const [addressName, setAddressName] = useState("우리집");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [savedAddresses, setSavedAddresses] = useState([]);
@@ -115,6 +212,12 @@ function UserInfoEditPage() {
           <AddressInfo>{savedAddress.address}</AddressInfo>
         </SavedAddressItem>
       ))}
+
+      {/* <AddressInput>
+        <Label>{addressName || '배송지 추가'}</Label>
+        <AddressField placeholder="서울특별시 어쩌고 ~" />
+        <AddressField placeholder="01011112222" />
+      </AddressInput> */}
     </>
   );
 }
