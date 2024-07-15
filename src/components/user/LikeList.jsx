@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getMyLikes } from "../../api/LikeApiService";
+import { useNavigate } from "react-router-dom";
 
 // --- Styled Components ---
 
@@ -103,6 +104,7 @@ const ItemPrice = styled.div`
 const LikeList = () => {
   // 예시 데이터
   const [wishListItems, setWishListItems] = useState([])
+  const navigate = useNavigate();
 
   const getData = async () => {
     const data = await getMyLikes();
@@ -132,7 +134,9 @@ const LikeList = () => {
         </WishlistHeader>
         <GalleryContainer>
           {wishListItems?.map((like) => (
-            <GalleryItem key={like.likeId}>
+            <GalleryItem key={like.likeId} onClick={()=>{
+              navigate(`/${like.item.itemId}/details`);
+            }}>
               <ItemImage src={like?.item?.itemPhotos[0]} alt={like?.item?.itemName} />
               <ItemDetails>
                 <MarketName>{like?.item?.storeName}</MarketName>

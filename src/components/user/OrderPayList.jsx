@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { apiClient } from '../../api/ApiClient';
+import { useNavigate } from 'react-router-dom';
 
 const OrderPayList = () => {
   
   const [orders, setOrders] = useState([{}]);
+  const navigate = useNavigate();
 
   const getMyOrders = async () => {
     const res = await apiClient.get('/users/orders');
@@ -48,7 +50,9 @@ const OrderPayList = () => {
           <OrderGroup key={index}>
             <OrderDate>{order.date}</OrderDate>
             {order.orderItems?.map((orderItem, index) => (
-              <OrderItem key={index}>
+              <OrderItem key={index} onClick={()=>{
+              navigate(`/${orderItem.item.itemId}/details`);
+            }}>
                 <ProductImage src={orderItem.item.itemPhotos[0]} alt={orderItem.item.itemName} />
                 <ItemDetails>
                   <ItemStatus>{orderItem.orderItemStatus}</ItemStatus>
