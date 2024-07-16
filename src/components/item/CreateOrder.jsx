@@ -201,8 +201,6 @@ const CreateOrder = () => {
         0
       );
 
-      const storeNameList = cartItems.map(item => item.item.storeName);
-
       const itemName = orderItems[0].productName + " 외 " + (orderItems.length - 1) + "개";
       const quantity = orderItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -221,7 +219,6 @@ const CreateOrder = () => {
           quantity,
           itemIdList,
           itemQuantityList,
-          storeNameList,
         },
         {
           headers: {
