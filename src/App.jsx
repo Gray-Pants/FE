@@ -35,6 +35,7 @@ import ItemDetail from "./pages/order/ItemDetail";
 import ItemDetailReview from "./pages/order/ItemDetailReview";
 import ReviewsList from "./pages/review/ReviewsList";
 import CreateOrder from "./components/item/CreateOrder";
+import SearchItemListPage from "./pages/main/SearchItemListPage";
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
             <Route path="/createreview" element={<CreateReviewPage />} />
 
             <Route path="/editpassword" element={<Editpassword />} />
+            <Route path="searchItemList" element={<SearchItemListPage />} />
 
             <Route path="/kakaoPay/approve" element={<PaymentCompletePage />} />
             <Route path="/reviewslist" element={<ReviewsList />} />
